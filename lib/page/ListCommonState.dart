@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
@@ -13,6 +14,8 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
     with AutomaticKeepAliveClientMixin {
   List dataList = new List();
   int page = 1;
+  int size = Config.pageSize;
+  int total = 0;
   bool isMore = true;
 
   bool loading = true;
@@ -43,32 +46,26 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
   getDataRequest() {}
 
   @protected
-  refreshInfo() {}
-
-  @protected
   void requestSuccessCallBack(res) {
-    if (page == 1) {
+    if (page == 1 && res.length == 0) {
       setState(() {
-        loading = false;
+        total = 0;
+        dataList = res['resBody'];
       });
+      Fluttertoast.showToast(msg: '暂时没有数据哟～', timeInSecForIos: 3);
+      return;
     }
-    if (res.length == 0) {
-      if (page == 1) {
-        setState(() {
-          dataList = res;
-        });
-        refreshInfo();
-        Fluttertoast.showToast(msg: '暂时没有数据哟～', timeInSecForIos: 3);
-        return;
-      }
+
+    /*if(page == getEndPage()) {
       page--;
       Fluttertoast.showToast(msg: '最后一页了，没有数据了哟～', timeInSecForIos: 3);
       return;
-    }
+    }*/
     setState(() {
-      dataList = res;
+      loading = false;
+      total = res['total'];
+      dataList = res['resBody'];
     });
-    refreshInfo();
   }
 
   @protected
@@ -95,6 +92,13 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
     showFilter();
   }
 
+  ///首页页
+  @protected
+  void firstFun() {
+    page = 1;
+    getDataRequest();
+  }
+
   ///上一页
   @protected
   void preFun() {
@@ -109,8 +113,36 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
   ///下一页
   @protected
   void nextFun() {
+    if (page == getEndPage()) {
+      Fluttertoast.showToast(msg: StringZh.end_page_tip, timeInSecForIos: 3);
+      return;
+    }
     page++;
     getDataRequest();
+  }
+
+  ///末页
+  @protected
+  void endFun() {
+    page = getEndPage();
+    getDataRequest();
+  }
+
+  int getEndPage() {
+    ///取余
+    int yu = total % size;
+
+    ///取整
+    int zheng = total ~/ size;
+
+    print('yu:$yu');
+    print('zheng:$zheng');
+
+    int newPage = zheng;
+    if (yu > 0) {
+      newPage = newPage + 1;
+    }
+    return newPage;
   }
 
   ///刷新

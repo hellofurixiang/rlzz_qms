@@ -4,14 +4,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/net/MethodChannelUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
-import 'package:qms/common/utils/FilePicker.dart';
+import 'package:qms/common/utils/plugin/FilePicker.dart';
+import 'package:qms/common/utils/plugin/ImagePicker.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/widget/ButtonWidget.dart';
 import 'package:qms/widget/DialogPage.dart';
@@ -290,7 +290,7 @@ class UploadImagePageState extends State<UploadImagePage> {
                 //}, confirmText: StringZh.yes, cancelText: StringZh.no);
               }
             }, (err) {
-              Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+              Fluttertoast.showToast(msg: StringZh.fileErrorTip, timeInSecForIos: 3);
               Navigator.pop(context);
             });
           }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/MenuConfig.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
@@ -23,13 +24,26 @@ class MainPageState extends State<MainPage> {
   ///初始化数据
   void initInfo(var obj) async {
     //CommonUtil.showLoadingDialog(context, '加载中...');
-    QmsService.getUnHandleMessage(context, (data) {
+    /*QmsService.getUnHandleMessage(context, (data) {
       List<dynamic> map = data;
+      */ /*if ('' == obj) {
+        getMenuInfo(map);
+      } else {*/ /*
+      setState(() {
+        getMenuInfo(map);
+      });
+      //}
+    }, (err) {
+      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+    });*/
+
+    QmsService.getTestOrderStatistical(context, (data) {
+      Map<String, dynamic> map = data;
       /*if ('' == obj) {
         getMenuInfo(map);
       } else {*/
       setState(() {
-        getMenuInfo(map);
+        getMenuInfo1(map);
       });
       //}
     }, (err) {
@@ -66,15 +80,59 @@ class MainPageState extends State<MainPage> {
     }
   }
 
+  getMenuInfo1(Map<String, dynamic> map) {
+    for (int i = 0; i < menuConfig.qmsMenuList.length; i++) {
+      List list = menuConfig.qmsMenuList[i]['menus'];
+      for (int k = 0; k < list.length; k++) {
+        list[k]['count'] = map[list[k]['code']];
+      }
+    }
+  }
+
   MenuConfig menuConfig = new MenuConfig();
 
-  Widget buildListItem(BuildContext context, int index) {
-    var item = menuConfig.qmsMenuList[index];
+  List<Widget> buildListItem() {
+    List<Widget> widgetList = [];
+
+    List items = menuConfig.qmsMenuList;
+
+    List<String> resources = GlobalInfo.instance.getUserResources();
 
     ///一行三列
     var crossAxisCount = 3;
-    return WidgetUtil.buildListItem(context, item, crossAxisCount,
-        mainAxisAlignment: MainAxisAlignment.start, backCall: initInfo);
+
+    for (var item in items) {
+      bool bo = false;
+      for (var menu in item['menus']) {
+        if (resources.contains(menu['permissions'])) {
+          menu['isShow'] = true;
+          bo = true;
+        } else {
+          menu['isShow'] = false;
+        }
+      }
+      if (!bo) {
+        continue;
+      }
+      widgetList.add(WidgetUtil.buildListItem(context, item, crossAxisCount,
+          mainAxisAlignment: MainAxisAlignment.start, backCall: initInfo));
+    }
+
+    if (widgetList.length == 0) {
+      widgetList.add(
+        new Container(
+          height: 100.0,
+          padding: new EdgeInsets.all(5.0),
+          child: new Align(
+            alignment: Alignment.center,
+            child: new Text(StringZh.noMenuPermissions,
+                textAlign: TextAlign.start),
+          ),
+        ),
+      );
+    }
+
+    return widgetList;
   }
 
   ///退出
@@ -117,9 +175,10 @@ class MainPageState extends State<MainPage> {
         ),
         body:
             //backgroundColor: Colors.,
-            new ListView.builder(
-                itemCount: menuConfig.qmsMenuList.length,
-                itemBuilder: buildListItem),
+            new ListView(
+          //itemCount: menuConfig.qmsMenuList.length,
+          children: buildListItem(),
+        ),
       ),
     );
   }

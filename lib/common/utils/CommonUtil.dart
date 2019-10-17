@@ -12,8 +12,8 @@ import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/net/LogUtils.dart';
-import 'package:simple_permissions/simple_permissions.dart';
-import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
+import 'package:qms/common/utils/plugin/SimplePermissions.dart';
 
 ///通用逻辑
 class CommonUtil {

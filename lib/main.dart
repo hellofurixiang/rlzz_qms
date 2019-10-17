@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/utils/plugin/bugly/src/flutter_bugly.dart';
 import 'package:qms/page/ArrivalTestOrderListPage.dart';
+import 'package:qms/page/ArrivalTestOrderSampleListPage.dart';
 import 'package:qms/page/ArrivalWaitTaskListPage.dart';
 import 'package:qms/page/CompleteTestOrderListPage.dart';
+import 'package:qms/page/CompleteTestOrderSampleListPage.dart';
 import 'package:qms/page/CompleteWaitTaskListPage.dart';
-import 'package:qms/page/IQCTestOrderListPage.dart';
+import 'package:qms/page/FqcTestOrderListPage.dart';
+import 'package:qms/page/FqcWaitTaskListPage.dart';
+import 'package:qms/page/IpqcTestOrderListPage.dart';
+import 'package:qms/page/IpqcWaitTaskListPage.dart';
+import 'package:qms/page/IqcTestOrderListPage.dart';
+import 'package:qms/page/IqcWaitTaskListPage.dart';
 import 'package:qms/page/LoginPage.dart';
+import 'package:qms/page/PqcTestOrderListPage.dart';
+import 'package:qms/page/PqcWaitTaskListPage.dart';
 import 'package:qms/page/SplashPage.dart';
 import 'package:qms/page/MainPage.dart';
 import 'package:qms/page/ServiceSettingPage.dart';
@@ -52,12 +61,30 @@ class MyAppState extends State<MyApp> {
         new ArrivalWaitTaskListPage(),
     Config.arrivalTestOrderListPage: (BuildContext context) =>
         new ArrivalTestOrderListPage(),
-    Config.iQCTestOrderListPage: (BuildContext context) =>
-        new IQCTestOrderListPage(),
+    Config.arrivalTestOrderSampleListPage: (BuildContext context) =>
+        new ArrivalTestOrderSampleListPage(),
     Config.completeWaitTaskListPage: (BuildContext context) =>
         new CompleteWaitTaskListPage(),
     Config.completeTestOrderListPage: (BuildContext context) =>
         new CompleteTestOrderListPage(),
+    Config.completeTestOrderSampleListPage: (BuildContext context) =>
+        new CompleteTestOrderSampleListPage(),
+    Config.iqcTestOrderListPage: (BuildContext context) =>
+        new IqcTestOrderListPage(),
+    Config.iqcWaitTaskListPage: (BuildContext context) =>
+        new IqcWaitTaskListPage(),
+    Config.ipqcWaitTaskListPage: (BuildContext context) =>
+        new IpqcWaitTaskListPage(),
+    Config.ipqcTestOrderListPage: (BuildContext context) =>
+        new IpqcTestOrderListPage(),
+    Config.fqcWaitTaskListPage: (BuildContext context) =>
+        new FqcWaitTaskListPage(),
+    Config.fqcTestOrderListPage: (BuildContext context) =>
+        new FqcTestOrderListPage(),
+    Config.pqcWaitTaskListPage: (BuildContext context) =>
+        new PqcWaitTaskListPage(),
+    Config.pqcTestOrderListPage: (BuildContext context) =>
+        new PqcTestOrderListPage(),
   };
 
   @override

@@ -15,7 +15,8 @@ class SelectWidget extends StatefulWidget {
   final Function callFun;
 
   SelectWidget(
-      {this.fontSize: RLZZConstant.smallTextSize,
+      {Key key,
+      this.fontSize: RLZZConstant.smallTextSize,
       this.fontColor,
       this.selectText,
       this.selectValue,

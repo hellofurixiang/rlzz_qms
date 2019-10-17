@@ -1,13 +1,16 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
+import 'package:qms/page/FileListPage.dart';
 import 'package:qms/widget/BadgeWidget.dart';
 import 'package:qms/widget/MessageDialog.dart';
 import 'package:qms/widget/RemarkWidget.dart';
@@ -139,44 +142,56 @@ class WidgetUtil {
       BuildContext context, var item, int crossAxisCount,
       {MainAxisAlignment mainAxisAlignment, Function backCall}) {
     return new Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          new Container(
-              height: 30.0,
-              padding: new EdgeInsets.only(left: 5.0),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                bottom: new BorderSide(color: Colors.grey),
-              )),
-              child: new Align(
-                alignment: Alignment.centerLeft,
-                child: new Text(item['tabName'], textAlign: TextAlign.start),
-              )),
-          new Container(
-            padding: new EdgeInsets.only(left: 10.0, top: 5.0),
-            child: buildGridView(context, item, crossAxisCount,
-                mainAxisAlignment: mainAxisAlignment, backCall: backCall),
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        new Container(
+          height: 30.0,
+          padding: new EdgeInsets.only(left: 5.0),
+          decoration: new BoxDecoration(
+              border: new Border(
+            bottom: new BorderSide(color: Colors.grey),
+          )),
+          child: new Align(
+            alignment: Alignment.centerLeft,
+            child: new Text(item['tabName'], textAlign: TextAlign.start),
           ),
-          new Container(
-            height: 10.0,
-            color: RLZZColors.lightGray,
-          )
-        ]);
+        ),
+        new Container(
+          padding: new EdgeInsets.only(left: 10.0, top: 5.0),
+          child: buildGridView(context, item, crossAxisCount,
+              mainAxisAlignment: mainAxisAlignment, backCall: backCall),
+        ),
+        new Container(
+          height: 10.0,
+          color: RLZZColors.lightGray,
+        )
+      ],
+    );
   }
 
   static Widget buildGridView(BuildContext context, item, int crossAxisCount,
       {MainAxisAlignment mainAxisAlignment, Function backCall}) {
     List menus = item['menus'];
 
+    List newMenus=[];
+
+    for(var menu in menus){
+      if(menu['isShow']){
+        newMenus.add(menu);
+      }
+    }
+
+
+
     List<Widget> widgetList = new List();
 
-    for (int i = 0; i < menus.length / crossAxisCount; i++) {
+    for (int i = 0; i < newMenus.length / crossAxisCount; i++) {
       widgetList.add(new Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment:
               mainAxisAlignment ?? MainAxisAlignment.spaceBetween,
-          children: buildRows(context, menus, i, crossAxisCount,
+          children: buildRows(context, newMenus, i, crossAxisCount,
               backCall: backCall)));
     }
 
@@ -815,7 +830,7 @@ class WidgetUtil {
   }
 
   ///日期控件
-  static void getSelectDate(
+  /*static void getSelectDate(
       BuildContext context, DateTime initialDate, Function selectFun) {
     DatePicker.showDatePicker(
       context,
@@ -841,9 +856,9 @@ class WidgetUtil {
         selectFun(mainDate);
       },
     );
-  }
+  }*/
 
-  /*static void getSelectDate(
+  static void getSelectDate(
       BuildContext context, DateTime initialDate, Function selectFun) {
     DatePicker.showDatePicker(
       context,
@@ -853,9 +868,9 @@ class WidgetUtil {
       //cancel: new Text(StringZh.app_cancel),
       //confirm: new Text(StringZh.app_ok),
       dateFormat: 'yyyy-mm-dd',
-      */ /*onChanged: (year, month, date) {
+      /*onChanged: (year, month, date) {
         //print(11);
-      },*/ /*
+      },*/
       onConfirm: (DateTime dateTime, List<int> selectedIndex) {
         String mainDate = dateTime.year.toString() +
             '-' +
@@ -869,7 +884,7 @@ class WidgetUtil {
         selectFun(mainDate);
       },
     );
-  }*/
+  }
 
   ///获取框内字体控件
   static Widget getWordFigure(String word) {
@@ -929,5 +944,46 @@ class WidgetUtil {
               ],
             ),
           );
+  }
+
+  ///查看文件
+  static Widget getFileWidget(BuildContext context, String enclosure) {
+    bool bo = false;
+    if (CommonUtil.isEmpty(enclosure)) {
+      bo = true;
+    }
+    return new GestureDetector(
+      onTap: () {
+        if (bo) {
+          return;
+        }
+        List<Enclosure> enclosureList = [];
+
+        List arr = json.decode(enclosure.replaceAll('\'', '"'));
+        arr.forEach((f) {
+          enclosureList.add(Enclosure.fromJson(f));
+        });
+        showDialog<Null>(
+            context: context, //BuildContext对象
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return new FileListPage(enclosureList);
+            });
+      },
+      child: new Container(
+        height: 25.0,
+        alignment: Alignment.center,
+        padding: new EdgeInsets.all(2.0),
+        child: new Text(
+          '查看附件',
+          textAlign: TextAlign.center,
+          style: new TextStyle(
+              fontSize: RLZZConstant.smallTextSize,
+              color: bo ? RLZZColors.lightLightGrey : RLZZColors.mainColor,
+              decoration: bo ? TextDecoration.none : TextDecoration.underline),
+        ),
+        //decoration: boxDecoration,
+      ),
+    );
   }
 }

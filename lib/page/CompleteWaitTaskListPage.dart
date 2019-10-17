@@ -36,7 +36,7 @@ class CompleteWaitTaskListPageState
   @protected
   void initParams() {
     params = {
-      'docCat': 'default',
+      'docCat': Config.test_order_complete,
 
       ///检验状态
       'checkStatus': '未检',
@@ -160,10 +160,12 @@ class CompleteWaitTaskListPageState
               return new TestTemplateSelectPage(
                 qty: data['canCheckQty'],
                 testCat: Config.text_complete,
+                docCat: Config.test_order_complete,
                 invCatCode: data['invCatCode'],
                 invCode: data['invCode'],
                 opCode: data['opCode'],
                 srcDocDetailId: data['moRoutingBillDetailId'],
+                detailTitle: StringZh.completeTestOrderDetail_title,
               );
             });
         break;
@@ -195,9 +197,13 @@ class CompleteWaitTaskListPageState
               QMSFieldConfig.completeWaitTaskListPage, _rowColumnsTap,
               isOper: true),
           new ListPageWidget(
-            page: page.toString(),
+            page: page,
+            size: size,
+            total: total,
+            firstFun: firstFun,
             preFun: preFun,
             nextFun: nextFun,
+            endFun: endFun,
           ),
         ],
       ),

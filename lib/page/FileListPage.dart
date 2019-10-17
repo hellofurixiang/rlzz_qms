@@ -38,7 +38,7 @@ class FileListPageState extends State<FileListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: RLZZColors.mainColor,
       text: StringZh.app_close,
       fontColor: Colors.white,
       clickFun: () {
@@ -98,7 +98,7 @@ class FileListPageState extends State<FileListPage> {
               }, confirmText: StringZh.yes, cancelText: StringZh.no);
             }
           }, (err) {
-            Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+            Fluttertoast.showToast(msg: StringZh.fileErrorTip, timeInSecForIos: 3);
             Navigator.pop(context);
           });
         }

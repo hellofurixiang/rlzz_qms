@@ -36,8 +36,12 @@ class TestOrderSampleDetail extends BaseEntity {
   @JsonKey(name: 'seriousDefectsQty')
   int seriousDefectsQty;
 
+  ///时段
+  @JsonKey(name: 'timeInterval')
+  String timeInterval;
+
   ///检验单表体指标列表
-  //@JsonKey(name: 'testOrderDetailTestQuota')
+  @JsonKey(name: 'testOrderDetailTestQuota')
   List<TestOrderDetailTestQuota> testOrderDetailTestQuota;
 
   ///选中颜色
@@ -59,7 +63,9 @@ class TestOrderSampleDetail extends BaseEntity {
       this.generalDefectsQty,
       this.majorDefectsQty,
       this.seriousDefectsQty,
-      this.quotaState);
+      this.quotaState,
+      this.timeInterval,
+      this.testOrderDetailTestQuota);
 
   factory TestOrderSampleDetail.fromJson(Map<String, dynamic> srcJson) =>
       _$TestOrderSampleDetailFromJson(srcJson);

@@ -75,9 +75,9 @@ class ApiUtil {
         url + (isDebug ? 'api/qms/app' : Config.qmsApiUrl) + '/getQtyScale';
 
     ///获取用户权限
-    /*String url3 =
+    String url3 =
         (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/') +
-            'api/user/resources?user=$account';*/
+            'api/user/resources?user=$account';
 
     Options options = await NetUtil.getBaseOptions();
 
@@ -89,10 +89,18 @@ class ApiUtil {
         LogUtils.i(logTag, '<net> 请求地址url2：$url2');
         //LogUtils.i(logTag, '<net> 请求地址url3：$url3');
       }
-      List<Response> responses = await Future.wait([
-        dio.get(url2),
-        //dio.post(url3, data: {'user': account})
-      ]);
+      List<Response> responses;
+      if (isDebug) {
+        responses = await Future.wait([
+          dio.get(url2),
+          //dio.post(url3, data: {'user': account})
+        ]);
+      } else {
+        responses = await Future.wait([
+          dio.get(url2),
+          dio.post(url3, data: {'user': account})
+        ]);
+      }
       //await Future.wait([dio.get(url2)]);
 
       for (int i = 0; i < responses.length; i++) {
@@ -113,7 +121,6 @@ class ApiUtil {
         }
         switch (i) {
           case 0:
-
             /* ///获取用户信息
             MySelfInfo.setUserInfo(json.encode(response.data));
             break;
@@ -124,10 +131,11 @@ class ApiUtil {
             await MySelfInfo.setQtyScale(response.data);
             break;
           case 1:
-            GlobalInfo globalInfo = new GlobalInfo();
+            //GlobalInfo globalInfo = new GlobalInfo();
 
             ///获取用户权限
-            globalInfo.setUserResources(json.encode(response.data));
+            GlobalInfo.instance
+                .setUserResources(List<String>.from(response.data));
             break;
           default:
             break;

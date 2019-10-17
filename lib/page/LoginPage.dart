@@ -9,7 +9,7 @@ import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/DeviceUtil.dart';
-import 'package:qms/common/utils/PackageInfo.dart';
+import 'package:qms/common/utils/plugin/PackageInfo.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 
 class LoginPage extends StatefulWidget {

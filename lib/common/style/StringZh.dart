@@ -333,9 +333,12 @@ class StringZh {
   static const String operStr = '操作';
 
   static const String first_page_tip = '不用点了，已经是第一页了～';
+  static const String end_page_tip = '最后一页了，没有更多数据了～';
+  static const String first_page = '首页';
   static const String pre_page = '上一页';
   static const String refresh_page = '刷新';
   static const String next_page = '下一页';
+  static const String end_page = '末页';
 
   static const String qms_describe = '瑞联智造QMS';
   static const String arrivalWaitTask_title = '来料待检任务';
@@ -345,9 +348,18 @@ class StringZh {
   static const String selectTestTemplate_testQty = '报检数量：';
 
   static const String arrivalTestOrderList_title = '来料检验单列表';
+  static const String arrivalTestOrderSampleList_title = '来料检验单(按样本)';
   static const String arrivalTestOrderDetail_title = '来料检验单';
+  static const String arrivalTestOrderSampleDetail_title = '来料检验单(按样本)';
   static const String completeTestOrderList_title = '完工检验单列表';
+  static const String completeTestOrderSampleList_title = '完工检验单(按样本)';
   static const String completeTestOrderDetail_title = '完工检验单';
+  static const String completeTestOrderSampleDetail_title = '完工检验单(按样本)';
+
+
+  static const String productionOrderDetail_title = '生产订单';
+
+
   static const String tip_selectTestTemplate = '请选择检验模板';
 
   static const String testOrder_testItem_one = '一、录入指标';
@@ -363,9 +375,28 @@ class StringZh {
 
   static const String signature = '签名';
 
+
+
   static const String iqcWaitTask_title = 'IQC待检任务';
-  static const String iqcTestOrderList_title = '检验单列表（按样本）';
-  static const String iqcTestOrderDetail_title = '检验单（按样本）';
+  static const String iqcTestOrderList_title = 'IQC检验单列表';
+  static const String iqcTestOrderDetail_title = 'IQC检验单';
+
+  static const String ipqcWaitTask_title = 'IPQC待检任务';
+  static const String ipqcTestOrderList_title = 'IPQC检验单列表';
+  static const String ipqcTestOrderDetail_title = 'IPQC检验单';
+
+
+  static const String fqcWaitTask_title = 'FQC待检任务';
+  static const String fqcTestOrderList_title = 'FQC检验单列表';
+  static const String fqcTestOrderDetail_title = 'FQC检验单';
+
+
+  static const String pqcWaitTask_title = 'PQC待检任务';
+  static const String pqcTestOrderList_title = 'PQC检验单列表';
+  static const String pqcTestOrderDetail_title = 'PQC检验单';
+
+
+
 
   static const String badImage = '不良图片';
 
@@ -381,6 +412,9 @@ class StringZh {
 
   static const String downloadFinishTip = '文件下载完成，是否打开？';
   static const String deleteImageTip = '确定删除吗？';
+
+
+  static const String fileErrorTip = '文件不存在或已被删除';
 
   static const String saveAllOrder = '保存整单';
   static const String saveAndSubmit = '保存且提交';
@@ -398,4 +432,9 @@ class StringZh {
   static const getSobError = '帐套获取失败,请检查服务器配置是否正确!';
 
   static const selectFirstItem = '--请选择--';
+
+
+  static const noMenuPermissions='无菜单，请配置列表查看权限并重新登录。';
+
+  static const test_measuringTool='测量工具';
 }

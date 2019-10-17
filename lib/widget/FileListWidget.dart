@@ -77,7 +77,7 @@ class FileListWidgetState extends State<FileListWidget> {
             Navigator.pop(context);
             openFile(f);
           }, (err) {
-            Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+            Fluttertoast.showToast(msg: StringZh.fileErrorTip, timeInSecForIos: 3);
             Navigator.pop(context);
           });
         }

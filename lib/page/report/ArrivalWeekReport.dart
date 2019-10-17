@@ -169,13 +169,13 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
                                             columnWidths:
                                                 WidgetUtil.getTableColumnWidth(
                                                     QMSFieldConfig
-                                                        .ArrivalWeekReport),
+                                                        .arrivalWeekReport),
                                             children: <TableRow>[
                                               new TableRow(
                                                 children: WidgetUtil
                                                     .renderTableHeadColumnsByConfig(
                                                         QMSFieldConfig
-                                                            .ArrivalWeekReport),
+                                                            .arrivalWeekReport),
                                               ),
                                             ],
                                           ),
@@ -183,13 +183,13 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
                                             columnWidths:
                                                 WidgetUtil.getTableColumnWidth(
                                                     QMSFieldConfig
-                                                        .ArrivalWeekReport),
+                                                        .arrivalWeekReport),
                                             children: WidgetUtil
                                                 .renderTableRowColumnsByConfigForReport(
                                                     context,
                                                     dataList,
                                                     QMSFieldConfig
-                                                        .ArrivalWeekReport),
+                                                        .arrivalWeekReport),
                                           ),
                                         ],
                                       ),

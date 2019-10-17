@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 
 ///自带清除图标文本框
 class TextFieldClearWidget extends StatefulWidget {
-  TextFieldClearWidget(
-      {this.hintText,
-      this.controller,
-      this.onSubmitted,
-      this.isCenter: false,
-      this.autofocus: false});
-
   ///描述文字
   final String hintText;
 
@@ -22,6 +15,14 @@ class TextFieldClearWidget extends StatefulWidget {
   final bool isCenter;
 
   final bool autofocus;
+
+  TextFieldClearWidget(
+      {Key key,
+      this.hintText,
+      this.controller,
+      this.onSubmitted,
+      this.isCenter: false,
+      this.autofocus: false});
 
   @override
   TextFieldClearWidgetState createState() => new TextFieldClearWidgetState();

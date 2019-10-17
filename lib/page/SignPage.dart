@@ -2,21 +2,21 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
+import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
+import 'package:qms/common/utils/plugin/SimplePermissions.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
-import 'package:simple_permissions/simple_permissions.dart';
 
 class SignPage extends StatefulWidget {
   final Function uploadSuccessFun;
 
   SignPage({
     Key key,
-    this.uploadSuccessFun,
+    @required this.uploadSuccessFun,
   }) : super(key: key);
 
   @override
@@ -62,6 +62,12 @@ class SignPageState extends State<SignPage> {
     return Scaffold(
       body: Signature(key: signatureKey),
       persistentFooterButtons: <Widget>[
+        FlatButton(
+          child: Text(StringZh.back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         FlatButton(
           child: Text(StringZh.clear),
           onPressed: () {

@@ -19,9 +19,9 @@ class ButtonWidget extends StatefulWidget {
       this.backgroundColor,
       this.width: 90.0,
       this.height: 25.0,
-      this.text,
+      @required this.text,
       this.fontSize: RLZZConstant.smallTextSize,
-      this.clickFun,
+      @required this.clickFun,
       this.fontColor: Colors.white})
       : super(key: key);
 

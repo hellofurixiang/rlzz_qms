@@ -5,7 +5,7 @@ import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
-import 'package:qms/page/BadReasonRefPage.dart';
+import 'package:qms/page/RefPage.dart';
 import 'package:qms/widget/InputWidget.dart';
 import 'package:qms/widget/TextWidget.dart';
 import 'package:qms/widget/UploadImageWidget.dart';
@@ -23,9 +23,9 @@ class TestOrderSampleHeadInfoPage extends StatefulWidget {
 
   TestOrderSampleHeadInfoPage({
     Key key,
-    this.testOrderInfo,
-    this.isAdd,
-    this.auditStatus,
+    @required this.testOrderInfo,
+    @required this.isAdd,
+    @required this.auditStatus,
   }) : super(key: key);
 
   @override
@@ -589,7 +589,8 @@ class TestOrderSampleHeadInfoPageState
         context: context, //BuildContext对象
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return new BadReasonRefPage(
+          return new RefPage(
+            url:Config.qmsApiUrl+Config.badReasonRefUrl,
             arcCode: widget.testOrderInfo.badReasonCode,
             okFun: (obj) {
               setState(() {

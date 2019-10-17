@@ -9,24 +9,29 @@ import 'package:qms/widget/DialogPage.dart';
 import 'package:qms/widget/PullLoadWidget.dart';
 import 'package:qms/widget/RefListCommonState.dart';
 
-///不良原因参照
-class BadReasonRefPage extends StatefulWidget {
+///参照
+class RefPage extends StatefulWidget {
+  final String title;
+  final String url;
+
   final String arcCode;
 
   ///确定方法
   final Function okFun;
 
-  BadReasonRefPage({
+  RefPage({
     Key key,
     this.arcCode,
-    this.okFun,
+    @required this.okFun,
+    @required this.url,
+    @required this.title,
   }) : super(key: key);
 
   @override
-  BadReasonRefPageState createState() => BadReasonRefPageState();
+  RefPageState createState() => RefPageState();
 }
 
-class BadReasonRefPageState extends RefListCommonState<BadReasonRefPage> {
+class RefPageState extends RefListCommonState<RefPage> {
   @override
   initState() {
     super.initState();
@@ -42,7 +47,9 @@ class BadReasonRefPageState extends RefListCommonState<BadReasonRefPage> {
 
   ///初始化数据
   void getDataRequest() {
-    QmsService.getBadReasonRef(context, (res) {
+    //findBadReasonRef';findMeasuringToolRef
+
+    QmsService.getRefList(context, widget.url, {}, (res) {
       for (int i = 0; i < res.length; i++) {
         if (res[i]['arcCode'].toString() == widget.arcCode) {
           res[i]['isSelect'] = true;
@@ -273,7 +280,7 @@ class BadReasonRefPageState extends RefListCommonState<BadReasonRefPage> {
     );
 
     return new DialogPage(
-      title: StringZh.text_badReason,
+      title: widget.title,
       mainWidget: mainWidget,
       btnList: btnList,
     );

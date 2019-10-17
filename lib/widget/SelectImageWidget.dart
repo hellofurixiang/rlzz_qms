@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
+import 'package:qms/common/utils/plugin/ImagePicker.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/widget/ImageListWidget.dart';
 

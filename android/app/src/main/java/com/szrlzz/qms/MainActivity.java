@@ -8,8 +8,15 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.szrlzz.qms.chart.ChartViewPlugin;
-import com.szrlzz.qms.filepicker.FilePickerPlugin;
-import com.szrlzz.qms.packageinfo.PackageInfoPlugin;
+import com.szrlzz.qms.flutterbugly.FlutterBuglyPlugin;
+import com.szrlzz.qms.imagepicker.ImagePickerPlugin;
+import com.szrlzz.qms.plugin.ConnectivityPlugin;
+import com.szrlzz.qms.plugin.DownloadsPathProviderPlugin;
+import com.szrlzz.qms.plugin.FilePickerPlugin;
+import com.szrlzz.qms.plugin.DeviceInfoPlugin;
+import com.szrlzz.qms.plugin.PackageInfoPlugin;
+import com.szrlzz.qms.plugin.PathProviderPlugin;
+import com.szrlzz.qms.plugin.SimplePermissionsPlugin;
 
 import io.flutter.app.FlutterActivity;
 import io.flutter.plugin.common.MethodCall;
@@ -39,6 +46,14 @@ public class MainActivity extends FlutterActivity {
 
         FilePickerPlugin.registerWith(this.registrarFor(FilePickerPlugin.class.getCanonicalName()));
         PackageInfoPlugin.registerWith(this.registrarFor(PackageInfoPlugin.class.getCanonicalName()));
+        ConnectivityPlugin.registerWith(this.registrarFor(ConnectivityPlugin.class.getCanonicalName()));
+        DeviceInfoPlugin.registerWith(this.registrarFor(DeviceInfoPlugin.class.getCanonicalName()));
+        ImagePickerPlugin.registerWith(this.registrarFor(ImagePickerPlugin.class.getCanonicalName()));
+        DownloadsPathProviderPlugin.registerWith(this.registrarFor(DownloadsPathProviderPlugin.class.getCanonicalName()));
+        PathProviderPlugin.registerWith(this.registrarFor(PathProviderPlugin.class.getCanonicalName()));
+        FlutterBuglyPlugin.registerWith(this.registrarFor(FlutterBuglyPlugin.class.getCanonicalName()));
+        SimplePermissionsPlugin.registerWith(this.registrarFor(SimplePermissionsPlugin.class.getCanonicalName()));
+
 
 
         //通过methodCall可以获取参数和方法名 执行对应的平台业务逻辑即可

@@ -28,23 +28,23 @@ dependencies:
   flutter_statusbar: 0.0.1
 
   #svg 图标
-  flutter_svg: 0.12.0
+  flutter_svg: 0.14.0
   #本地存储
-  shared_preferences: 0.4.2
+  shared_preferences: 0.5.3+4
 
   json_annotation: 1.1.0
   dio: 1.0.1
 
-  device_info: 0.2.1
+  #device_info: 0.4.0+2
 
-  fluttertoast: 2.2.11
+  fluttertoast: 3.1.0
 
-  sqflite: 1.1.5
+  #sqflite: 1.1.6+4
 
   #Loading框
-  flutter_spinkit: 2.1.0
+  flutter_spinkit: 4.0.0
   #网络连接
-  connectivity: 0.3.1
+  #connectivity: 0.4.3+7
 
   #列表刷新
   flutter_refresh: 0.0.2
@@ -54,38 +54,35 @@ dependencies:
     sdk: flutter
 
   #日期
-  flutter_cupertino_date_picker: 0.3.0
+  flutter_cupertino_date_picker: 1.0.12
 
   #package_info: 0.4.0+3
 
-  #统计图表
-  charts_flutter: 0.6.0
-
   #图片缩放
-  extended_image: 0.4.1
+  extended_image: 0.5.5
 
   #图片多选
   #photo: 0.3.4+1
 
   #图片多选
   #multi_image_picker: ^4.3.3
-  image_picker: 0.4.10
+  #image_picker: 0.6.1+4
 
   http: 0.12.0
 
   #下载路径
-  downloads_path_provider: 0.1.0
+  #downloads_path_provider: 1.2.0
 
   #权限
-  simple_permissions: 0.1.9
+  #simple_permissions: 0.1.9
 
   #文件管理
   #file_picker: 1.3.7
 
-  flutter_bugly:
-    git:
-      url: git://github.com/crazecoder/flutter_bugly.git
-      ref: dev
+  #flutter_bugly:
+    #git:
+      #url: git://github.com/crazecoder/flutter_bugly.git
+      #ref: dev
 
 
 dev_dependencies:

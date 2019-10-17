@@ -13,13 +13,13 @@ import 'package:qms/widget/AppBarWidget.dart';
 import 'package:qms/widget/ListPageWidget.dart';
 import 'package:qms/widget/ListTopFilterWidget.dart';
 
-///来料检验单列表
-class IQCTestOrderListPage extends StatefulWidget {
+///PQC检验单列表
+class PqcTestOrderListPage extends StatefulWidget {
   @override
-  IQCTestOrderListPageState createState() => new IQCTestOrderListPageState();
+  PqcTestOrderListPageState createState() => new PqcTestOrderListPageState();
 }
 
-class IQCTestOrderListPageState extends ListCommonState<IQCTestOrderListPage> {
+class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class IQCTestOrderListPageState extends ListCommonState<IQCTestOrderListPage> {
   @protected
   void initParams() {
     params = {
-      'docCat': '003',
+      'docCat': Config.test_order_pqc,
 
       ///开始、结束日期
       'beginDate': '',
@@ -114,10 +114,11 @@ class IQCTestOrderListPageState extends ListCommonState<IQCTestOrderListPage> {
         NavigatorUtil.goToPage(
             context,
             new TestOrderSamplePage(
-              id: data['id'],
-              docCat: Config.text_arrival,
-              docNo: data['docNo'],
-            ));
+                id: data['id'],
+                docNo: data['docNo'],
+                docCat: Config.test_order_pqc,
+                testCat: Config.text_pqc,
+                title: StringZh.pqcTestOrderDetail_title));
 
         break;
       default:
@@ -131,7 +132,7 @@ class IQCTestOrderListPageState extends ListCommonState<IQCTestOrderListPage> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: new AppBarWidget(
-        title: StringZh.iqcTestOrderList_title,
+        title: StringZh.pqcTestOrderList_title,
       ),
       body: new Column(
         children: <Widget>[
@@ -143,9 +144,13 @@ class IQCTestOrderListPageState extends ListCommonState<IQCTestOrderListPage> {
           WidgetUtil.getListRows(context, loading, dataList,
               QMSFieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
           new ListPageWidget(
-            page: page.toString(),
+            page: page,
+            size: size,
+            total: total,
+            firstFun: firstFun,
             preFun: preFun,
             nextFun: nextFun,
+            endFun: endFun,
           ),
         ],
       ),

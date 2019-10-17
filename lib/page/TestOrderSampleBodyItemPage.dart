@@ -13,7 +13,7 @@ import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
-import 'package:qms/page/BadReasonRefPage.dart';
+import 'package:qms/page/RefPage.dart';
 import 'package:qms/page/FileListPage.dart';
 import 'package:qms/page/UploadImagePage.dart';
 import 'package:qms/widget/InputWidget.dart';
@@ -50,14 +50,14 @@ class TestOrderSampleBodyItemPage extends StatefulWidget {
 
   TestOrderSampleBodyItemPage({
     Key key,
-    this.testOrderInfo,
-    this.cacheInfo,
-    this.isAdd,
-    this.auditStatus,
-    this.quotaEnclosures,
-    this.selIndex,
-    this.changeState,
-    this.isLoadingQuota,
+    @required this.testOrderInfo,
+    @required this.cacheInfo,
+    @required this.isAdd,
+    @required this.auditStatus,
+    @required this.quotaEnclosures,
+    @required this.selIndex,
+    @required this.changeState,
+    @required this.isLoadingQuota,
     //this.testOrderDetailTestQuotaList,
   }) : super(key: key);
 
@@ -150,6 +150,61 @@ class TestOrderSampleBodyItemPageState
 
   ///获取表体信息，封装控件
   Widget _getDetailInfo() {
+    List<Widget> wList = [];
+    wList.add(new Container(
+      alignment: Alignment.centerRight,
+      margin: EdgeInsets.only(right: 10.0, left: 5.0),
+      child: new Text(
+        '当前样本：' + (widget.selIndex + 1).toString(),
+        style: new TextStyle(
+            fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+      ),
+    ));
+    if (widget.cacheInfo.timeInterval != null) {
+      wList.add(new Container(
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.only(right: 5.0, left: 5.0),
+        //width: 70.0,
+        child: new Text(
+          '时段：',
+          style: new TextStyle(
+              fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+        ),
+      ));
+
+      wList.add(new Container(
+        alignment: Alignment.centerRight,
+        margin: EdgeInsets.only(right: 5.0, left: 5.0),
+        //width: 70.0,
+        child: new Text(
+          widget.cacheInfo.timeInterval,
+          style: new TextStyle(
+              fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+        ),
+      ));
+    }
+
+    wList.add(new Container(
+      alignment: Alignment.centerRight,
+      margin: EdgeInsets.only(right: 5.0, left: 5.0),
+      width: 70.0,
+      child: new Text(
+        '样本条码',
+        style: new TextStyle(
+            fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+      ),
+    ));
+    wList.add(new Container(
+      height: 30.0,
+      width: 180.0,
+      child: new InputWidget(
+        controller: barcodeController,
+        onChanged: (v) {
+          widget.cacheInfo.sampleBarcode = v;
+        },
+      ),
+    ));
+
     return new Column(
       children: <Widget>[
         new Container(
@@ -158,39 +213,7 @@ class TestOrderSampleBodyItemPageState
           margin: new EdgeInsets.only(bottom: 10.0),
           color: RLZZColors.itemBodyColor,
           child: new Row(
-            children: <Widget>[
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 100.0, left: 5.0),
-                child: new Text(
-                  '当前样本：' + (widget.selIndex + 1).toString(),
-                  style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: Colors.black),
-                ),
-              ),
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 5.0, left: 5.0),
-                width: 70.0,
-                child: new Text(
-                  '样本条码',
-                  style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: Colors.black),
-                ),
-              ),
-              new Container(
-                height: 30.0,
-                width: 180.0,
-                child: new InputWidget(
-                  controller: barcodeController,
-                  onChanged: (v) {
-                    widget.cacheInfo.sampleBarcode = v;
-                  },
-                ),
-              ),
-            ],
+            children: wList,
           ),
         ),
         new Expanded(
@@ -667,7 +690,8 @@ class TestOrderSampleBodyItemPageState
         context: context, //BuildContext对象
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return new BadReasonRefPage(
+          return new RefPage(
+            url: Config.qmsApiUrl + Config.badReasonRefUrl,
             arcCode: ttq.badReasonCode.toString(),
             okFun: (obj) {
               setState(() {

@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package com.szrlzz.qms.packageinfo;
+package com.szrlzz.qms.plugin;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +24,7 @@ public class PackageInfoPlugin implements MethodCallHandler {
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel =
-        new MethodChannel(registrar.messenger(), "package_info");
+        new MethodChannel(registrar.messenger(), "com.szrlzz.qms/package_info");
     channel.setMethodCallHandler(new PackageInfoPlugin(registrar));
   }
 

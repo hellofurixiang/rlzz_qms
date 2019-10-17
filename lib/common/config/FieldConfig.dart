@@ -248,14 +248,19 @@ class QMSFieldConfig {
   static const completeTestOrderListPage = {
     'fields': [
       {
-        'fieldType': StringZh.listOper,
-        'displayName': '操作',
-        'fieldName': '录入',
-        'width': 40.0,
+        'displayName': '报检日期',
+        'fieldCode': 'inspectionDate',
       },
       {
         'fieldCode': 'docDate',
         'displayName': '检验日期',
+      },
+      {
+        'displayName': '检验单号',
+        'fieldCode': 'docNo',
+        'onTap': true,
+        'color': RLZZColors.mainColorValue,
+        'width': 150.0,
       },
       {
         'displayName': '批号',
@@ -278,22 +283,8 @@ class QMSFieldConfig {
         'fieldCode': 'operator',
       },
       {
-        'displayName': '签名',
-        'fieldCode': 'signPic',
-      },
-      {
-        'displayName': '报检日期',
-        'fieldCode': 'inspectionDate',
-      },
-      {
         'displayName': '需求跟踪号',
         'fieldCode': 'socode',
-      },
-      {
-        'displayName': '检验单号',
-        'fieldCode': 'docNo',
-        'onTap': true,
-        'color': RLZZColors.mainColorValue
       },
       {
         'displayName': '物料编码',
@@ -453,7 +444,7 @@ class QMSFieldConfig {
   };
 
   ///来料检验供应商统计
-  static const ArrivalSupplierReport = {
+  static const arrivalSupplierReport = {
     'fields': [
       {
         'fieldCode': 'supplierCode',
@@ -532,7 +523,7 @@ class QMSFieldConfig {
   };
 
   ///来料检验周统计
-  static const ArrivalWeekReport = {
+  static const arrivalWeekReport = {
     'fields': [
       {
         'fieldCode': 'itemName',
@@ -606,7 +597,7 @@ class QMSFieldConfig {
   };
 
   ///来料检验月统计
-  static const ArrivalMonthReport = {
+  static const arrivalMonthReport = {
     'fields': [
       {
         'fieldCode': 'itemName',
@@ -677,5 +668,315 @@ class QMSFieldConfig {
         'width': 100.0,
       },
     ]
+  };
+
+  ///IQC待检列表
+  static const iqcWaitTaskListPage = {
+    'fields': [
+      {
+        'fieldCode': 'luru',
+        'displayName': '操作',
+        'fieldName': '录入',
+        'fieldType': StringZh.listOper, //字段类型
+        'onTap': true,
+        'width': 60.0,
+        'color': RLZZColors.mainColorValue
+      },
+      {
+        'displayName': '到货日期',
+        'fieldCode': 'arrivalDocDate',
+        //'color': RLZZColors.mainColorValue,
+        //'fieldType': Config.TYPE_FIELD_DATE, //字段类型
+        //'dateFormat': Config.DATE_FORMAT_DATE, //日期格式
+        'width': 90.0,
+      },
+      {
+        'displayName': '到货单号',
+        'fieldCode': 'arrivalDocNo',
+        'width': 90.0,
+      },
+      {
+        'displayName': '行号',
+        'fieldCode': 'arrivalSeq',
+        'width': 50.0,
+      },
+      {
+        'displayName': '物料编码',
+        'fieldCode': 'invCode',
+        'width': 150.0,
+      },
+      {
+        'displayName': '物料名称',
+        'fieldCode': 'invName',
+        'width': 150.0,
+      },
+      {
+        'displayName': '规格型号',
+        'fieldCode': 'invSpec',
+        'width': 150.0,
+      },
+      {
+        'displayName': '报检数量',
+        'fieldCode': 'declareQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '已检数',
+        'fieldCode': 'checkedQuantity',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '合格数量',
+        'fieldCode': 'qualifiedQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '检验单号',
+        'fieldCode': 'testOrderDocNo',
+        'onTap': true,
+        'width': 120.0,
+      },
+      {
+        'displayName': '检验员',
+        'fieldCode': 'checker',
+        'width': 90.0,
+      },
+    ],
+  };
+
+  ///IPQC待检列表
+  static const ipqcWaitTaskListPage = {
+    'fields': [
+      {
+        'fieldCode': 'luru',
+        'displayName': '操作',
+        'fieldName': '录入',
+        'fieldType': StringZh.listOper, //字段类型
+        'onTap': true,
+        'width': 60.0,
+        'color': RLZZColors.mainColorValue
+      },
+      {
+        'displayName': '到货日期',
+        'fieldCode': 'arrivalDocDate',
+        //'color': RLZZColors.mainColorValue,
+        //'fieldType': Config.TYPE_FIELD_DATE, //字段类型
+        //'dateFormat': Config.DATE_FORMAT_DATE, //日期格式
+        'width': 90.0,
+      },
+      {
+        'displayName': '到货单号',
+        'fieldCode': 'arrivalDocNo',
+        'width': 90.0,
+      },
+      {
+        'displayName': '行号',
+        'fieldCode': 'arrivalSeq',
+        'width': 50.0,
+      },
+      {
+        'displayName': '物料编码',
+        'fieldCode': 'invCode',
+        'width': 150.0,
+      },
+      {
+        'displayName': '物料名称',
+        'fieldCode': 'invName',
+        'width': 150.0,
+      },
+      {
+        'displayName': '规格型号',
+        'fieldCode': 'invSpec',
+        'width': 150.0,
+      },
+      {
+        'displayName': '报检数量',
+        'fieldCode': 'declareQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '已检数',
+        'fieldCode': 'checkedQuantity',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '合格数量',
+        'fieldCode': 'qualifiedQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '检验单号',
+        'fieldCode': 'testOrderDocNo',
+        'onTap': true,
+        'width': 120.0,
+      },
+      {
+        'displayName': '检验员',
+        'fieldCode': 'checker',
+        'width': 90.0,
+      },
+    ],
+  };
+
+  ///FQC待检列表
+  static const fqcWaitTaskListPage = {
+    'fields': [
+      {
+        'fieldCode': 'luru',
+        'displayName': '操作',
+        'fieldName': '录入',
+        'fieldType': StringZh.listOper, //字段类型
+        'onTap': true,
+        'width': 60.0,
+        'color': RLZZColors.mainColorValue
+      },
+      {
+        'displayName': '报检日期',
+        'fieldCode': 'inspectionDate',
+        'fieldType': Config.fieldTypeDate, //字段类型
+        'dateFormat': Config.formatDateTime, //日期格式
+      },
+      {
+        'displayName': '批号',
+        'fieldCode': 'batchNumber',
+      },
+      {
+        'displayName': '客户',
+        'fieldCode': 'cusName',
+      },
+      {
+        'displayName': '工序名称',
+        'fieldCode': 'opName',
+      },
+      {
+        'displayName': '报检人',
+        'fieldCode': 'applicant',
+      },
+      {
+        'displayName': '工作中心',
+        'fieldCode': 'workCenter',
+      },
+      {'displayName': '报工单号', 'fieldCode': 'vouchCode', 'width': 120.0},
+      {'displayName': '工序行号', 'fieldCode': 'opSortSeq', 'width': 90.0},
+      {'displayName': '物料编码', 'fieldCode': 'invCode', 'width': 120.0},
+      {'displayName': '物料名称', 'fieldCode': 'invName', 'width': 120.0},
+      {'displayName': '规格型号', 'fieldCode': 'invSpec', 'width': 120.0},
+      {'displayName': '生产订单', 'fieldCode': 'moCode', 'width': 120.0},
+      {'displayName': '生产订单行号', 'fieldCode': 'moSortSeq', 'width': 120.0},
+      {
+        'displayName': '报检数量',
+        'fieldCode': 'declareQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '已检数',
+        'fieldCode': 'checkedQuantity',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '合格数量',
+        'fieldCode': 'qualifiedQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '检验单号',
+        'fieldCode': 'testOrderDocNo',
+        'width': 120.0,
+        'onTap': true,
+      },
+      {
+        'displayName': '检验员',
+        'fieldCode': 'checker',
+      },
+      {
+        'displayName': '产品类型',
+        'fieldCode': 'protype',
+      },
+      {
+        'displayName': '需求跟踪号',
+        'fieldCode': 'socode',
+      },
+    ],
+  };
+
+  ///PQC待检列表
+  static const pqcWaitTaskListPage = {
+    'fields': [
+      {
+        'fieldCode': 'luru',
+        'displayName': '操作',
+        'fieldName': '录入',
+        'fieldType': StringZh.listOper, //字段类型
+        'onTap': true,
+        'width': 60.0,
+        'color': RLZZColors.mainColorValue
+      },
+      {
+        'displayName': '报检日期',
+        'fieldCode': 'inspectionDate',
+        'fieldType': Config.fieldTypeDate, //字段类型
+        'dateFormat': Config.formatDateTime, //日期格式
+      },
+      {
+        'displayName': '批号',
+        'fieldCode': 'batchNumber',
+      },
+      {
+        'displayName': '客户',
+        'fieldCode': 'cusName',
+      },
+      {
+        'displayName': '工序名称',
+        'fieldCode': 'opName',
+      },
+      {
+        'displayName': '报检人',
+        'fieldCode': 'applicant',
+      },
+      {
+        'displayName': '工作中心',
+        'fieldCode': 'workCenter',
+      },
+      {'displayName': '报工单号', 'fieldCode': 'vouchCode', 'width': 120.0},
+      {'displayName': '工序行号', 'fieldCode': 'opSortSeq', 'width': 90.0},
+      {'displayName': '物料编码', 'fieldCode': 'invCode', 'width': 120.0},
+      {'displayName': '物料名称', 'fieldCode': 'invName', 'width': 120.0},
+      {'displayName': '规格型号', 'fieldCode': 'invSpec', 'width': 120.0},
+      {'displayName': '生产订单', 'fieldCode': 'moCode', 'width': 120.0},
+      {'displayName': '生产订单行号', 'fieldCode': 'moSortSeq', 'width': 120.0},
+      {
+        'displayName': '报检数量',
+        'fieldCode': 'declareQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '已检数',
+        'fieldCode': 'checkedQuantity',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '合格数量',
+        'fieldCode': 'qualifiedQty',
+        'fieldType': Config.fieldTypeNumber,
+      },
+      {
+        'displayName': '检验单号',
+        'fieldCode': 'testOrderDocNo',
+        'width': 120.0,
+        'onTap': true,
+      },
+      {
+        'displayName': '检验员',
+        'fieldCode': 'checker',
+      },
+      {
+        'displayName': '产品类型',
+        'fieldCode': 'protype',
+      },
+      {
+        'displayName': '需求跟踪号',
+        'fieldCode': 'socode',
+      },
+    ],
   };
 }

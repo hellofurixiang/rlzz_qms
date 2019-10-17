@@ -7,10 +7,11 @@ import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetail.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
-import 'package:qms/page/BadReasonRefPage.dart';
+import 'package:qms/page/RefPage.dart';
 import 'package:qms/page/FileListPage.dart';
 import 'package:qms/page/TestValueEnumListPage.dart';
 import 'package:qms/page/TestValueListPage.dart';
@@ -37,11 +38,11 @@ class TestOrderBodyItemPage extends StatefulWidget {
 
   TestOrderBodyItemPage({
     Key key,
-    this.testOrderInfo,
-    this.testOrderDetailList,
-    this.cacheInfo,
-    this.isAdd,
-    this.auditStatus,
+    @required this.testOrderInfo,
+    @required this.testOrderDetailList,
+    @required this.cacheInfo,
+    @required this.isAdd,
+    @required this.auditStatus,
   }) : super(key: key);
 
   @override
@@ -213,7 +214,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                     fontSize: RLZZConstant.normalTextSize,
                     color: RLZZColors.darkDarkGrey),
               ),
-              getFileWidget(widget.cacheInfo.enclosure),
+              WidgetUtil.getFileWidget(context, widget.cacheInfo.enclosure),
             ],
           ),
         ),
@@ -383,6 +384,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
             ],
           ),
         ),
+        getMeasuringToolWidget(),
         new Container(
           child: new Row(
             children: <Widget>[
@@ -511,58 +513,87 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
     );
   }
 
-  ///查看文件
-  Widget getFileWidget(String enclosure) {
-    bool bo = false;
-    if (CommonUtil.isEmpty(enclosure)) {
-      bo = true;
-    }
-    return new GestureDetector(
-      onTap: () {
-        if (bo) {
-          return;
-        }
-        List<Enclosure> enclosureList = [];
-
-        List arr = json.decode(enclosure.replaceAll('\'', '"'));
-        arr.forEach((f) {
-          enclosureList.add(Enclosure.fromJson(f));
-        });
-        showDialog<Null>(
-            context: context, //BuildContext对象
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return new FileListPage(enclosureList);
-            });
-      },
-      child: new Container(
-        height: 25.0,
-        alignment: Alignment.center,
-        padding: new EdgeInsets.all(2.0),
-        child: new Text(
-          '查看附件',
-          textAlign: TextAlign.center,
-          style: new TextStyle(
-              fontSize: RLZZConstant.smallTextSize,
-              color: bo ? RLZZColors.lightLightGrey : RLZZColors.mainColor,
-              decoration: bo ? TextDecoration.none : TextDecoration.underline),
-        ),
-        //decoration: boxDecoration,
-      ),
-    );
-  }
-
   ///获取不良原因
   void getReasonInfoModel() {
     showDialog<Null>(
         context: context, //BuildContext对象
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return new BadReasonRefPage(
+          return new RefPage(
+            title: StringZh.text_badReason,
+            url: Config.badReasonRefUrl,
+            arcCode: widget.cacheInfo.badReasonCode,
             okFun: (obj) {
               setState(() {
                 widget.cacheInfo.badReasonCode = obj['arcCode'];
                 widget.cacheInfo.badReasonName = obj['arcName'];
+              });
+            },
+          );
+        });
+  }
+
+  Widget getMeasuringToolWidget() {
+    if (widget.testOrderInfo.docCat == Config.test_order_iqc ||
+        widget.testOrderInfo.docCat == Config.test_order_fqc) {
+      return new Container(
+        height: 30.0,
+        margin: new EdgeInsets.only(top: 10.0),
+        //padding: new EdgeInsets.only(left: 10.0, right: 10.0),
+        child: new Row(
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Container(
+              alignment: Alignment.centerRight,
+              margin: new EdgeInsets.only(right: 5.0),
+              width: 60.0,
+              child: new Text(
+                '测量工具',
+                style: new TextStyle(
+                    fontSize: RLZZConstant.normalTextSize,
+                    color: RLZZColors.darkDarkGrey),
+              ),
+            ),
+            new TextWidget(
+              height: 30.0,
+              width: 150.0,
+              text: widget.cacheInfo.measuringToolName,
+              onTapFun: getMeasuringToolModel,
+              iconWidget: new GestureDetector(
+                onTap: getMeasuringToolModel,
+                child: new Container(
+                  alignment: Alignment.center,
+                  margin: new EdgeInsets.all(2.0),
+                  child: new Icon(
+                    Icons.search,
+                    size: 22.0,
+                    color: RLZZColors.darkDarkGrey,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return new Container();
+    }
+  }
+
+  ///获取测量工具
+  void getMeasuringToolModel() {
+    showDialog<Null>(
+        context: context, //BuildContext对象
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new RefPage(
+            title: StringZh.test_measuringTool,
+            url: Config.measuringToolRefUrl,
+            arcCode: widget.cacheInfo.measuringToolCode,
+            okFun: (obj) {
+              setState(() {
+                widget.cacheInfo.measuringToolCode = obj['arcCode'];
+                widget.cacheInfo.measuringToolName = obj['arcName'];
               });
             },
           );

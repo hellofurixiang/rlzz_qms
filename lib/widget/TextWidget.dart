@@ -36,7 +36,7 @@ class TextWidget extends StatefulWidget {
   final EdgeInsets margin;
 
   TextWidget(
-      {this.isCenter: false,
+      {Key key,this.isCenter: false,
       this.height: 25.0,
       this.textFillColor: RLZZColors.lightLightGrey,
       this.containerFillColor: RLZZColors.lightLightGrey,

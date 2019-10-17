@@ -160,44 +160,53 @@ class TestOrderDetail extends BaseEntity {
   @JsonKey(name: 'operTestQtyInfo')
   bool operTestQtyInfo;
 
+  ///测量工具编码
+  @JsonKey(name: 'measuringToolCode')
+  String measuringToolCode;
+
+  ///测量工具名称
+  @JsonKey(name: 'measuringToolName')
+  String measuringToolName;
+
   TestOrderDetail.empty();
 
   TestOrderDetail(
-    this.id,
-    this.badPictures,
-    this.testItemCode,
-    this.testItemName,
-    this.aqlData,
-    this.testQuotaCode,
-    this.testQuotaName,
-    this.quotaCat,
-    this.testDecription,
-    this.testMethodCode,
-    this.testMethodName,
-    this.testWay,
-    this.testStringency,
-    this.testLevel,
-    this.aql,
-    this.standardValue,
-    this.upperLimitValue,
-    this.lowerLimitValue,
-    this.testQtyInfo,
-    this.testQtyInfoDetail,
-    this.inspectionEquipment,
-    this.quantity,
-    this.qualifiedQty,
-    this.unQualifiedQty,
-    this.badReasonCode,
-    this.badReasonName,
-    this.badReasonInfo,
-    this.enclosureList,
-    this.enclosure,
-    this.testQuotaEnclosureList,
-    this.samplingWay,
-    this.samplingProportion,
-    this.testState,
-    this.producer,
-  );
+      this.id,
+      this.badPictures,
+      this.testItemCode,
+      this.testItemName,
+      this.aqlData,
+      this.testQuotaCode,
+      this.testQuotaName,
+      this.quotaCat,
+      this.testDecription,
+      this.testMethodCode,
+      this.testMethodName,
+      this.testWay,
+      this.testStringency,
+      this.testLevel,
+      this.aql,
+      this.standardValue,
+      this.upperLimitValue,
+      this.lowerLimitValue,
+      this.testQtyInfo,
+      this.testQtyInfoDetail,
+      this.inspectionEquipment,
+      this.quantity,
+      this.qualifiedQty,
+      this.unQualifiedQty,
+      this.badReasonCode,
+      this.badReasonName,
+      this.badReasonInfo,
+      this.enclosureList,
+      this.enclosure,
+      this.testQuotaEnclosureList,
+      this.samplingWay,
+      this.samplingProportion,
+      this.testState,
+      this.producer,
+      this.measuringToolCode,
+      this.measuringToolName);
 
   factory TestOrderDetail.fromJson(Map<String, dynamic> srcJson) =>
       _$TestOrderDetailFromJson(srcJson);

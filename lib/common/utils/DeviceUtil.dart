@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:device_info/device_info.dart';
+import 'package:qms/common/utils/plugin/DeviceInfo.dart';
 
 ///设备服务类
 class DeviceUtil {

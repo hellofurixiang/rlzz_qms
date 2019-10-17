@@ -12,7 +12,7 @@ EnumInfoVo _$EnumInfoVoFromJson(Map<String, dynamic> json) {
       json['rowNum'] as int,
       json['enumValue'] as String,
       json['status'] as int,
-      json['quotaType'] as bool);
+      json['selectType'] as bool);
 }
 
 Map<String, dynamic> _$EnumInfoVoToJson(EnumInfoVo instance) =>
@@ -21,5 +21,5 @@ Map<String, dynamic> _$EnumInfoVoToJson(EnumInfoVo instance) =>
       'rowNum': instance.rowNum,
       'enumValue': instance.enumValue,
       'status': instance.status,
-      'quotaType': instance.quotaType
+      'selectType': instance.selectType
     };

@@ -95,7 +95,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
 
   changeInitData(int count) {
     ///通过指标ID获取检验指标枚举选项列表
-    QmsService.getEnumListInfoByQuotaId(context, widget.testQuotaCode, (res) {
+    QmsService.getEnumListInfoByQuotaCode(context, widget.testQuotaCode, (res) {
       if (CommonUtil.isNotEmpty(widget.testOrderDetailId)) {
         List<EnumInfoVo> enumInfoVoList = List();
         for (int i = 0; i < res.length; i++) {
@@ -183,7 +183,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
 
   EnumInfoVo enumInfoVoCopy(EnumInfoVo oldVo) {
     EnumInfoVo vo = new EnumInfoVo(
-        oldVo.id, oldVo.rowNum, oldVo.enumValue, oldVo.status, oldVo.quotaType);
+        oldVo.id, oldVo.rowNum, oldVo.enumValue, oldVo.status, oldVo.selectType);
     return vo;
   }
 
@@ -226,7 +226,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
     return new GestureDetector(
       onTap: () {
         setState(() {
-          if (vo.quotaType) {
+          if (vo.selectType) {
             vo.status = vo.status == 1 ? 0 : 1;
           } else {
             voList.forEach((f) {

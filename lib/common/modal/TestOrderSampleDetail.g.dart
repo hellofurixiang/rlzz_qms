@@ -7,6 +7,7 @@ part of 'TestOrderSampleDetail.dart';
 // **************************************************************************
 
 List<TestOrderDetailTestQuota> testOrderDetailTestQuota;
+
 TestOrderSampleDetail _$TestOrderSampleDetailFromJson(
     Map<String, dynamic> json) {
   return TestOrderSampleDetail(
@@ -17,7 +18,13 @@ TestOrderSampleDetail _$TestOrderSampleDetailFromJson(
       (json['generalDefectsQty'] as num)?.toInt(),
       (json['majorDefectsQty'] as num)?.toInt(),
       (json['seriousDefectsQty'] as num)?.toInt(),
-      json['quotaState'] as bool);
+      json['quotaState'] as bool,
+      json['timeInterval'] as String,
+      (json['testOrderDetailTestQuota'] as List)
+          ?.map((e) => e == null
+              ? null
+              : TestOrderDetailTestQuota.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$TestOrderSampleDetailToJson(
@@ -31,5 +38,7 @@ Map<String, dynamic> _$TestOrderSampleDetailToJson(
       'majorDefectsQty': instance.majorDefectsQty,
       'seriousDefectsQty': instance.seriousDefectsQty,
       'edited': instance.edited,
-      'quotaState': instance.quotaState
+      'quotaState': instance.quotaState,
+      'timeInterval': instance.timeInterval,
+      'testOrderDetailTestQuota': instance.testOrderDetailTestQuota
     };

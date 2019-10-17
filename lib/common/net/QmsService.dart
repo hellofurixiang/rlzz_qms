@@ -130,16 +130,15 @@ class QmsService {
   ///获取生产订单详情
   static void getProductionOrderInfo(
       BuildContext context,
-      String id,
-      String docCat,
-      String version,
+      String moDocNo,
+      String detailId,
       Function successCallBack,
       Function errorCallBack) {
     String url = Config.qmsApiUrl +
-        '/api/qms/app/productionOrder/getProductionOrderInfo';
+        '/productionOrder/getProductionOrderInfo';
 
     NetUtil.post(url, context,
-        params: {'id': id, 'docCat': docCat, 'version': version},
+        params: {'id': detailId, 'docNo': moDocNo},
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);
   }
@@ -162,6 +161,22 @@ class QmsService {
 
     NetUtil.post(url, context,
         params: {},
+        successCallBack: successCallBack,
+        errorCallBack: errorCallBack);
+  }
+
+  ///参照，分页接口
+  static void getRefList(
+      BuildContext context,
+      String url,
+      Map<String, String> params,
+      Function successCallBack,
+      Function errorCallBack) {
+    //String url = Config.qmsApiUrl + '/badReason/findBadReasonRef';findMeasuringToolRef
+
+    url = Config.qmsApiUrl + url;
+    NetUtil.post(url, context,
+        params: params,
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);
   }
@@ -202,18 +217,29 @@ class QmsService {
   }
 
   ///根据检验指标ID查找枚举型列表
-  static void getEnumListInfoByQuotaId(
-      BuildContext context, String id, Function successCallBack) {
-    String url = Config.qmsApiUrl + '/testOrder/getEnumListInfoByQuotaId';
+  static void getEnumListInfoByQuotaCode(
+      BuildContext context, String quotaCode, Function successCallBack) {
+    String url = Config.qmsApiUrl + '/testOrder/getEnumListInfoByQuotaCode';
 
     NetUtil.get(url, context,
-        params: {'id': id}, successCallBack: successCallBack);
+        params: {'quotaCode': quotaCode}, successCallBack: successCallBack);
   }
 
   ///获取统计信息
   static void getUnHandleMessage(
       BuildContext context, Function successCallBack, Function errorCallBack) {
     String url = Config.qmsApiUrl + '/quarantineTask/counts';
+
+    NetUtil.post(url, context,
+        params: {'operatorName': '', 'operatorId': ''},
+        successCallBack: successCallBack,
+        errorCallBack: errorCallBack);
+  }
+
+  ///获取统计信息
+  static void getTestOrderStatistical(
+      BuildContext context, Function successCallBack, Function errorCallBack) {
+    String url = Config.qmsApiUrl + '/quarantineTask/getTestOrderStatistical';
 
     NetUtil.post(url, context,
         params: {'operatorName': '', 'operatorId': ''},

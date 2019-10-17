@@ -36,6 +36,9 @@ class TestOrderSamplePage extends StatefulWidget {
   ///检验类型
   final String testCat;
 
+  ///标题
+  final String title;
+
   ///报检数量
   final String qty;
 
@@ -56,12 +59,13 @@ class TestOrderSamplePage extends StatefulWidget {
     this.id,
     this.docNo,
     @required this.docCat,
+    @required this.testCat,
+    @required this.title,
     this.qty,
     this.srcDocDetailId,
     this.testTemplateId,
     this.testTemplateName,
     this.invCatCode,
-    this.testCat,
   }) : super(key: key);
 
   @override
@@ -227,46 +231,46 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
 
   ///获取指标列表
   getTestOrderDetailTestQuotaById() {
-    setState(() {
-      isLoadingQuota = true;
-    });
-    //WidgetUtil.showLoadingDialog(context, '加载指标详情...');
-    String oper = 'edit';
-    /*if (isAdd) {
-      oper = 'edit';
-    }*/
+    if (testOrderInfo.id != null) {
+      setState(() {
+        isLoadingQuota = true;
+      });
+      //WidgetUtil.showLoadingDialog(context, '加载指标详情...');
+      String oper = 'edit';
 
-    String testTemplateId;
-    if (null != widget.testTemplateId) {
-      testTemplateId = widget.testTemplateId.toString();
-    } else {
-      testTemplateId = testOrderInfo.testTemplateId;
-    }
-
-    QmsSampleService.getTestOrderDetailTestQuotaById(
-        context, oper, testOrderInfo.id, cacheInfo.id, testTemplateId, (res) {
-      ///指标列表
-      List<TestOrderDetailTestQuota> testOrderDetailTestQuotaList = [];
-
-      for (int i = 0; i < res.length; i++) {
-        TestOrderDetailTestQuota vo = TestOrderDetailTestQuota.fromJson(res[i]);
-        testOrderDetailTestQuotaList.add(vo);
+      String testTemplateId;
+      if (null != widget.testTemplateId) {
+        testTemplateId = widget.testTemplateId.toString();
+      } else {
+        testTemplateId = testOrderInfo.testTemplateId;
       }
 
-      setState(() {
-        cacheInfo.testOrderDetailTestQuota = testOrderDetailTestQuotaList;
-        isLoadingQuota = false;
-      });
+      QmsSampleService.getTestOrderDetailTestQuotaById(
+          context, oper, testOrderInfo.id, cacheInfo.id, testTemplateId, (res) {
+        ///指标列表
+        List<TestOrderDetailTestQuota> testOrderDetailTestQuotaList = [];
 
-      //Navigator.pop(context);
-    }, (err) {
-      Fluttertoast.showToast(
-          msg: StringZh.quotaLoadingError, timeInSecForIos: 3);
-      //Navigator.pop(context);
-      setState(() {
-        isLoadingQuota = false;
+        for (int i = 0; i < res.length; i++) {
+          TestOrderDetailTestQuota vo =
+              TestOrderDetailTestQuota.fromJson(res[i]);
+          testOrderDetailTestQuotaList.add(vo);
+        }
+
+        setState(() {
+          cacheInfo.testOrderDetailTestQuota = testOrderDetailTestQuotaList;
+          isLoadingQuota = false;
+        });
+
+        //Navigator.pop(context);
+      }, (err) {
+        Fluttertoast.showToast(
+            msg: StringZh.quotaLoadingError, timeInSecForIos: 3);
+        //Navigator.pop(context);
+        setState(() {
+          isLoadingQuota = false;
+        });
       });
-    });
+    }
   }
 
   ///获取表头不良图片
@@ -300,6 +304,7 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
     }
   }
 */
+
   ///单据表头信息
   List<Widget> _getHeadInfo() {
     List<Widget> list = new List();
@@ -545,13 +550,42 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
       Navigator.pop(context);
 
       ///跳转
-      if (null != testOrderInfo.id) {
-        NavigatorUtil.pushReplacementNamed(
-            context, Config.iQCTestOrderListPage);
-      } else {
-        NavigatorUtil.pushReplacementNamed(
-            context, Config.arrivalWaitTaskListPage);
+      String urlName = '';
+
+      switch (widget.docCat) {
+        case Config.test_order_ipqc:
+          if (null != testOrderInfo.id) {
+            urlName = Config.ipqcTestOrderListPage;
+          } else {
+            urlName = Config.ipqcWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_pqc:
+          if (null != testOrderInfo.id) {
+            urlName = Config.pqcTestOrderListPage;
+          } else {
+            urlName = Config.pqcWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_complete_sample:
+          if (null != testOrderInfo.id) {
+            urlName = Config.completeTestOrderSampleListPage;
+          } else {
+            urlName = Config.completeWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_arrival_sample:
+          if (null != testOrderInfo.id) {
+            urlName = Config.arrivalTestOrderSampleListPage;
+          } else {
+            urlName = Config.arrivalWaitTaskListPage;
+          }
+          break;
+        default:
+          break;
       }
+
+      NavigatorUtil.pushReplacementNamed(context, urlName);
     }, (err) {
       Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
       Navigator.pop(context);
@@ -640,7 +674,7 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
     return new Scaffold(
         backgroundColor: Colors.white,
         appBar: new AppBarWidget(
-          title: StringZh.iqcTestOrderDetail_title,
+          title: widget.title,
           /*backFun: () {
             //Navigator.pushAndRemoveUntil(
             //context, new ArrivalWaitTaskListPage());

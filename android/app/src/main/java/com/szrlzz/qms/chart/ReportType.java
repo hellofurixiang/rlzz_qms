@@ -1,6 +1,6 @@
 package com.szrlzz.qms.chart;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 /**
  * @author furx

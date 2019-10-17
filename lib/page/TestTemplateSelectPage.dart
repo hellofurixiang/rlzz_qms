@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
@@ -21,6 +23,9 @@ class TestTemplateSelectPage extends StatefulWidget {
   ///检验类型
   final String testCat;
 
+  ///单据类型
+  final String docCat;
+
   ///物料分类编码
   final String invCatCode;
 
@@ -33,14 +38,19 @@ class TestTemplateSelectPage extends StatefulWidget {
   ///来源单据详情ID
   final String srcDocDetailId;
 
+  ///单据标题
+  final String detailTitle;
+
   TestTemplateSelectPage({
     Key key,
     @required this.qty,
+    @required this.docCat,
     @required this.testCat,
     @required this.invCatCode,
     @required this.invCode,
     this.opCode,
     @required this.srcDocDetailId,
+    @required this.detailTitle,
   }) : super(key: key);
 
   @override
@@ -75,7 +85,8 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
   ///初始化数据
   void _getDataRequest() {
     QmsService.getTestTemplate(context, {
-      'testCat': Config.text_arrival, //widget.testCat,
+      'docCat': widget.docCat,
+      'testCat': widget.testCat,
       'invCatCode': widget.invCatCode,
       'invCode': widget.invCode,
       'opCode': widget.opCode,
@@ -119,31 +130,68 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       return;
     }
     Navigator.pop(context);
-    if (widget.testCat == Config.text_arrival &&
-        testRule == Config.testForInv) {
+
+    String testOrderType = '';
+    String docCat = widget.docCat;
+    String testCat = widget.testCat;
+
+    ///单据标题
+    String detailTitle = widget.detailTitle;
+
+    switch (widget.docCat) {
+      case Config.test_order_arrival:
+        if (testRule == Config.testForInv) {
+          detailTitle = StringZh.arrivalTestOrderSampleDetail_title;
+          testOrderType = 'sample';
+          docCat = Config.test_order_arrival_sample;
+        }
+        break;
+      case Config.test_order_complete:
+        if (testRule == Config.testForInv) {
+          detailTitle = StringZh.completeTestOrderSampleDetail_title;
+          testOrderType = 'sample';
+          docCat = Config.test_order_complete_sample;
+        }
+        break;
+
+      /*case Config.test_order_iqc:
+        break;
+      case Config.test_order_fqc:
+
+        break;*/
+
+      case Config.test_order_ipqc:
+      case Config.test_order_pqc:
+        testOrderType = 'sample';
+        break;
+      default:
+        break;
+    }
+    if (testOrderType == 'sample') {
       NavigatorUtil.goToPage(
           context,
           new TestOrderSamplePage(
-            docCat: Config.test_order_iqc,
-            testCat: Config.text_arrival,
+            docCat: docCat,
+            testCat: testCat,
             qty: qtyEc.text,
             srcDocDetailId: widget.srcDocDetailId,
             testTemplateId: testTemplateId,
             testTemplateName: testTemplateName,
             invCatCode: widget.invCatCode,
+            title: detailTitle,
           ));
     } else {
       NavigatorUtil.goToPage(
           context,
           new TestOrderPage(
-            docCat: widget.testCat == Config.text_complete
-                ? Config.test_order_complete
-                : Config.test_order_arrival,
+            docCat: docCat,
+            testCat: testCat,
             qty: qtyEc.text,
             srcDocDetailId: widget.srcDocDetailId,
             testTemplateId: testTemplateId,
             testTemplateName: testTemplateName,
             invCatCode: widget.invCatCode,
+            title: detailTitle,
           ));
     }
   }
@@ -307,6 +355,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
                 child: new InputWidget(
                   controller: qtyEc,
                   isNumber: true,
+                  enabled: widget.docCat != Config.test_order_ipqc,
                 ),
               ),
             ],

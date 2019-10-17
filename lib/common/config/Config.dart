@@ -162,16 +162,24 @@ class Config {
 
   ///完工、来料
   static const test_order_complete = 'default';
+  static const test_order_complete_sample = 'defSample';
   static const test_order_arrival = '002';
+  static const test_order_arrival_sample = '002Sample';
+
   static const test_order_iqc = '003';
   static const test_order_ipqc = '004';
   static const test_order_fqc = '005';
   static const test_order_pqc = '006';
 
   static const text_complete = '生产完工检';
+  static const text_complete_sample = '生产完工检(按样本)';
   static const text_arrival = '来料检验';
+  static const text_arrival_sample = '来料检验(按样本)';
+
+  static const text_iqc = '来料检验';
   static const text_ipqc = '生产巡检';
   static const text_pqc = '生产自检';
+  static const text_fqc = '生产完工检';
 
   ///请求方式
   static const method_post = 'POST';
@@ -205,9 +213,20 @@ class Config {
   static const mainPage = '/mainPage';
   static const arrivalWaitTaskListPage = '/arrivalWaitTaskListPage';
   static const arrivalTestOrderListPage = '/arrivalTestOrderListPage';
-  static const iQCTestOrderListPage = '/iQCTestOrderListPage';
+  static const arrivalTestOrderSampleListPage = '/arrivalTestOrderSampleListPage';
+
+  static const iqcWaitTaskListPage = '/iqcWaitTaskListPage';
+  static const iqcTestOrderListPage = '/iqcTestOrderListPage';
+  static const ipqcWaitTaskListPage = '/ipqcWaitTaskListPage';
+  static const ipqcTestOrderListPage = '/ipqcTestOrderListPage';
+  static const pqcWaitTaskListPage = '/pqcWaitTaskListPage';
+  static const pqcTestOrderListPage = '/pqcTestOrderListPage';
+  static const fqcWaitTaskListPage = '/fqcWaitTaskListPage';
+  static const fqcTestOrderListPage = '/fqcTestOrderListPage';
+
   static const completeWaitTaskListPage = '/completeWaitTaskListPage';
   static const completeTestOrderListPage = '/completeTestOrderListPage';
+  static const completeTestOrderSampleListPage = '/completeTestOrderSampleListPage';
 
   ///来料检验报表类型
   static const arrivalMonthReport = 0;
@@ -216,4 +235,13 @@ class Config {
 
   ///与原生交互报表控件ID
   static const chartViewTypeId = 'com.szrlzz.qms/combinedChart';
+
+
+
+  ///不良原因参照
+  static const badReasonRefUrl = '/badReason/findBadReasonRef';
+  ///测量工具
+  static const measuringToolRefUrl = '/findMeasuringToolRef';
+
+
 }

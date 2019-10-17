@@ -37,7 +37,7 @@ class ArrivalTestOrderListPageState
   @protected
   void initParams() {
     params = {
-      'docCat': '002',
+      'docCat': Config.test_order_arrival,
 
       ///开始、结束日期
       'beginDate': '',
@@ -116,9 +116,11 @@ class ArrivalTestOrderListPageState
         NavigatorUtil.goToPage(
             context,
             new TestOrderPage(
-              id: data['id'],
-              docCat: Config.text_arrival,
-            ));
+                id: data['id'],
+                docNo: data['docNo'],
+                docCat: Config.test_order_arrival,
+                testCat: Config.text_iqc,
+                title: StringZh.arrivalTestOrderDetail_title));
 
         break;
       default:
@@ -182,9 +184,13 @@ class ArrivalTestOrderListPageState
                   ),
                 ),*/
           new ListPageWidget(
-            page: page.toString(),
+            page: page,
+            size: size,
+            total: total,
+            firstFun: firstFun,
             preFun: preFun,
             nextFun: nextFun,
+            endFun: endFun,
           ),
         ],
       ),

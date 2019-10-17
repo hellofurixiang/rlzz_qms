@@ -171,26 +171,26 @@ class ArrivalSupplierReportState extends ListCommonState<ArrivalSupplierReport>
                                               columnWidths: WidgetUtil
                                                   .getTableColumnWidth(
                                                       QMSFieldConfig
-                                                          .ArrivalSupplierReport),
+                                                          .arrivalSupplierReport),
                                               children: <TableRow>[
                                                 new TableRow(
                                                   children: WidgetUtil
                                                       .renderTableHeadColumnsByConfig(
                                                           QMSFieldConfig
-                                                              .ArrivalSupplierReport),
+                                                              .arrivalSupplierReport),
                                                 )
                                               ]),
                                           new Table(
                                             columnWidths:
                                                 WidgetUtil.getTableColumnWidth(
                                                     QMSFieldConfig
-                                                        .ArrivalSupplierReport),
+                                                        .arrivalSupplierReport),
                                             children: WidgetUtil
                                                 .renderTableRowColumnsByConfigForReport(
                                                     context,
                                                     dataList,
                                                     QMSFieldConfig
-                                                        .ArrivalSupplierReport),
+                                                        .arrivalSupplierReport),
                                           ),
                                         ],
                                       ),

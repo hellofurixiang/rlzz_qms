@@ -5,8 +5,10 @@ import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
+import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/ListCommonState.dart';
+import 'package:qms/page/TestOrderPage.dart';
 import 'package:qms/page/TestTemplateSelectPage.dart';
 import 'package:qms/widget/AppBarWidget.dart';
 import 'package:qms/widget/ListPageWidget.dart';
@@ -143,20 +145,18 @@ class CompleteTestOrderListPageState
     print(field);
     switch (field) {
 
-      ///录入操作
-      case 'luru':
-        showDialog<Null>(
-            context: context, //BuildContext对象
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return new TestTemplateSelectPage(
-                qty: data['canCheckQty'],
-                testCat: '来料检验',
-                invCatCode: data['invCatCode'],
-                invCode: data['invCode'],
-                srcDocDetailId: data['moRoutingBillDetailId'],
-              );
-            });
+    ///检验单详情
+      case 'docNo':
+        NavigatorUtil.goToPage(
+            context,
+            new TestOrderPage(
+                id: data['id'],
+                docNo: data['docNo'],
+                docCat: Config.test_order_complete,
+                testCat: Config.text_fqc,
+                title: StringZh.completeTestOrderDetail_title
+            ));
+
         break;
 
       ///检验单详情
@@ -185,9 +185,13 @@ class CompleteTestOrderListPageState
           WidgetUtil.getListRows(context, loading, dataList,
               QMSFieldConfig.completeTestOrderListPage, _rowColumnsTap),
           new ListPageWidget(
-            page: page.toString(),
+            page: page,
+            size: size,
+            total: total,
+            firstFun: firstFun,
             preFun: preFun,
             nextFun: nextFun,
+            endFun: endFun,
           ),
         ],
       ),

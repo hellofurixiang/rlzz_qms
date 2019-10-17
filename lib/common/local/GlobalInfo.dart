@@ -18,13 +18,13 @@ class GlobalInfo {
     return _instance;
   }
 
-  List userResources;
+  List<String> userResources;
 
   getUserResources() {
-    return userResources;
+    return userResources ?? <String>[];
   }
 
-  setUserResources(String val) {
-    userResources = json.decode(val);
+  setUserResources(List<String> val) {
+    userResources = val;
   }
 }

@@ -1,4 +1,4 @@
-package com.szrlzz.qms.filepicker;
+package com.szrlzz.qms.plugin;
 
 import android.annotation.TargetApi;
 import android.content.ContentUris;

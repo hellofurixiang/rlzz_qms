@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/generated/i18n.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
@@ -52,7 +53,7 @@ class ArrivalWaitTaskListPageState
   @protected
   void initParams() {
     params = {
-      'docCat': '002',
+      'docCat': Config.test_order_arrival,
 
       ///检验状态
       'checkStatus': '未检',
@@ -128,9 +129,11 @@ class ArrivalWaitTaskListPageState
               return new TestTemplateSelectPage(
                 qty: data['canCheckQty'],
                 testCat: Config.text_arrival,
+                docCat: Config.test_order_arrival,
                 invCatCode: data['invCatCode'],
                 invCode: data['invCode'],
                 srcDocDetailId: data['arrivalDetailId'],
+                detailTitle: StringZh.completeTestOrderDetail_title,
               );
             });
         break;
@@ -204,10 +207,13 @@ class ArrivalWaitTaskListPageState
                     ),
                   ),*/
             new ListPageWidget(
-              page: page.toString(),
+              page: page,
+              size: size,
+              total: total,
+              firstFun: firstFun,
               preFun: preFun,
               nextFun: nextFun,
-              refreshFun: refreshFun,
+              endFun: endFun,
             ),
           ],
         ),

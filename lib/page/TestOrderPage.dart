@@ -16,6 +16,7 @@ import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/ArrivalTestOrderListPage.dart';
+import 'package:qms/page/ProductionOrderPage.dart';
 import 'package:qms/page/TestOrderBodyItemPage.dart';
 import 'package:qms/page/TestOrderHeadInfoPage.dart';
 import 'package:qms/page/TestOrderItemQuotaPage.dart';
@@ -32,6 +33,12 @@ class TestOrderPage extends StatefulWidget {
 
   ///单据类型
   final String docCat;
+
+  ///检验类型
+  final String testCat;
+
+  ///标题
+  final String title;
 
   ///报检数量
   final String qty;
@@ -53,6 +60,8 @@ class TestOrderPage extends StatefulWidget {
     this.id,
     this.docNo,
     @required this.docCat,
+    @required this.testCat,
+    @required this.title,
     this.qty,
     this.srcDocDetailId,
     this.testTemplateId,
@@ -336,6 +345,7 @@ class TestOrderPageState extends State<TestOrderPage> {
     });
   }
 */
+
   ///获取签名图片
   _getHeadSignBytes() {
     if (null != testOrderInfo.signImage) {
@@ -380,7 +390,7 @@ class TestOrderPageState extends State<TestOrderPage> {
       list.add(_getHeadWidget(testOrderInfo.cusName, 150.0));
     }
 
-    list.add(_getHeadWidget(testOrderInfo.srcDocNo, 150.0));
+    list.add(_getHeadWidget(testOrderInfo.srcDocNo, 100.0));
     list.add(_getHeadWidget(testOrderInfo.quantity.toString(), 50.0));
 
     if (widget.docCat == Config.test_order_complete) {
@@ -388,20 +398,36 @@ class TestOrderPageState extends State<TestOrderPage> {
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget(testOrderInfo.moDocNo, 100.0));
+      list.add(_getHeadWidget(testOrderInfo.moDocNo, 100.0,onTapFun: (){
+        ///生产订单
+        showDialog<Null>(
+            context: context, //BuildContext对象
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return new ProductionOrderPage(
+                detailId: testOrderInfo.moDetailId,
+                moDocNo: testOrderInfo.moDocNo
+              );
+            });
+
+      }));
     }
     return list;
   }
 
-  _getHeadWidget(String text, double width) {
+  _getHeadWidget(String text, double width,{Function onTapFun}) {
     return new TextWidget(
       text: text,
       margin: EdgeInsets.only(right: 4.0, left: 4.0),
       height: 30.0,
       width: width,
       onTapFun: () {
-        if (null != text) {
-          WidgetUtil.showRemark(context, remark: text);
+        if(onTapFun==null) {
+          if (null != text) {
+            WidgetUtil.showRemark(context, remark: text);
+          }
+        }else{
+          onTapFun();
         }
       },
     );
@@ -518,6 +544,7 @@ class TestOrderPageState extends State<TestOrderPage> {
 
     if (isAdd) {
       testOrderInfo.docCat = widget.docCat;
+      testOrderInfo.testCat = widget.testCat;
     }
 
     ///表头附件
@@ -553,8 +580,7 @@ class TestOrderPageState extends State<TestOrderPage> {
       f.operTestQtyInfo = f.edited;
 
       if (list != null && list.isNotEmpty && f.edited) {
-        f.testQtyInfoDetail =
-            json.encode(list).replaceAll('detailList', 'list');
+        f.testQtyInfoDetail =json.encode(list);//.replaceAll('detailList', 'list');
       } else {
         f.testQtyInfoDetail = 'noChange';
       }
@@ -594,24 +620,45 @@ class TestOrderPageState extends State<TestOrderPage> {
       ///回退
       Navigator.pop(context);
 
+
+
       ///跳转
-      if (testOrderInfo.docCat == Config.test_order_complete) {
-        if (null != testOrderInfo.id) {
-          NavigatorUtil.pushReplacementNamed(
-              context, Config.completeTestOrderListPage);
-        } else {
-          NavigatorUtil.pushReplacementNamed(
-              context, Config.completeWaitTaskListPage);
-        }
-      } else {
-        if (null != testOrderInfo.id) {
-          NavigatorUtil.pushReplacementNamed(
-              context, Config.arrivalTestOrderListPage);
-        } else {
-          NavigatorUtil.pushReplacementNamed(
-              context, Config.arrivalWaitTaskListPage);
-        }
+      String urlName='';
+
+      switch(widget.docCat){
+        case Config.test_order_complete:
+          if (null != testOrderInfo.id) {
+            urlName = Config.completeTestOrderListPage;
+          } else {
+            urlName = Config.completeWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_arrival:
+          if (null != testOrderInfo.id) {
+            urlName = Config.arrivalTestOrderListPage;
+          } else {
+            urlName = Config.arrivalWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_iqc:
+          if (null != testOrderInfo.id) {
+            urlName = Config.iqcTestOrderListPage;
+          } else {
+            urlName = Config.iqcWaitTaskListPage;
+          }
+          break;
+        case Config.test_order_fqc:
+          if (null != testOrderInfo.id) {
+            urlName = Config.fqcTestOrderListPage;
+          } else {
+            urlName = Config.fqcWaitTaskListPage;
+          }
+          break;
+        default:
+          break;
       }
+
+      NavigatorUtil.pushReplacementNamed(context, urlName);
     }, (err) {
       Navigator.pop(context);
       Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
@@ -717,9 +764,7 @@ class TestOrderPageState extends State<TestOrderPage> {
     return new Scaffold(
         backgroundColor: Colors.white,
         appBar: new AppBarWidget(
-          title: widget.docCat == Config.test_order_complete
-              ? StringZh.completeTestOrderDetail_title
-              : StringZh.arrivalTestOrderDetail_title,
+          title: widget.title,
         ),
         body: mainW);
   }

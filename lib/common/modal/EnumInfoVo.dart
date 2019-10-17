@@ -21,16 +21,16 @@ class EnumInfoVo extends BaseEntity {
   @JsonKey(name: 'status')
   int status;
 
-  ///指标类型（false 单选、true 多选）
-  @JsonKey(name: 'quotaType')
-  bool quotaType;
+  ///选择类型（false 单选、true 多选）
+  @JsonKey(name: 'selectType')
+  bool selectType;
 
   EnumInfoVo(
     this.id,
     this.rowNum,
     this.enumValue,
     this.status,
-    this.quotaType,
+    this.selectType,
   );
 
   factory EnumInfoVo.fromJson(Map<String, dynamic> srcJson) =>

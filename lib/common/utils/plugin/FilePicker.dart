@@ -12,7 +12,7 @@ enum FileType {
 }
 
 class FilePicker {
-  static const MethodChannel _channel = const MethodChannel('file_picker');
+  static const MethodChannel _channel = const MethodChannel('com.szrlzz.qms/file_picker');
   static const String _tag = 'FilePicker';
 
   FilePicker._();
