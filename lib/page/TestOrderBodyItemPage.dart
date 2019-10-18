@@ -229,7 +229,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
               new Text(
                 '检验结果',
                 style: new TextStyle(
-                    fontSize: RLZZConstant.middleTextSize, color: Colors.black),
+                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
               ),
             ],
           ),

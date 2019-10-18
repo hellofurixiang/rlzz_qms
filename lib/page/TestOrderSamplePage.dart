@@ -309,10 +309,12 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
   List<Widget> _getHeadInfo() {
     List<Widget> list = new List();
     if (CommonUtil.isNotEmpty(testOrderInfo.docNo)) {
-      list.add(_getHeadWidget(testOrderInfo.docNo, 150.0));
+      list.add(_getHeadWidget('单号：', testOrderInfo.docNo, 150.0));
     }
     list.add(_getHeadWidget(
-        testOrderInfo.invCode ?? '' + '' + testOrderInfo.invName ?? '', 250.0));
+        '物料：',
+        testOrderInfo.invCode ?? '' + ' ' + testOrderInfo.invName ?? '',
+        250.0));
 
     /*if (widget.docCat == Config.ARRIVAL) {
       list.add(_getHeadWidget(testOrderInfo.supplierName, 200.0));
@@ -322,9 +324,9 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
       list.add(_getHeadWidget(testOrderInfo.cusName, 150.0));
     }*/
 
-    list.add(_getHeadWidget(testOrderInfo.srcDocNo, 150.0));
-    list.add(_getHeadWidget(testOrderInfo.quantity.toString(), 50.0));
-    list.add(_getHeadWidget(testOrderInfo.sampleQty.toString(), 50.0));
+    list.add(_getHeadWidget('来源单据号：', testOrderInfo.srcDocNo, 150.0));
+    list.add(_getHeadWidget('检验数量：', testOrderInfo.quantity.toString(), 50.0));
+    list.add(_getHeadWidget('样本数量：', testOrderInfo.sampleQty.toString(), 50.0));
 
     /*if (widget.docCat == Config.COMPLETE) {
       list.add(_getHeadWidget(testOrderInfo.batchNumber, 60.0));
@@ -336,17 +338,21 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
     return list;
   }
 
-  _getHeadWidget(String text, double width) {
+  _getHeadWidget(String label, String text, double width,
+      {Function onTapFun, Function onLongPress}) {
     return new TextWidget(
       text: text,
       margin: EdgeInsets.only(right: 4.0, left: 4.0),
       height: 30.0,
       width: width,
       onTapFun: () {
-        if (null != text) {
-          WidgetUtil.showRemark(context, remark: text);
+        if (onTapFun == null) {
+          WidgetUtil.showRemark(context, remark: label + text ?? '');
+        } else {
+          onTapFun();
         }
       },
+      onLongPress: onLongPress,
     );
   }
 

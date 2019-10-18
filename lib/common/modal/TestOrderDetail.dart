@@ -141,7 +141,7 @@ class TestOrderDetail extends BaseEntity {
 
   ///检验状态
   @JsonKey(name: 'testState')
-  String testState;
+  bool testState;
 
   ///操作者
   @JsonKey(name: 'producer')

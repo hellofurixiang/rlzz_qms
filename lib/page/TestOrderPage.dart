@@ -109,6 +109,10 @@ class TestOrderPageState extends State<TestOrderPage> {
   ///是否选中整单判定
   bool isAllSelect = false;
 
+  ///最后检验指标索引
+  int lastCompleteIndex = 0;
+  bool isShowCompleteIndex = true;
+
   @override
   void initState() {
     super.initState();
@@ -184,6 +188,7 @@ class TestOrderPageState extends State<TestOrderPage> {
       }
     }
 
+    int completeIndex = 0;
     bool bo = true;
     testItemList.forEach((f) {
       ///检验项目
@@ -200,11 +205,19 @@ class TestOrderPageState extends State<TestOrderPage> {
             bo = false;
           }
 
+          if (null != v.testState && v.testState) {
+            lastCompleteIndex = completeIndex;
+          }
+
           ///排序后数据
           testOrderDetailList.add(v);
+          completeIndex++;
         }
       }
     });
+    if (lastCompleteIndex != 0) {
+      isShowCompleteIndex = false;
+    }
   }
 
   _errorCallBack(err) {
@@ -377,59 +390,60 @@ class TestOrderPageState extends State<TestOrderPage> {
   List<Widget> _getHeadInfo() {
     List<Widget> list = new List();
     if (CommonUtil.isNotEmpty(testOrderInfo.docNo)) {
-      list.add(_getHeadWidget(testOrderInfo.docNo, 150.0));
+      list.add(_getHeadWidget('单号：', testOrderInfo.docNo, 150.0));
     }
     list.add(_getHeadWidget(
-        testOrderInfo.invCode + '' + testOrderInfo.invName, 250.0));
+        '物料：', testOrderInfo.invCode??'' + ' ' + testOrderInfo.invName??'', 250.0));
 
     if (widget.docCat == Config.test_order_arrival) {
-      list.add(_getHeadWidget(testOrderInfo.supplierName, 200.0));
+      list.add(_getHeadWidget('供应商：', testOrderInfo.supplierName, 200.0));
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget(testOrderInfo.cusName, 150.0));
+      list.add(_getHeadWidget('客户：', testOrderInfo.cusName, 150.0));
     }
 
-    list.add(_getHeadWidget(testOrderInfo.srcDocNo, 100.0));
-    list.add(_getHeadWidget(testOrderInfo.quantity.toString(), 50.0));
+    list.add(_getHeadWidget('来源单据号：', testOrderInfo.srcDocNo, 100.0));
+    list.add(_getHeadWidget('检验数量：', testOrderInfo.quantity.toString(), 50.0));
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget(testOrderInfo.batchNumber, 60.0));
+      list.add(_getHeadWidget('批号：', testOrderInfo.batchNumber, 60.0));
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget(testOrderInfo.moDocNo, 100.0,onTapFun: (){
+      list.add(
+          _getHeadWidget('生产订单号：', testOrderInfo.moDocNo, 100.0, onLongPress: () {
         ///生产订单
         showDialog<Null>(
             context: context, //BuildContext对象
             barrierDismissible: false,
             builder: (BuildContext context) {
               return new ProductionOrderPage(
-                detailId: testOrderInfo.moDetailId,
-                moDocNo: testOrderInfo.moDocNo
-              );
+                  detailId: testOrderInfo.moDetailId,
+                  moDocNo: testOrderInfo.moDocNo);
             });
-
       }));
     }
     return list;
   }
 
-  _getHeadWidget(String text, double width,{Function onTapFun}) {
+  _getHeadWidget(String label, String text, double width,
+      {Function onTapFun, Function onLongPress}) {
     return new TextWidget(
       text: text,
       margin: EdgeInsets.only(right: 4.0, left: 4.0),
       height: 30.0,
       width: width,
       onTapFun: () {
-        if(onTapFun==null) {
+        if (onTapFun == null) {
           if (null != text) {
-            WidgetUtil.showRemark(context, remark: text);
+            WidgetUtil.showRemark(context, remark: label + text);
           }
-        }else{
+        } else {
           onTapFun();
         }
       },
+      onLongPress: onLongPress,
     );
   }
 
@@ -580,8 +594,11 @@ class TestOrderPageState extends State<TestOrderPage> {
       f.operTestQtyInfo = f.edited;
 
       if (list != null && list.isNotEmpty && f.edited) {
-        f.testQtyInfoDetail =json.encode(list);//.replaceAll('detailList', 'list');
+        f.testState = true;
+        f.testQtyInfoDetail =
+            json.encode(list); //.replaceAll('detailList', 'list');
       } else {
+        f.testState = false;
         f.testQtyInfoDetail = 'noChange';
       }
 
@@ -620,12 +637,10 @@ class TestOrderPageState extends State<TestOrderPage> {
       ///回退
       Navigator.pop(context);
 
-
-
       ///跳转
-      String urlName='';
+      String urlName = '';
 
-      switch(widget.docCat){
+      switch (widget.docCat) {
         case Config.test_order_complete:
           if (null != testOrderInfo.id) {
             urlName = Config.completeTestOrderListPage;
@@ -726,6 +741,25 @@ class TestOrderPageState extends State<TestOrderPage> {
                 color: RLZZColors.threeLevel,
                 child: new Row(
                   children: _getHeadInfo(),
+                ),
+              ),
+              new Offstage(
+                offstage: isShowCompleteIndex,
+                child: new GestureDetector(
+                  onTap: () {
+                    isShowCompleteIndex = true;
+                    _changeQuotaItemInfo(lastCompleteIndex);
+                  },
+                  child: new Container(
+                    alignment: Alignment.center,
+                    width: width,
+                    height: 35.0,
+                    color: RLZZColors.completeColor,
+                    child: new Text(
+                      '当前已录入到 ${lastCompleteIndex + 1} 行,点击此处继续录入',
+                      style: new TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               ),
               new Expanded(

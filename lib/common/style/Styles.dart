@@ -50,6 +50,9 @@ class RLZZColors {
 
   static const Color itemBodyColor = Color(0xFFeff9fd);
   static const int itemBodyColorValue = 0xFFeff9fd;
+
+  static const Color completeColor = Color(0xFFFFB800);
+
 }
 
 ///文本样式

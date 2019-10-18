@@ -8,6 +8,9 @@ class TextWidget extends StatefulWidget {
   ///点击
   final Function onTapFun;
 
+  ///长按
+  final Function onLongPress;
+
   ///居中
   final bool isCenter;
 
@@ -47,7 +50,7 @@ class TextWidget extends StatefulWidget {
       this.iconWidget,
       this.width,
       this.textWidget,
-      this.margin});
+      this.margin, this.onLongPress});
 
   @override
   TextWidgetState createState() => new TextWidgetState();
@@ -78,6 +81,11 @@ class TextWidgetState extends State<TextWidget> {
               onTap: () {
                 if (null != widget.onTapFun) {
                   widget.onTapFun();
+                }
+              },
+              onLongPress: () {
+                if (null != widget.onLongPress) {
+                  widget.onLongPress();
                 }
               },
               child: new Container(

@@ -47,7 +47,7 @@ TestOrderDetail _$TestOrderDetailFromJson(Map<String, dynamic> json) {
           ?.toList(),
       json['samplingWay'] as String,
       json['samplingProportion'] as String,
-      json['testState'] as String,
+      json['testState'] as bool,
       json['producer'] as String,
       json['measuringToolCode'] as String,
       json['measuringToolName'] as String);
