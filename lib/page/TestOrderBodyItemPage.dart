@@ -326,43 +326,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                 },
                 iconWidget: new GestureDetector(
                   onTap: () {
-                    ///测量值列表页面
-                    showDialog<Null>(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          if (Config.quotaTypeEnum ==
-                              widget.cacheInfo.quotaCat) {
-                            return new TestValueEnumListPage(
-                              testOrderDetailId: widget.cacheInfo.id,
-                              qty: widget.cacheInfo.quantity,
-                              testQuotaCode: widget.cacheInfo.testQuotaCode,
-                              valueList: widget.cacheInfo.testQtyInfoDetailList,
-                              standardValue: widget.cacheInfo.standardValue,
-                              okFun: (String testQtyInfo, List valueList) {
-                                widget.cacheInfo.testQtyInfoDetailList =
-                                    valueList;
-                                setState(() {
-                                  widget.cacheInfo.testQtyInfo = testQtyInfo;
-                                });
-                              },
-                            );
-                          }
-                          return new TestValueListPage(
-                            testOrderDetailId: widget.cacheInfo.id,
-                            qty: widget.cacheInfo.quantity,
-                            quotaCat: widget.cacheInfo.quotaCat,
-                            standardValue: widget.cacheInfo.standardValue,
-                            valueList: widget.cacheInfo.testQtyInfoDetailList,
-                            okFun: (String testQtyInfo, List valueList) {
-                              widget.cacheInfo.testQtyInfoDetailList =
-                                  valueList;
-                              setState(() {
-                                widget.cacheInfo.testQtyInfo = testQtyInfo;
-                              });
-                            },
-                          );
-                        });
+                    showTestValueDialog();
                   },
                   child: new Container(
                     decoration: new BoxDecoration(
@@ -527,6 +491,44 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
               setState(() {
                 widget.cacheInfo.badReasonCode = obj['arcCode'];
                 widget.cacheInfo.badReasonName = obj['arcName'];
+              });
+            },
+          );
+        });
+  }
+
+  void showTestValueDialog() {
+    ///测量值列表页面
+    showDialog<Null>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          if (Config.quotaTypeEnum == widget.cacheInfo.quotaCat) {
+            return new TestValueEnumListPage(
+              testOrderDetailId: widget.cacheInfo.id,
+              qty: widget.cacheInfo.quantity,
+              testQuotaCode: widget.cacheInfo.testQuotaCode,
+              valueList: widget.cacheInfo.testQtyInfoDetailList,
+              standardValue: widget.cacheInfo.standardValue,
+              okFun: (String testQtyInfo, List valueList) {
+                widget.cacheInfo.testQtyInfoDetailList = valueList;
+                setState(() {
+                  widget.cacheInfo.testQtyInfo = testQtyInfo;
+                });
+              },
+            );
+          }
+          return new TestValueListPage(
+            testOrderDetailId: widget.cacheInfo.id,
+            docCat: widget.testOrderInfo.docCat,
+            qty: widget.cacheInfo.quantity,
+            quotaCat: widget.cacheInfo.quotaCat,
+            standardValue: widget.cacheInfo.standardValue,
+            valueList: widget.cacheInfo.testQtyInfoDetailList,
+            okFun: (String testQtyInfo, List valueList) {
+              widget.cacheInfo.testQtyInfoDetailList = valueList;
+              setState(() {
+                widget.cacheInfo.testQtyInfo = testQtyInfo;
               });
             },
           );

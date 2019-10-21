@@ -213,7 +213,8 @@ class Config {
   static const mainPage = '/mainPage';
   static const arrivalWaitTaskListPage = '/arrivalWaitTaskListPage';
   static const arrivalTestOrderListPage = '/arrivalTestOrderListPage';
-  static const arrivalTestOrderSampleListPage = '/arrivalTestOrderSampleListPage';
+  static const arrivalTestOrderSampleListPage =
+      '/arrivalTestOrderSampleListPage';
 
   static const iqcWaitTaskListPage = '/iqcWaitTaskListPage';
   static const iqcTestOrderListPage = '/iqcTestOrderListPage';
@@ -226,7 +227,8 @@ class Config {
 
   static const completeWaitTaskListPage = '/completeWaitTaskListPage';
   static const completeTestOrderListPage = '/completeTestOrderListPage';
-  static const completeTestOrderSampleListPage = '/completeTestOrderSampleListPage';
+  static const completeTestOrderSampleListPage =
+      '/completeTestOrderSampleListPage';
 
   ///来料检验报表类型
   static const arrivalMonthReport = 0;
@@ -236,12 +238,86 @@ class Config {
   ///与原生交互报表控件ID
   static const chartViewTypeId = 'com.szrlzz.qms/combinedChart';
 
-
-
   ///不良原因参照
   static const badReasonRefUrl = '/badReason/findBadReasonRef';
+
   ///测量工具
   static const measuringToolRefUrl = '/findMeasuringToolRef';
 
+  static const defWaitList_view  = 'dld:quarantinetask-default-list:list';
+  static const defTestOrderList_view  = 'dld:testorder-default-list:list';
+  static const def_view = 'form:testOrder:default:view';
+  static const def_edit = 'form:testOrder:default:edit';
+  static const def_save = 'form:testOrder:default:save';
+  static const def_audit = 'form:testOrder:default:audit';
+  static const def_unaudit = 'form:testOrder:default:unaudit';
+  static const def_del = 'form:testOrder:default:del';
 
+
+  static const defSampleList_view = 'dld:testorder-default-sample-list:list';
+  static const defSample_view = 'form:testOrder:defSample:view';
+  static const defSample_edit = 'form:testOrder:defSample:edit';
+  static const defSample_save = 'form:testOrder:defSample:save';
+  static const defSample_audit = 'form:testOrder:defSample:audit';
+  static const defSample_unaudit = 'form:testOrder:defSample:unaudit';
+  static const defSample_del = 'form:testOrder:defSample:del';
+
+  static const arrivalWaitList_view  = 'dld:quarantinetask-002-list:list';
+  static const arrivalTestOrderList_view  = 'dld:testorder-002-list:list';
+  static const arrival_view = 'form:testOrder:002:view';
+  static const arrival_edit = 'form:testOrder:002:edit';
+  static const arrival_save = 'form:testOrder:002:save';
+  static const arrival_audit = 'form:testOrder:002:audit';
+  static const arrival_unaudit = 'form:testOrder:002:unaudit';
+  static const arrival_del = 'form:testOrder:002:del';
+
+
+  static const arrivalSampleList_view = 'dld:testorder-002-sample-list:list';
+  static const arrivalSample_view = 'form:testOrder:002Sample:view';
+  static const arrivalSample_edit = 'form:testOrder:002Sample:edit';
+  static const arrivalSample_save = 'form:testOrder:002Sample:save';
+  static const arrivalSample_audit = 'form:testOrder:002Sample:audit';
+  static const arrivalSample_unaudit = 'form:testOrder:002Sample:unaudit';
+  static const arrivalSample_del = 'form:testOrder:002Sample:del';
+
+  static const iqcWaitList_view = 'dld:iqcWaitList:list';
+  static const iqcTestOrderList_view  = 'dld:testorder-iqc-list:list';
+  static const iqc_view = 'form:testOrder:iqc:view';
+  static const iqc_edit = 'form:testOrder:iqc:edit';
+  static const iqc_save = 'form:testOrder:iqc:save';
+  static const iqc_audit = 'form:testOrder:iqc:audit';
+  static const iqc_unaudit = 'form:testOrder:iqc:unaudit';
+  static const iqc_del = 'form:testOrder:iqc:del';
+
+  static const ipqcWaitList_view  = 'dld:ipqcWaitList:list';
+  static const ipqcTestOrderList_view  = 'dld:testorder-ipqc-list:list';
+  static const ipqc_view = 'form:testOrder:ipqc:view';
+  static const ipqc_edit = 'form:testOrder:ipqc:edit';
+  static const ipqc_save = 'form:testOrder:ipqc:save';
+  static const ipqc_audit = 'form:testOrder:ipqc:audit';
+  static const ipqc_unaudit = 'form:testOrder:ipqc:unaudit';
+  static const ipqc_del = 'form:testOrder:ipqc:del';
+
+  static const pqcWaitList_view  = 'dld:pqcWaitList:list';
+  static const pqcTestOrderList_view  = 'dld:testorder-pqc-list:list';
+  static const pqc_view = 'form:testOrder:pqc:view';
+  static const pqc_edit = 'form:testOrder:pqc:edit';
+  static const pqc_save = 'form:testOrder:pqc:save';
+  static const pqc_audit = 'form:testOrder:pqc:audit';
+  static const pqc_unaudit = 'form:testOrder:pqc:unaudit';
+  static const pqc_del = 'form:testOrder:pqc:del';
+
+  static const fqcWaitList_view  = 'dld:fqcWaitList:list';
+  static const fqcTestOrderList_view  = 'dld:testorder-fqc-list:list';
+  static const fqc_view = 'form:testOrder:fqc:view';
+  static const fqc_edit = 'form:testOrder:fqc:edit';
+  static const fqc_save = 'form:testOrder:fqc:save';
+  static const fqc_audit = 'form:testOrder:fqc:audit';
+  static const fqc_unaudit = 'form:testOrder:fqc:unaudit';
+  static const fqc_del = 'form:testOrder:fqc:del';
+
+
+  static const arrivalTestOrderStatisticalForMonth='dld:arrivalTestOrderStatisticalForMonth-list:list';
+  static const arrivalTestOrderStatisticalForWeek='dld:arrivalTestOrderStatisticalForWeek-list:list';
+  static const arrivalTestOrderStatisticalForSupplier='dld:arrivalTestOrderStatisticalForSupplier-list:list';
 }

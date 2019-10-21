@@ -14,6 +14,9 @@ class TestOrderItemQuotaPage extends StatefulWidget {
   ///选中选项数据方法
   final Function changeQuotaItemInfo;
 
+  ///滚动控制器
+  final ScrollController scrollController;
+
   ///整单判定背景色
   final Color whole;
 
@@ -22,6 +25,7 @@ class TestOrderItemQuotaPage extends StatefulWidget {
     @required this.testOrderInfo,
     @required this.changeQuotaItemInfo,
     @required this.whole,
+    this.scrollController,
   }) : super(key: key);
 
   @override
@@ -33,9 +37,17 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
   ///整单判定背景色
   //Color whole = RLZZColors.threeLevel;
 
+  ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
+
+    if (widget.scrollController == null) {
+      _scrollController = new ScrollController();
+    } else {
+      _scrollController = widget.scrollController;
+    }
   }
 
   ///当整个页面dispose时，记得把控制器也dispose掉，释放内存
@@ -147,6 +159,7 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
           ),
           new Expanded(
             child: new ListView(
+              controller: _scrollController,
               ///根据状态返回子控件
               children: _renderItemListInfo(),
             ),

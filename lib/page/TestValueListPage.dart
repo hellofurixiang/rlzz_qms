@@ -15,6 +15,9 @@ class TestValueListPage extends StatefulWidget {
   ///检验单表体ID
   final String testOrderDetailId;
 
+  ///单据类型
+  final String docCat;
+
   ///检测值列表
   final List valueList;
 
@@ -37,6 +40,7 @@ class TestValueListPage extends StatefulWidget {
     @required this.okFun,
     @required this.valueList,
     @required this.standardValue,
+    @required this.docCat,
     this.testOrderDetailId,
   });
 
@@ -75,13 +79,17 @@ class TestValueListPageState extends State<TestValueListPage> {
       count++;
     }
     for (int i = 0; i < count; i++) {
-      InputTextValue inputVal = InputTextValue.empty();
+      InputTextValue inputVal = InputTextValue.rowNum(i+1);
 
-      ///预制标准值
+      ///预置标准值
       if (Config.quotaTypeEntryNumber == widget.quotaCat) {
-        try {
-          inputVal.testQty = double.parse(widget.standardValue).toString();
-        } catch (e) {}
+        ///IQC、FQC特殊处理
+        if (widget.docCat != Config.test_order_iqc &&
+            widget.docCat != Config.test_order_fqc) {
+          try {
+            inputVal.testQty = double.parse(widget.standardValue).toString();
+          } catch (e) {}
+        }
       } else {
         inputVal.testQty = widget.standardValue;
       }
@@ -100,6 +108,7 @@ class TestValueListPageState extends State<TestValueListPage> {
             for (int i = 0; i < res.length; i++) {
               list.add(InputNumberValue.fromJson(res[i]));
             }
+
           } else {
             for (int i = 0; i < res.length; i++) {
               list.add(InputTextValue.fromJson(res[i]));
@@ -116,13 +125,18 @@ class TestValueListPageState extends State<TestValueListPage> {
   changeInitData(List list) {
     setState(() {
       //resList = res;
-      for (int i = 0; i < dataList.length; i++) {
+      /*for (int i = 0; i < dataList.length; i++) {
         for (int j = 0; j < list.length; j++) {
           if (list[j].rowNum == i + 1) {
             dataList[i].testQty = list[j].testQty.toString();
             break;
           }
         }
+      }*/
+      for (int j = 0; j < list.length; j++) {
+        int rowNum = list[j].rowNum;
+
+        dataList[rowNum - 1].testQty = list[j].testQty.toString();
       }
       wList = getItems();
     });
@@ -136,6 +150,7 @@ class TestValueListPageState extends State<TestValueListPage> {
     ///数字
     if (Config.quotaTypeEntryNumber == widget.quotaCat) {
       List<double> list = List();
+
       for (int i = 0; i < dataList.length; i++) {
         if (CommonUtil.isNotEmpty(dataList[i].testQty)) {
           InputNumberValue v = InputNumberValue.empty();
@@ -150,10 +165,16 @@ class TestValueListPageState extends State<TestValueListPage> {
       if (list.length == 1) {
         testQtyInfo = list[0].toString();
       } else if (list.length > 1) {
-        list.sort((left, right) => left.compareTo(right));
+        ///IQC、FQC特殊处理
+        if (widget.docCat != Config.test_order_iqc &&
+            widget.docCat != Config.test_order_fqc) {
+          list.sort((left, right) => left.compareTo(right));
 
-        testQtyInfo =
-            list[0].toString() + '-' + list[list.length - 1].toString();
+          testQtyInfo =
+              list[0].toString() + '-' + list[list.length - 1].toString();
+        } else {
+          testQtyInfo = list.join('|');
+        }
       }
 
       ///文本

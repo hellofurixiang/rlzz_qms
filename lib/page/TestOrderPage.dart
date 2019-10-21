@@ -215,7 +215,8 @@ class TestOrderPageState extends State<TestOrderPage> {
         }
       }
     });
-    if (lastCompleteIndex != 0) {
+    if (lastCompleteIndex != 0 &&
+        lastCompleteIndex != testOrderDetailList.length - 1) {
       isShowCompleteIndex = false;
     }
   }
@@ -393,7 +394,9 @@ class TestOrderPageState extends State<TestOrderPage> {
       list.add(_getHeadWidget('单号：', testOrderInfo.docNo, 150.0));
     }
     list.add(_getHeadWidget(
-        '物料：', testOrderInfo.invCode??'' + ' ' + testOrderInfo.invName??'', 250.0));
+        '物料：',
+        testOrderInfo.invCode ?? '' + ' ' + testOrderInfo.invName ?? '',
+        250.0));
 
     if (widget.docCat == Config.test_order_arrival) {
       list.add(_getHeadWidget('供应商：', testOrderInfo.supplierName, 200.0));
@@ -411,8 +414,8 @@ class TestOrderPageState extends State<TestOrderPage> {
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(
-          _getHeadWidget('生产订单号：', testOrderInfo.moDocNo, 100.0, onLongPress: () {
+      list.add(_getHeadWidget('生产订单号：', testOrderInfo.moDocNo, 100.0,
+          onLongPress: () {
         ///生产订单
         showDialog<Null>(
             context: context, //BuildContext对象
@@ -718,6 +721,7 @@ class TestOrderPageState extends State<TestOrderPage> {
       testOrderInfo: testOrderInfo,
       changeQuotaItemInfo: _changeQuotaItemInfo,
       whole: whole,
+      scrollController: _itemScrollController,
     );
     //_getQuotaImageListBytes();
 
@@ -726,6 +730,8 @@ class TestOrderPageState extends State<TestOrderPage> {
 
     return w;
   }
+  ///指标列表滚动控制器
+  ScrollController _itemScrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -749,6 +755,12 @@ class TestOrderPageState extends State<TestOrderPage> {
                   onTap: () {
                     isShowCompleteIndex = true;
                     _changeQuotaItemInfo(lastCompleteIndex);
+
+                    ///滚动到指定指标
+                    _itemScrollController.animateTo(
+                        double.parse(lastCompleteIndex.toString()) * 30,
+                        duration: new Duration(seconds: 2),
+                        curve: Curves.ease);
                   },
                   child: new Container(
                     alignment: Alignment.center,

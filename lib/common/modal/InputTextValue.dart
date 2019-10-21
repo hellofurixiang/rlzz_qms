@@ -19,6 +19,8 @@ class InputTextValue extends BaseEntity {
 
   InputTextValue.empty();
 
+  InputTextValue.rowNum(this.rowNum);
+
   InputTextValue(
     this.rowNum,
     this.testQty,

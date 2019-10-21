@@ -1,3 +1,4 @@
+import 'package:qms/common/config/Config.dart';
 import 'package:qms/page/ArrivalTestOrderSampleListPage.dart';
 import 'package:qms/page/ArrivalWaitTaskListPage.dart';
 import 'package:qms/page/ArrivalTestOrderListPage.dart';
@@ -25,7 +26,7 @@ class MenuConfig {
           'tabName': '来料待检任务',
           'code': 'arrivalWaitTotal',
           'info': {'url': new ArrivalWaitTaskListPage(), 'img': 'task.png'},
-          'permissions':'dld:quarantinetask-002-list:list'
+          'permissions': Config.arrivalWaitList_view
         },
         {
           'tabName': '检验单',
@@ -34,15 +35,17 @@ class MenuConfig {
             'url': new ArrivalTestOrderListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions':'dld:testorder-002-list:list'
+          'permissions': Config.arrivalTestOrderList_view
         },
         {
           'tabName': '检验单(按样本)',
           'code': 'arrivalSampleTotal',
-          'info': {'url': new ArrivalTestOrderSampleListPage(), 'img': 'tasks_blue.png'},
-          'permissions':'dld:testorder-002-sample-list:list'
+          'info': {
+            'url': new ArrivalTestOrderSampleListPage(),
+            'img': 'tasks_blue.png'
+          },
+          'permissions': Config.arrivalSampleList_view
         }
-
       ]
     },
     {
@@ -55,7 +58,7 @@ class MenuConfig {
             'url': new CompleteWaitTaskListPage(),
             'img': 'task_finished.png'
           },
-          'permissions':'dld:quarantinetask-default-list:list'
+          'permissions': Config.defWaitList_view
         },
         {
           'tabName': '检验单',
@@ -64,7 +67,7 @@ class MenuConfig {
             'url': new CompleteTestOrderListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions':'dld:testorder-default-list:list'
+          'permissions': Config.defTestOrderList_view
         },
         {
           'tabName': '检验单(按样本)',
@@ -73,7 +76,7 @@ class MenuConfig {
             'url': new CompleteTestOrderSampleListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions':'dld:testorder-default-sample-list:list'
+          'permissions': Config.defSampleList_view
         }
       ]
     },
@@ -83,20 +86,14 @@ class MenuConfig {
         {
           'tabName': '待检任务',
           'code': 'iqcWaitTotal',
-          'info': {
-            'url': new IqcWaitTaskListPage(),
-            'img': 'task.png'
-          },
-          'permissions':'dld:iqcWaitList:list'
+          'info': {'url': new IqcWaitTaskListPage(), 'img': 'task.png'},
+          'permissions': Config.iqcWaitList_view
         },
         {
           'tabName': '检验单',
           'code': 'iqcTotal',
-          'info': {
-            'url': new IqcTestOrderListPage(),
-            'img': 'tasks_blue.png'
-          },
-          'permissions':'dld:testorder-iqc-list:list'
+          'info': {'url': new IqcTestOrderListPage(), 'img': 'tasks_blue.png'},
+          'permissions': Config.iqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -114,22 +111,15 @@ class MenuConfig {
         {
           'tabName': '待检任务',
           'code': 'pqcWaitTotal',
-          'info': {
-            'url': new PqcWaitTaskListPage(),
-            'img': 'task.png'
-          },
-          'permissions':'dld:pqcWaitList:list'
+          'info': {'url': new PqcWaitTaskListPage(), 'img': 'task.png'},
+          'permissions': Config.pqcWaitList_view
         },
         {
           'tabName': '检验单',
           'code': 'pqcTotal',
-          'info': {
-            'url': new PqcTestOrderListPage(),
-            'img': 'tasks_blue.png'
-          },
-          'permissions':'dld:testorder-pqc-list:list'
+          'info': {'url': new PqcTestOrderListPage(), 'img': 'tasks_blue.png'},
+          'permissions': Config.pqcTestOrderList_view
         },
-
       ]
     },
     {
@@ -138,20 +128,14 @@ class MenuConfig {
         {
           'tabName': '待检任务',
           'code': 'ipqcWaitTotal',
-          'info': {
-            'url': new IpqcWaitTaskListPage(),
-            'img': 'task.png'
-          },
-          'permissions':'dld:ipqcWaitList:list'
+          'info': {'url': new IpqcWaitTaskListPage(), 'img': 'task.png'},
+          'permissions': Config.ipqcWaitList_view
         },
         {
           'tabName': '检验单',
           'code': 'ipqcTotal',
-          'info': {
-            'url': new IpqcTestOrderListPage(),
-            'img': 'tasks_blue.png'
-          },
-          'permissions':'dld:testorder-ipqc-list:list'
+          'info': {'url': new IpqcTestOrderListPage(), 'img': 'tasks_blue.png'},
+          'permissions': Config.ipqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -169,20 +153,14 @@ class MenuConfig {
         {
           'tabName': '待检任务',
           'code': 'fqcWaitTotal',
-          'info': {
-            'url': new FqcWaitTaskListPage(),
-            'img': 'task.png'
-          },
-          'permissions':'dld:fqcWaitList:list'
+          'info': {'url': new FqcWaitTaskListPage(), 'img': 'task.png'},
+          'permissions': Config.fqcWaitList_view
         },
         {
           'tabName': '检验单',
           'code': 'fqcTotal',
-          'info': {
-            'url': new FqcTestOrderListPage(),
-            'img': 'tasks_blue.png'
-          },
-          'permissions':'dld:testorder-fqc-list:list'
+          'info': {'url': new FqcTestOrderListPage(), 'img': 'tasks_blue.png'},
+          'permissions': Config.fqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -201,19 +179,22 @@ class MenuConfig {
           'tabName': '来料:质量分析(按月)',
           'code': 'salOutbound',
           'info': {'url': new ArrivalMonthReport(), 'img': 'report_blue.png'},
-          'permissions':'dld:arrivalTestOrderStatisticalForMonth-list:list'
+          'permissions': Config.arrivalTestOrderStatisticalForMonth
         },
         {
           'tabName': '来料:质量分析(按周)',
           'code': 'materialOutbound',
           'info': {'url': new ArrivalWeekReport(), 'img': 'report_blue.png'},
-          'permissions':'dld:arrivalTestOrderStatisticalForWeek-list:list'
+          'permissions': Config.arrivalTestOrderStatisticalForWeek
         },
         {
           'tabName': '来料:质量分析(按供应商)',
           'code': 'otherOutbound',
-          'info': {'url': new ArrivalSupplierReport(), 'img': 'report_blue.png'},
-          'permissions':'dld:arrivalTestOrderStatisticalForSupplier-list:list'
+          'info': {
+            'url': new ArrivalSupplierReport(),
+            'img': 'report_blue.png'
+          },
+          'permissions': Config.arrivalTestOrderStatisticalForSupplier
         }
       ]
     }
