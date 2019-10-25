@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:qms/common/utils/CommonUtil.dart';
 
 ///页面跳转服务类
 class NavigatorUtil {
   ///页面跳转
   static goToPage(BuildContext context, Widget url,
-      {String accessCode, Function backCall}) async {
-    /*if (null != accessCode && '' != accessCode) {
-      List<dynamic> resources = await MySelfInfo.getUserResources();
-
-      if (!resources.contains(accessCode)) {
-        Fluttertoast.showToast(
-            msg: StringZh.tip_no_permission, timeInSecForIos: 3);
-        return;
-      }
-    }*/
-
-    Navigator.push(context, new MaterialPageRoute(builder: (context) => url))
-        .then((Object obj) {
-      if (null != backCall) backCall(obj);
-    });
+      {String permissions, String permissionsText,Function backCall}) async {
+    if (CommonUtil.checkUserPermissions(
+        permissions, permissionsText)) {
+      Navigator.push(context, new MaterialPageRoute(builder: (context) => url))
+          .then((Object obj) {
+        if (null != backCall) backCall(obj);
+      });
+    }
   }
 
   static pushNamedAndRemoveUntil(BuildContext context, String urlName) async {

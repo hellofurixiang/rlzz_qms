@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
-import 'package:qms/common/modal/AttachmentVo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetail.dart';
@@ -13,9 +12,8 @@ import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
-import 'package:qms/common/utils/NavigatorUtil.dart';
+import 'package:qms/common/utils/TestOrderService.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
-import 'package:qms/page/ArrivalTestOrderListPage.dart';
 import 'package:qms/page/ProductionOrderPage.dart';
 import 'package:qms/page/TestOrderBodyItemPage.dart';
 import 'package:qms/page/TestOrderHeadInfoPage.dart';
@@ -475,33 +473,14 @@ class TestOrderPageState extends State<TestOrderPage> {
     if (!isAdd && isAllSelect) {
       if (!auditStatus) {
         btnList.add(_getOperBtn(StringZh.audit, () {
-          WidgetUtil.showLoadingDialog(context, StringZh.auditing);
-          QmsService.auditTestOrder(
-              context,
-              testOrderInfo.id,
-              testOrderInfo.docCat,
-              testOrderInfo.version,
-              operSuccessCallBack,
-              () {});
+          TestOrderService.checkAuditPermissions(context, testOrderInfo);
         }, 80.0, 45.0, 40.0));
         btnList.add(_getOperBtn(StringZh.del, () {
-          QmsService.delTestOrder(
-              context,
-              testOrderInfo.id,
-              testOrderInfo.docCat,
-              testOrderInfo.version,
-              operSuccessCallBack,
-              () {});
+          TestOrderService.checkDelPermissions(context, testOrderInfo);
         }, 80.0, 45.0, 40.0));
       } else {
         btnList.add(_getOperBtn(StringZh.unAudit, () {
-          QmsService.unAuditTestOrder(
-              context,
-              testOrderInfo.id,
-              testOrderInfo.docCat,
-              testOrderInfo.version,
-              operSuccessCallBack,
-              () {});
+          TestOrderService.checkUnauditPermissions(context, testOrderInfo);
         }, 80.0, 45.0, 80.0));
       }
     }
@@ -511,9 +490,12 @@ class TestOrderPageState extends State<TestOrderPage> {
         _changeQuotaItemInfo(selIndex + 1);
       }, 80.0, 45.0, 40.0));
     }
-    //if (isAllSelect) {
-    btnList.add(_getOperBtn(StringZh.submit, submitFun, 80.0, 45.0, 40.0));
-    //}
+    if (!auditStatus) {
+      btnList.add(_getOperBtn(StringZh.submit, () {
+        TestOrderService.checkSavePermissions(context, widget.docCat,
+            widget.testCat, setInfo, isAdd, testOrderInfo);
+      }, 80.0, 45.0, 40.0));
+    }
     if (!isAllSelect) {
       btnList
           .add(_getOperBtn(StringZh.nextStep, nextStepFun, 80.0, 45.0, 40.0));
@@ -555,146 +537,6 @@ class TestOrderPageState extends State<TestOrderPage> {
       ..producer = cacheInfo.producer;
   }
 
-  ///提交操作
-  void submitFun() async {
-    setInfo();
-
-    if (isAdd) {
-      testOrderInfo.docCat = widget.docCat;
-      testOrderInfo.testCat = widget.testCat;
-    }
-
-    ///表头附件
-    if (null != testOrderInfo.badEnclosureList &&
-        testOrderInfo.badEnclosureList.length > 0) {
-      List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-      testOrderInfo.badEnclosureList.forEach((v) {
-        if (CommonUtil.isNotEmpty(v.id)) {
-          AttachmentVo attachmentVo = AttachmentVo.empty()
-            ..id = v.id
-            ..name = v.name
-            ..size = v.size;
-          badEnclosureList.add(attachmentVo);
-        }
-      });
-      testOrderInfo.enclosureList = badEnclosureList;
-    } else {
-      if (CommonUtil.isNotEmpty(testOrderInfo.enclosure)) {
-        List arr = json.decode(testOrderInfo.enclosure.replaceAll('\'', '"'));
-
-        List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-        arr.forEach((v) {
-          badEnclosureList.add(AttachmentVo.fromJson(v));
-        });
-        testOrderInfo.enclosureList = badEnclosureList;
-      }
-    }
-
-    ///表体附件
-    testOrderInfo.testOrderDetail.forEach((f) {
-      List list = f.testQtyInfoDetailList;
-
-      f.operTestQtyInfo = f.edited;
-
-      if (list != null && list.isNotEmpty && f.edited) {
-        f.testState = true;
-        f.testQtyInfoDetail =
-            json.encode(list); //.replaceAll('detailList', 'list');
-      } else {
-        f.testState = false;
-        f.testQtyInfoDetail = 'noChange';
-      }
-
-      if (null != f.badEnclosureList && f.badEnclosureList.length > 0) {
-        List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-        f.badEnclosureList.forEach((v) {
-          if (CommonUtil.isNotEmpty(v.id)) {
-            AttachmentVo attachmentVo = AttachmentVo.empty()
-              ..id = v.id
-              ..name = v.name
-              ..size = v.size;
-            badEnclosureList.add(attachmentVo);
-          }
-        });
-        f.enclosureList = badEnclosureList;
-      } else {
-        if (CommonUtil.isNotEmpty(f.enclosure)) {
-          List arr = json.decode(f.enclosure.replaceAll('\'', '"'));
-
-          List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-          arr.forEach((v) {
-            badEnclosureList.add(AttachmentVo.fromJson(v));
-          });
-          f.enclosureList = badEnclosureList;
-        }
-      }
-    });
-
-    WidgetUtil.showLoadingDialog(context, StringZh.submiting);
-    QmsService.submitTestOrder(context, testOrderInfo, (data) {
-      Fluttertoast.showToast(msg: data, timeInSecForIos: 3);
-
-      ///消除加载控件
-      Navigator.pop(context);
-
-      ///回退
-      Navigator.pop(context);
-
-      ///跳转
-      String urlName = '';
-
-      switch (widget.docCat) {
-        case Config.test_order_complete:
-          if (null != testOrderInfo.id) {
-            urlName = Config.completeTestOrderListPage;
-          } else {
-            urlName = Config.completeWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_arrival:
-          if (null != testOrderInfo.id) {
-            urlName = Config.arrivalTestOrderListPage;
-          } else {
-            urlName = Config.arrivalWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_iqc:
-          if (null != testOrderInfo.id) {
-            urlName = Config.iqcTestOrderListPage;
-          } else {
-            urlName = Config.iqcWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_fqc:
-          if (null != testOrderInfo.id) {
-            urlName = Config.fqcTestOrderListPage;
-          } else {
-            urlName = Config.fqcWaitTaskListPage;
-          }
-          break;
-        default:
-          break;
-      }
-
-      NavigatorUtil.pushReplacementNamed(context, urlName);
-    }, (err) {
-      Navigator.pop(context);
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
-    });
-  }
-
-  ///审核、弃审、删除回调函数
-  void operSuccessCallBack() {
-    Navigator.pop(context);
-    NavigatorUtil.goToPage(context, new ArrivalTestOrderListPage());
-    Fluttertoast.showToast(msg: '操作成功', timeInSecForIos: 3);
-  }
-
-  void operErrorCallBack(err) {
-    Navigator.pop(context);
-    Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
-  }
-
   Widget _getOperBtn(String text, Function onTap, double width, double height,
       double marginRight) {
     return new GestureDetector(
@@ -730,6 +572,7 @@ class TestOrderPageState extends State<TestOrderPage> {
 
     return w;
   }
+
   ///指标列表滚动控制器
   ScrollController _itemScrollController = new ScrollController();
 

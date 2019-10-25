@@ -58,7 +58,7 @@ class MenuConfig {
             'url': new CompleteWaitTaskListPage(),
             'img': 'task_finished.png'
           },
-          'permissions': Config.defWaitList_view
+          'permissions': Config.completeWaitList_view
         },
         {
           'tabName': '检验单',
@@ -67,7 +67,7 @@ class MenuConfig {
             'url': new CompleteTestOrderListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.defTestOrderList_view
+          'permissions': Config.completeTestOrderList_view
         },
         {
           'tabName': '检验单(按样本)',
@@ -76,7 +76,7 @@ class MenuConfig {
             'url': new CompleteTestOrderSampleListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.defSampleList_view
+          'permissions': Config.completeSampleList_view
         }
       ]
     },

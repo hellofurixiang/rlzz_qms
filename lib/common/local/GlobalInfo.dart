@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 
 class GlobalInfo {
   // 工厂模式
@@ -18,13 +18,13 @@ class GlobalInfo {
     return _instance;
   }
 
-  List<String> userResources;
+  List<String> userPermissions;
 
-  getUserResources() {
-    return userResources ?? <String>[];
+  getUserPermissions() {
+    return userPermissions ?? <String>[];
   }
 
-  setUserResources(List<String> val) {
-    userResources = val;
+  setUserPermissions(List<String> val) {
+    userPermissions = val;
   }
 }

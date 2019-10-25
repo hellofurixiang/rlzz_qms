@@ -49,6 +49,8 @@ TestOrderDetail _$TestOrderDetailFromJson(Map<String, dynamic> json) {
       json['samplingProportion'] as String,
       json['testState'] as bool,
       json['producer'] as String,
+      json['unitCode'] as String,
+      json['unitName'] as String,
       json['measuringToolCode'] as String,
       json['measuringToolName'] as String);
 }
@@ -90,6 +92,8 @@ Map<String, dynamic> _$TestOrderDetailToJson(TestOrderDetail instance) =>
       'testState': instance.testState,
       'producer': instance.producer,
       'operTestQtyInfo': instance.operTestQtyInfo,
+      'unitCode': instance.unitCode,
+      'unitName': instance.unitName,
       'measuringToolCode': instance.measuringToolCode,
       'measuringToolName': instance.measuringToolName
     };

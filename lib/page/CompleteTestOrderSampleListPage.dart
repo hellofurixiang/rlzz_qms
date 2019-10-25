@@ -156,7 +156,9 @@ class CompleteTestOrderSampleListPageState
                 docCat: Config.test_order_complete_sample,
                 testCat: Config.text_fqc,
                 title: StringZh.completeTestOrderSampleDetail_title
-            ));
+            ),
+            permissions: Config.completeSample_view,
+            permissionsText: StringZh.completeTestOrderSampleDetail_view);
 
         break;
 

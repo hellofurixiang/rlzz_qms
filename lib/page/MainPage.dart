@@ -96,7 +96,7 @@ class MainPageState extends State<MainPage> {
 
     List items = menuConfig.qmsMenuList;
 
-    List<String> resources = GlobalInfo.instance.getUserResources();
+    List<String> resources = GlobalInfo.instance.getUserPermissions();
 
     ///一行三列
     var crossAxisCount = 3;

@@ -8,10 +8,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/net/LogUtils.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
 import 'package:qms/common/utils/plugin/SimplePermissions.dart';
 
@@ -486,5 +488,31 @@ class CommonUtil {
     }
 
     return int.parse(oldVal.trim());
+  }
+
+  ///获取用户权限列表
+  static List<String> getUserPermissions() {
+    return GlobalInfo.instance.getUserPermissions();
+  }
+
+  ///检查是否有对应权限
+  static bool checkUserPermissions(String permissions, String permissionsText) {
+    if (isEmpty(permissions)) {
+      return true;
+    }
+    List<String> list = GlobalInfo.instance.getUserPermissions();
+
+    if (Config.debug) {
+      LogUtils.i('info:', '权限 $permissionsText:$permissions');
+    }
+
+    if (list.contains(permissions)) {
+      return true;
+    } else {
+      Fluttertoast.showToast(
+          msg: getText(StringZh.tip_permissions_error, [permissionsText]),
+          timeInSecForIos: 3);
+      return false;
+    }
   }
 }

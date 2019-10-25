@@ -135,7 +135,7 @@ class ApiUtil {
 
             ///获取用户权限
             GlobalInfo.instance
-                .setUserResources(List<String>.from(response.data));
+                .setUserPermissions(List<String>.from(response.data));
             break;
           default:
             break;

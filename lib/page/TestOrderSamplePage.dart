@@ -10,10 +10,12 @@ import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetailTestQuota.dart';
 import 'package:qms/common/modal/TestOrderSampleDetail.dart';
 import 'package:qms/common/net/QmsSampleService.dart';
+import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
+import 'package:qms/common/utils/TestOrderSampleService.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/TestOrderSampleBodyItemPage.dart';
 import 'package:qms/page/TestOrderSampleHeadInfoPage.dart';
@@ -381,25 +383,35 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
   List<Widget> _getOperBtns() {
     List<Widget> btnList = [];
 
+    if (!isAdd && isAllSelect) {
+      if (!auditStatus) {
+        btnList.add(_getOperBtn(StringZh.audit, () {
+          TestOrderSampleService.checkAuditPermissions(context, testOrderInfo);
+        }, 80.0, 45.0, 40.0));
+        btnList.add(_getOperBtn(StringZh.del, () {
+          TestOrderSampleService.checkDelPermissions(context, testOrderInfo);
+        }, 80.0, 45.0, 40.0));
+      } else {
+        btnList.add(_getOperBtn(StringZh.unAudit, () {
+          TestOrderSampleService.checkUnauditPermissions(
+              context, testOrderInfo);
+        }, 80.0, 45.0, 80.0));
+      }
+    }
+
     if (isAllSelect) {
-      btnList.add(_getOperBtn(StringZh.saveAllOrder, () {
-        /*WidgetUtil.showLoadingDialog(context, StringZh.auditing);
-          QmsService.auditTestOrder(testOrderInfo.id, testOrderInfo.docCat,
-              testOrderInfo.version, operSuccessCallBack, () {});*/
-        checkSubmitInfo();
-      }, 80.0, 45.0, 40.0));
+      if (!auditStatus) {
+        btnList.add(_getOperBtn(StringZh.saveAllOrder, () {
+          TestOrderSampleService.checkSavePermissions(context, widget.docCat,
+              widget.testCat, setInfo, isAdd, testOrderInfo);
+        }, 80.0, 45.0, 40.0));
+      }
     } else {
       btnList.add(_getOperBtn(StringZh.saveAndSubmit, () {
         nextStepFun(isToLast: true);
-        /*WidgetUtil.showLoadingDialog(context, StringZh.auditing);
-          QmsService.auditTestOrder(testOrderInfo.id, testOrderInfo.docCat,
-              testOrderInfo.version, operSuccessCallBack, () {});*/
       }, 160.0, 45.0, 40.0));
       btnList.add(_getOperBtn(StringZh.saveAndNextStep, () {
         nextStepFun();
-        /*WidgetUtil.showLoadingDialog(context, StringZh.auditing);
-          QmsService.auditTestOrder(testOrderInfo.id, testOrderInfo.docCat,
-              testOrderInfo.version, operSuccessCallBack, () {});*/
       }, 160.0, 45.0, 40.0));
     }
     return btnList;
@@ -452,150 +464,6 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
     testOrderDetailList[selIndex].unQualifiedQty = cacheInfo.unQualifiedQty;
     testOrderDetailList[selIndex].badReasonInfo = cacheInfo.badReasonInfo;
     testOrderDetailList[selIndex].producer = cacheInfo.producer;*/
-  }
-
-  void checkSubmitInfo() {
-    ///判断样本是否都录入
-    int num = -1;
-    for (int i = 0; i < testOrderInfo.testOrderSampleDetail.length; i++) {
-      TestOrderSampleDetail v = testOrderInfo.testOrderSampleDetail[i];
-
-      if (!v.edited) {
-        num = i;
-      }
-    }
-
-    if (num != -1) {
-      WidgetUtil.showConfirmDialog(
-          context, StringZh.checkTestOrderSampleInfoTip, () {
-        submitFun();
-      }, confirmText: StringZh.yes, cancelText: StringZh.no);
-    } else {
-      submitFun();
-    }
-  }
-
-  ///提交操作
-  void submitFun() async {
-    setInfo();
-    testOrderInfo.docCat = widget.docCat;
-
-    ///表头附件
-    if (null != testOrderInfo.badEnclosureList &&
-        testOrderInfo.badEnclosureList.length > 0) {
-      List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-      testOrderInfo.badEnclosureList.forEach((v) {
-        if (CommonUtil.isNotEmpty(v.id)) {
-          AttachmentVo attachmentVo = AttachmentVo.empty()
-            ..id = v.id
-            ..name = v.name
-            ..size = v.size;
-          badEnclosureList.add(attachmentVo);
-        }
-      });
-      testOrderInfo.enclosure = json.encode(badEnclosureList);
-    } else {
-      testOrderInfo.enclosure = '';
-    }
-
-    ///表体指标不良图片附件
-    testOrderInfo.testOrderSampleDetail.forEach((f) {
-      if (f.edited) {
-        List quotaInfos = [];
-
-        List<TestOrderDetailTestQuota> testOrderDetailTestQuota =
-            f.testOrderDetailTestQuota;
-
-        testOrderDetailTestQuota.forEach((q) {
-          if (CommonUtil.isNotEmpty(q.enclosure)) {
-            q.enclosure = q.enclosure.replaceAll("'", "\"");
-          }
-
-          if (null != q.badEnclosureList && q.badEnclosureList.length > 0) {
-            List<AttachmentVo> badEnclosureList = <AttachmentVo>[];
-            q.badEnclosureList.forEach((v) {
-              if (CommonUtil.isNotEmpty(v.id)) {
-                AttachmentVo attachmentVo = AttachmentVo.empty()
-                  ..id = v.id
-                  ..name = v.name
-                  ..size = v.size;
-                badEnclosureList.add(attachmentVo);
-              }
-            });
-            q.badPictures = json.encode(badEnclosureList);
-          } else {
-            q.badPictures = '';
-          }
-
-          quotaInfos.add({
-            'testTemplateDetailId': q.testTemplateDetailId,
-            'testVal': q.testVal,
-            'id': q.id,
-            'badReasonCode': q.badReasonCode,
-            'badReasonName': q.badReasonName,
-            'badReasonInfo': q.badReasonInfo,
-            'badPictures': q.badPictures,
-            'producer': q.producer,
-            'state': q.state,
-          });
-        });
-        f.oper = json.encode(quotaInfos);
-      }
-    });
-
-    //print(testOrderInfo.toJson());
-
-    WidgetUtil.showLoadingDialog(context, StringZh.submiting);
-    QmsSampleService.submitTestOrder(context, testOrderInfo, (data) {
-      Fluttertoast.showToast(msg: data, timeInSecForIos: 3);
-
-      ///消除加载控件
-      Navigator.pop(context);
-
-      ///回退
-      Navigator.pop(context);
-
-      ///跳转
-      String urlName = '';
-
-      switch (widget.docCat) {
-        case Config.test_order_ipqc:
-          if (null != testOrderInfo.id) {
-            urlName = Config.ipqcTestOrderListPage;
-          } else {
-            urlName = Config.ipqcWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_pqc:
-          if (null != testOrderInfo.id) {
-            urlName = Config.pqcTestOrderListPage;
-          } else {
-            urlName = Config.pqcWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_complete_sample:
-          if (null != testOrderInfo.id) {
-            urlName = Config.completeTestOrderSampleListPage;
-          } else {
-            urlName = Config.completeWaitTaskListPage;
-          }
-          break;
-        case Config.test_order_arrival_sample:
-          if (null != testOrderInfo.id) {
-            urlName = Config.arrivalTestOrderSampleListPage;
-          } else {
-            urlName = Config.arrivalWaitTaskListPage;
-          }
-          break;
-        default:
-          break;
-      }
-
-      NavigatorUtil.pushReplacementNamed(context, urlName);
-    }, (err) {
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
-      Navigator.pop(context);
-    });
   }
 
   Widget _getOperBtn(String text, Function onTap, double width, double height,

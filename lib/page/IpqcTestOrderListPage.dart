@@ -5,6 +5,7 @@ import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
+import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/ListCommonState.dart';
@@ -119,8 +120,9 @@ class IpqcTestOrderListPageState
                 docNo: data['docNo'],
                 docCat: Config.test_order_ipqc,
                 testCat: Config.text_ipqc,
-                title: StringZh.ipqcTestOrderDetail_title));
-
+                title: StringZh.ipqcTestOrderDetail_title),
+            permissions: Config.ipqc_view,
+            permissionsText: StringZh.ipqcTestOrderDetail_view);
         break;
       default:
         break;

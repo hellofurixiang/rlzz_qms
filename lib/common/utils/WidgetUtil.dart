@@ -262,7 +262,7 @@ class WidgetUtil {
       padding: new EdgeInsets.all(10.0),
       onPressed: () {
         NavigatorUtil.goToPage(context, url,
-            accessCode: accessCode, backCall: backCall);
+            permissions: null, backCall: backCall);
       },
       child: new Container(
         child: new Column(

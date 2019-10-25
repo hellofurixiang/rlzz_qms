@@ -138,35 +138,66 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
     ///单据标题
     String detailTitle = widget.detailTitle;
 
+    ///新增权限
+    String permissions = '';
+
+    ///权限描述
+    String permissionsText = '';
+
     switch (widget.docCat) {
       case Config.test_order_arrival:
+        permissions = Config.arrival_add;
+        permissionsText = StringZh.arrivalTestOrderDetail_add;
         if (testRule == Config.testForInv) {
           detailTitle = StringZh.arrivalTestOrderSampleDetail_title;
           testOrderType = 'sample';
           docCat = Config.test_order_arrival_sample;
+
+          permissions = Config.arrivalSample_add;
+          permissionsText = StringZh.arrivalTestOrderSampleDetail_add;
         }
         break;
       case Config.test_order_complete:
+        permissions = Config.complete_add;
+        permissionsText = StringZh.arrivalTestOrderDetail_add;
         if (testRule == Config.testForInv) {
           detailTitle = StringZh.completeTestOrderSampleDetail_title;
           testOrderType = 'sample';
           docCat = Config.test_order_complete_sample;
+
+          permissions = Config.completeSample_add;
+          permissionsText = StringZh.arrivalTestOrderSampleDetail_add;
         }
         break;
 
-      /*case Config.test_order_iqc:
+      case Config.test_order_iqc:
+        permissions = Config.iqc_add;
+        permissionsText = StringZh.iqcTestOrderDetail_add;
         break;
       case Config.test_order_fqc:
-
-        break;*/
+        permissions = Config.fqc_add;
+        permissionsText = StringZh.fqcTestOrderDetail_add;
+        break;
 
       case Config.test_order_ipqc:
+        testOrderType = 'sample';
+        permissions = Config.ipqc_add;
+        permissionsText = StringZh.ipqcTestOrderDetail_add;
+        break;
       case Config.test_order_pqc:
         testOrderType = 'sample';
+        permissions = Config.pqc_add;
+        permissionsText = StringZh.pqcTestOrderDetail_add;
         break;
       default:
         break;
     }
+
+    /*if (!CommonUtil.checkUserPermissions(permissions, permissionsText)) {
+      Navigator.pop(context);
+      return;
+    }*/
+
     if (testOrderType == 'sample') {
       NavigatorUtil.goToPage(
           context,

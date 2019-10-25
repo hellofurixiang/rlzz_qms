@@ -119,7 +119,9 @@ class FqcTestOrderListPageState extends ListCommonState<FqcTestOrderListPage> {
                 docNo: data['docNo'],
                 docCat: Config.test_order_fqc,
                 testCat: Config.test_order_fqc,
-                title: StringZh.fqcTestOrderDetail_title));
+                title: StringZh.fqcTestOrderDetail_title),
+            permissions: Config.fqc_view,
+            permissionsText: StringZh.fqcTestOrderDetail_view);
 
         break;
       default:

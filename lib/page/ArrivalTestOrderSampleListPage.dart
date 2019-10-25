@@ -121,7 +121,9 @@ class ArrivalTestOrderSampleListPageState
                 docNo: data['docNo'],
                 docCat: Config.test_order_arrival_sample,
                 testCat: Config.text_iqc,
-                title: StringZh.arrivalTestOrderSampleDetail_title));
+                title: StringZh.arrivalTestOrderSampleDetail_title),
+            permissions: Config.arrivalSample_view,
+            permissionsText: StringZh.arrivalTestOrderSampleDetail_view);
 
         break;
       default:

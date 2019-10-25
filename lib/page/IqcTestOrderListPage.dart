@@ -120,7 +120,9 @@ class IqcTestOrderListPageState extends ListCommonState<IqcTestOrderListPage> {
               docCat: Config.test_order_iqc,
               testCat: Config.text_iqc,
               title: StringZh.iqcTestOrderDetail_title
-            ));
+            ),
+            permissions: Config.iqc_view,
+            permissionsText: StringZh.iqcTestOrderDetail_view);
 
         break;
       default:

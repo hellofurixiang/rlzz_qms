@@ -351,14 +351,85 @@ class StringZh {
   static const String arrivalTestOrderSampleList_title = '来料检验单(按样本)';
   static const String arrivalTestOrderDetail_title = '来料检验单';
   static const String arrivalTestOrderSampleDetail_title = '来料检验单(按样本)';
+
+  static const String arrivalTestOrderDetail_view = '来料检验单查看';
+  static const String arrivalTestOrderDetail_edit = '来料检验单编辑';
+  static const String arrivalTestOrderDetail_add = '来料检验单新增';
+  static const String arrivalTestOrderDetail_audit = '来料检验单审核';
+  static const String arrivalTestOrderDetail_unaudit = '来料检验单弃审';
+  static const String arrivalTestOrderDetail_del = '来料检验单删除';
+
+  static const String arrivalTestOrderSampleDetail_view = '来料检验单(按样本)查看';
+  static const String arrivalTestOrderSampleDetail_edit = '来料检验单(按样本)编辑';
+  static const String arrivalTestOrderSampleDetail_add = '来料检验单(按样本)新增';
+  static const String arrivalTestOrderSampleDetail_audit = '来料检验单(按样本)审核';
+  static const String arrivalTestOrderSampleDetail_unaudit = '来料检验单(按样本)弃审';
+  static const String arrivalTestOrderSampleDetail_del = '来料检验单(按样本)删除';
+
   static const String completeTestOrderList_title = '完工检验单列表';
   static const String completeTestOrderSampleList_title = '完工检验单(按样本)';
   static const String completeTestOrderDetail_title = '完工检验单';
   static const String completeTestOrderSampleDetail_title = '完工检验单(按样本)';
 
+  static const String completeTestOrderDetail_view = '完工检验单查看';
+  static const String completeTestOrderDetail_edit = '完工检验单编辑';
+  static const String completeTestOrderDetail_add = '完工检验单新增';
+  static const String completeTestOrderDetail_audit = '完工检验单审核';
+  static const String completeTestOrderDetail_unaudit = '完工检验单弃审';
+  static const String completeTestOrderDetail_del = '完工检验单删除';
+
+  static const String completeTestOrderSampleDetail_view = '完工检验单(按样本)查看';
+  static const String completeTestOrderSampleDetail_edit = '完工检验单(按样本)编辑';
+  static const String completeTestOrderSampleDetail_add = '完工检验单(按样本)新增';
+  static const String completeTestOrderSampleDetail_audit = '完工检验单(按样本)审核';
+  static const String completeTestOrderSampleDetail_unaudit = '完工检验单(按样本)弃审';
+  static const String completeTestOrderSampleDetail_del = '完工检验单(按样本)删除';
+
+  static const String iqcWaitTask_title = 'IQC待检任务';
+  static const String iqcTestOrderList_title = 'IQC检验单列表';
+  static const String iqcTestOrderDetail_title = 'IQC检验单';
+
+  static const String iqcTestOrderDetail_view = 'IQC检验单查看';
+  static const String iqcTestOrderDetail_edit = 'IQC检验单编辑';
+  static const String iqcTestOrderDetail_add = 'IQC检验单新增';
+  static const String iqcTestOrderDetail_audit = 'IQC检验单审核';
+  static const String iqcTestOrderDetail_unaudit = 'IQC检验单弃审';
+  static const String iqcTestOrderDetail_del = 'IQC检验单删除';
+
+  static const String ipqcWaitTask_title = 'IPQC待检任务';
+  static const String ipqcTestOrderList_title = 'IPQC检验单列表';
+  static const String ipqcTestOrderDetail_title = 'IPQC检验单';
+
+  static const String ipqcTestOrderDetail_view = 'IPQC检验单查看';
+  static const String ipqcTestOrderDetail_edit = 'IPQC检验单编辑';
+  static const String ipqcTestOrderDetail_add = 'IPQC检验单新增';
+  static const String ipqcTestOrderDetail_audit = 'IPQC检验单审核';
+  static const String ipqcTestOrderDetail_unaudit = 'IPQC检验单弃审';
+  static const String ipqcTestOrderDetail_del = 'IPQC检验单删除';
+
+  static const String fqcWaitTask_title = 'FQC待检任务';
+  static const String fqcTestOrderList_title = 'FQC检验单列表';
+  static const String fqcTestOrderDetail_title = 'FQC检验单';
+
+  static const String fqcTestOrderDetail_view = 'FQC检验单查看';
+  static const String fqcTestOrderDetail_edit = 'FQC检验单编辑';
+  static const String fqcTestOrderDetail_add = 'FQC检验单新增';
+  static const String fqcTestOrderDetail_audit = 'FQC检验单审核';
+  static const String fqcTestOrderDetail_unaudit = 'FQC检验单弃审';
+  static const String fqcTestOrderDetail_del = 'FQC检验单删除';
+
+  static const String pqcWaitTask_title = 'PQC待检任务';
+  static const String pqcTestOrderList_title = 'PQC检验单列表';
+  static const String pqcTestOrderDetail_title = 'PQC检验单';
+
+  static const String pqcTestOrderDetail_view = 'PQC检验单查看';
+  static const String pqcTestOrderDetail_edit = 'PQC检验单编辑';
+  static const String pqcTestOrderDetail_add = 'PQC检验单新增';
+  static const String pqcTestOrderDetail_audit = 'PQC检验单审核';
+  static const String pqcTestOrderDetail_unaudit = 'PQC检验单弃审';
+  static const String pqcTestOrderDetail_del = 'PQC检验单删除';
 
   static const String productionOrderDetail_title = '生产订单';
-
 
   static const String tip_selectTestTemplate = '请选择检验模板';
 
@@ -375,29 +446,6 @@ class StringZh {
 
   static const String signature = '签名';
 
-
-
-  static const String iqcWaitTask_title = 'IQC待检任务';
-  static const String iqcTestOrderList_title = 'IQC检验单列表';
-  static const String iqcTestOrderDetail_title = 'IQC检验单';
-
-  static const String ipqcWaitTask_title = 'IPQC待检任务';
-  static const String ipqcTestOrderList_title = 'IPQC检验单列表';
-  static const String ipqcTestOrderDetail_title = 'IPQC检验单';
-
-
-  static const String fqcWaitTask_title = 'FQC待检任务';
-  static const String fqcTestOrderList_title = 'FQC检验单列表';
-  static const String fqcTestOrderDetail_title = 'FQC检验单';
-
-
-  static const String pqcWaitTask_title = 'PQC待检任务';
-  static const String pqcTestOrderList_title = 'PQC检验单列表';
-  static const String pqcTestOrderDetail_title = 'PQC检验单';
-
-
-
-
   static const String badImage = '不良图片';
 
   static const String imageLoading = '图片加载中...';
@@ -412,7 +460,6 @@ class StringZh {
 
   static const String downloadFinishTip = '文件下载完成，是否打开？';
   static const String deleteImageTip = '确定删除吗？';
-
 
   static const String fileErrorTip = '文件不存在或已被删除';
 
@@ -433,8 +480,13 @@ class StringZh {
 
   static const selectFirstItem = '--请选择--';
 
+  static const noMenuPermissions = '无菜单，请配置列表查看权限并重新登录。';
 
-  static const noMenuPermissions='无菜单，请配置列表查看权限并重新登录。';
+  static const test_measuringTool = '测量工具';
 
-  static const test_measuringTool='测量工具';
+  static const tip_permissions_error = '权限异常，请分配「{0}」权限并重新登录';
+
+
+  static const tip_testItem_entry_incomplete = '第{0}行，检验项目：{1} [{2}]检测值未录完，请录入';
+  static const tip_testItem_entry_empty = '第{0}行检验指标{1}{2}尚未录入，是否审核？';
 }

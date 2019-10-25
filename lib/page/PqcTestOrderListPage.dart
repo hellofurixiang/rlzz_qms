@@ -118,7 +118,9 @@ class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
                 docNo: data['docNo'],
                 docCat: Config.test_order_pqc,
                 testCat: Config.text_pqc,
-                title: StringZh.pqcTestOrderDetail_title));
+                title: StringZh.pqcTestOrderDetail_title),
+            permissions: Config.pqc_view,
+            permissionsText: StringZh.pqcTestOrderDetail_view);
 
         break;
       default:

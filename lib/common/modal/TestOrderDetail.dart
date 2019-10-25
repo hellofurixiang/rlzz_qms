@@ -168,6 +168,13 @@ class TestOrderDetail extends BaseEntity {
   @JsonKey(name: 'measuringToolName')
   String measuringToolName;
 
+  ///计量单位编码
+  @JsonKey(name: 'unitCode')
+  String unitCode;
+  ///计量单位名称
+  @JsonKey(name: 'unitName')
+  String unitName;
+
   TestOrderDetail.empty();
 
   TestOrderDetail(
@@ -205,6 +212,8 @@ class TestOrderDetail extends BaseEntity {
       this.samplingProportion,
       this.testState,
       this.producer,
+      this.unitCode,
+      this.unitName,
       this.measuringToolCode,
       this.measuringToolName);
 

@@ -550,6 +550,25 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
               margin: new EdgeInsets.only(right: 5.0),
               width: 60.0,
               child: new Text(
+                '计量单位' ,
+                style: new TextStyle(
+                    fontSize: RLZZConstant.normalTextSize,
+                    color: RLZZColors.darkDarkGrey),
+              ),
+            ),
+            new Container(
+              height: 30.0,
+              width: 150.0,
+              child: new InputWidget(
+                enabled: false,
+                initText: widget.cacheInfo.unitName ?? '',
+              ),
+            ),
+            new Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(right: 5.0, left: 5.0),
+              width: 60.0,
+              child: new Text(
                 '测量工具',
                 style: new TextStyle(
                     fontSize: RLZZConstant.normalTextSize,
