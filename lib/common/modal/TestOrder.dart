@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:qms/common/modal/AttachmentVo.dart';
 import 'package:qms/common/modal/BaseEntity.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/modal/TestOrderBadInfo.dart';
 import 'package:qms/common/modal/TestOrderDetail.dart';
 
 import 'TestOrderSampleDetail.dart';
@@ -19,7 +20,7 @@ class TestOrder extends BaseEntity {
 
   ///检验日期
   @JsonKey(name: 'docDate')
-  String docDate;
+  int docDate;
 
   ///检验员
   @JsonKey(name: 'operator')
@@ -259,69 +260,108 @@ class TestOrder extends BaseEntity {
   @JsonKey(name: 'seriousDefectsQty')
   int seriousDefectsQty;
 
+  ///备注
+  @JsonKey(name: 'remark')
+  String remark;
+
+  ///不良信息
+  @JsonKey(name: 'badInfoList')
+  List<TestOrderBadInfo> badInfoList;
+
+  ///已修好
+  @JsonKey(name: 'mendedQty')
+  double mendedQty;
+
+  ///在修数量
+  @JsonKey(name: 'mendingQty')
+  double mendingQty;
+
+  ///已检数量
+  @JsonKey(name: 'checkoutQty')
+  double checkoutQty;
+
+  ///未检数量
+  @JsonKey(name: 'uncheckedQty')
+  double uncheckedQty;
+
+  /*quantity	单据数量
+  qualifiedQty	合格数量
+  reworkQty	未修好
+  scrapQty	报废数量
+  mendedQty	已修好
+  mendingQty	在修数量
+  checkoutQty	已检数量
+  uncheckedQty	未检数量
+  unQualifiedQty	累计不良数量*/
+
   TestOrder(
-    this.id,
-    this.docNo,
-    this.docDate,
-    this.operator,
-    this.operatorName,
-    this.operatorId,
-    this.testCat,
-    this.testTemplateId,
-    this.testTemplateName,
-    this.srcDocType,
-    this.srcDocNo,
-    this.srcDocRowNum,
-    this.srcDocId,
-    this.srcDocDetailId,
-    this.quantity,
-    this.sampleQty,
-    this.oldCheckQty,
-    this.qualifiedQty,
-    this.unQualifiedQty,
-    this.reworkQty,
-    this.scrapQty,
-    this.concessionReceivedQuantity,
-    this.enclosure,
-    this.inspectionDate,
-    this.moDocNo,
-    this.moDetailId,
-    this.supplierName,
-    this.supplierCode,
-    this.workStepCode,
-    this.workStepName,
-    this.invCode,
-    this.invCatCode,
-    this.invCatName,
-    this.docCat,
-    this.invName,
-    this.invSpec,
-    this.detectableQuantity,
-    this.auditStatus,
-    this.badReasonInfo,
-    this.badReasonId,
-    this.badReasonCode,
-    this.badReasonName,
-    this.testResult,
-    this.spQty,
-    this.srcCheckQty,
-    this.depName,
-    this.cusName,
-    this.batchNumber,
-    this.producer,
-    this.srcTimestamp,
-    this.timestamp,
-    this.protype,
-    this.socode,
-    this.signPic,
-    this.version,
-    this.testOrderDetail,
-    this.testOrderSampleDetail,
-    this.enclosureList,
-    this.generalDefectsQty,
-    this.majorDefectsQty,
-    this.seriousDefectsQty,
-  );
+      this.id,
+      this.docNo,
+      this.docDate,
+      this.operator,
+      this.operatorName,
+      this.operatorId,
+      this.testCat,
+      this.testTemplateId,
+      this.testTemplateName,
+      this.srcDocType,
+      this.srcDocNo,
+      this.srcDocRowNum,
+      this.srcDocId,
+      this.srcDocDetailId,
+      this.quantity,
+      this.sampleQty,
+      this.oldCheckQty,
+      this.qualifiedQty,
+      this.unQualifiedQty,
+      this.reworkQty,
+      this.scrapQty,
+      this.concessionReceivedQuantity,
+      this.enclosure,
+      this.inspectionDate,
+      this.moDocNo,
+      this.moDetailId,
+      this.supplierName,
+      this.supplierCode,
+      this.workStepCode,
+      this.workStepName,
+      this.invCode,
+      this.invCatCode,
+      this.invCatName,
+      this.docCat,
+      this.invName,
+      this.invSpec,
+      this.detectableQuantity,
+      this.auditStatus,
+      this.badReasonInfo,
+      this.badReasonId,
+      this.badReasonCode,
+      this.badReasonName,
+      this.testResult,
+      this.spQty,
+      this.srcCheckQty,
+      this.depName,
+      this.cusName,
+      this.batchNumber,
+      this.producer,
+      this.srcTimestamp,
+      this.timestamp,
+      this.protype,
+      this.socode,
+      this.signPic,
+      this.version,
+      this.testOrderDetail,
+      this.testOrderSampleDetail,
+      this.enclosureList,
+      this.generalDefectsQty,
+      this.majorDefectsQty,
+      this.seriousDefectsQty,
+      this.remark,
+      this.badInfoList,
+      this.mendedQty,
+      this.mendingQty,
+      this.checkoutQty,
+      this.uncheckedQty);
 
   factory TestOrder.fromJson(Map<String, dynamic> srcJson) =>
       _$TestOrderFromJson(srcJson);

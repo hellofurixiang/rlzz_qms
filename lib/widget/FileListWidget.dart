@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
-import 'package:qms/common/net/MethodChannelUtil.dart';
+import 'package:qms/common/utils/MethodChannelUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';

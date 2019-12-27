@@ -75,7 +75,7 @@ class DialogPageState extends State<DialogPage> {
                   Container(
                     height: 35.0,
                     decoration: BoxDecoration(
-                      color: RLZZColors.lightGray,
+                      color: SetColors.lightGray,
                       borderRadius:
                           new BorderRadius.vertical(top: Radius.circular(6.0)),
                     ),
@@ -83,14 +83,14 @@ class DialogPageState extends State<DialogPage> {
                     child: Text(
                       widget.title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+                      style: TextStyle(fontSize: SetConstants.normalTextSize),
                     ),
                   ),
                   new Expanded(child: widget.mainWidget),
                   new Container(
                     //color: RLZZColors.lightGray,
                     decoration: BoxDecoration(
-                      color: RLZZColors.lightGray,
+                      color: SetColors.lightGray,
                       borderRadius: new BorderRadius.only(
                           bottomLeft: Radius.circular(6.0),
                           bottomRight: Radius.circular(6.0)),

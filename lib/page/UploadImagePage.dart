@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
-import 'package:qms/common/net/MethodChannelUtil.dart';
+import 'package:qms/common/utils/MethodChannelUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
@@ -122,7 +122,7 @@ class UploadImagePageState extends State<UploadImagePage> {
 
       if (image == null) {
         //currentSelected = "not select item";
-        Fluttertoast.showToast(msg: '选择图片异常', timeInSecForIos: 3);
+        Fluttertoast.showToast(msg: StringZh.selectPhotoError, timeInSecForIos: 3);
         return;
       }
       Enclosure en = new Enclosure.empty()
@@ -142,7 +142,7 @@ class UploadImagePageState extends State<UploadImagePage> {
     WidgetUtil.showLoadingDialog(context, StringZh.uploading);
     ApiUtil.uploadImageList(context, widget.images, () {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: '图片上传完成', timeInSecForIos: 3);
+      Fluttertoast.showToast(msg: StringZh.photoUploadFinish, timeInSecForIos: 3);
       setState(() {
         isChoose = false;
       });
@@ -164,7 +164,7 @@ class UploadImagePageState extends State<UploadImagePage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.camera,
       fontColor: Colors.white,
       clickFun: () {
@@ -176,7 +176,7 @@ class UploadImagePageState extends State<UploadImagePage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.gallery,
       fontColor: Colors.white,
       clickFun: () {
@@ -189,7 +189,7 @@ class UploadImagePageState extends State<UploadImagePage> {
       btnList.add(ButtonWidget(
         height: 30.0,
         width: 65.0,
-        backgroundColor: RLZZColors.mainColor,
+        backgroundColor: SetColors.mainColor,
         text: StringZh.upload,
         fontColor: Colors.white,
         clickFun: () {
@@ -213,7 +213,7 @@ class UploadImagePageState extends State<UploadImagePage> {
       child: ButtonWidget(
         height: 30.0,
         width: 65.0,
-        backgroundColor: RLZZColors.mainColor,
+        backgroundColor: SetColors.mainColor,
         text: StringZh.app_ok,
         fontColor: Colors.white,
         clickFun: () {

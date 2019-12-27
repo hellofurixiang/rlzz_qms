@@ -53,7 +53,7 @@ class WidgetUtil {
                           text,
                           // ignore: conflicting_dart_import
                           style: new TextStyle(
-                              fontSize: RLZZConstant.smallTextSize),
+                              fontSize: SetConstants.smallTextSize),
                         ),
                       ),
                     ],
@@ -95,7 +95,7 @@ class WidgetUtil {
                   child: new Text(
                     text,
                     // ignore: conflicting_dart_import
-                    style: new TextStyle(fontSize: RLZZConstant.smallTextSize),
+                    style: new TextStyle(fontSize: SetConstants.smallTextSize),
                   ),
                 ),
               ],
@@ -164,7 +164,7 @@ class WidgetUtil {
         ),
         new Container(
           height: 10.0,
-          color: RLZZColors.lightGray,
+          color: SetColors.lightGray,
         )
       ],
     );
@@ -174,15 +174,13 @@ class WidgetUtil {
       {MainAxisAlignment mainAxisAlignment, Function backCall}) {
     List menus = item['menus'];
 
-    List newMenus=[];
+    List newMenus = [];
 
-    for(var menu in menus){
-      if(menu['isShow']){
+    for (var menu in menus) {
+      if (menu['isShow']) {
         newMenus.add(menu);
       }
     }
-
-
 
     List<Widget> widgetList = new List();
 
@@ -225,7 +223,7 @@ class WidgetUtil {
     var img = 'assets/images/' + itemObj['img'];
 
     var url = itemObj['url'];
-    var accessCode = itemObj['accessCode'];
+    var permissions = itemObj['permissions'];
 
     List<TextSpan> list = new List();
 
@@ -262,7 +260,7 @@ class WidgetUtil {
       padding: new EdgeInsets.all(10.0),
       onPressed: () {
         NavigatorUtil.goToPage(context, url,
-            permissions: null, backCall: backCall);
+            permissions: permissions, backCall: backCall);
       },
       child: new Container(
         child: new Column(
@@ -307,7 +305,7 @@ class WidgetUtil {
       title: new Text(
         StringZh.app_describe,
         style: new TextStyle(
-            color: Colors.white, fontSize: RLZZConstant.lagerTextSize),
+            color: Colors.white, fontSize: SetConstants.lagerTextSize),
       ),
     );
   }
@@ -326,14 +324,14 @@ class WidgetUtil {
               }
             },
             child: new Image(
-                image: new AssetImage(RLZZICons.DEFAULT_USER_ICON),
+                image: new AssetImage(SetIcons.DEFAULT_USER_ICON),
                 width: 70.0,
                 height: 70.0),
           ),
           new Container(
             child: new Text(StringZh.app_empty,
                 style: new TextStyle(
-                  fontSize: RLZZConstant.normalTextSize,
+                  fontSize: SetConstants.normalTextSize,
                 )),
           ),
         ],
@@ -355,14 +353,14 @@ class WidgetUtil {
               }
             },
             child: new Image(
-                image: new AssetImage(RLZZICons.DEFAULT_USER_ICON),
+                image: new AssetImage(SetIcons.DEFAULT_USER_ICON),
                 width: 70.0,
                 height: 70.0),
           ),
           new Container(
             child: new Text(StringZh.app_empty,
                 style: new TextStyle(
-                  fontSize: RLZZConstant.smallTextSize,
+                  fontSize: SetConstants.smallTextSize,
                 )),
           ),
         ],
@@ -372,7 +370,7 @@ class WidgetUtil {
 
   ///分割线
   static Widget getDivider(
-      {double height: 3.0, color: RLZZColors.dividerColor1}) {
+      {double height: 3.0, color: SetColors.dividerColor1}) {
     return new Container(
       height: height,
       color: color,
@@ -408,10 +406,10 @@ class WidgetUtil {
   static List<Widget> renderTableHeadColumnsByConfig(
       Map<String, Object> layoutConfig,
       {bool isOper: false,
-      Color backColor: RLZZColors.mainColor}) {
+      Color backColor: SetColors.mainColor}) {
     List<Widget> columns = new List();
 
-    var borderSide = new BorderSide(color: RLZZColors.darkGrey, width: 0.5);
+    var borderSide = new BorderSide(color: SetColors.darkGrey, width: 0.5);
 
     var boxDecoration = new BoxDecoration(
       color: backColor,
@@ -420,6 +418,9 @@ class WidgetUtil {
 
     ///遍历列
     for (var cell in layoutConfig['fields']) {
+      ///必填标示
+      bool mandatory = cell['mandatory'] ?? false;
+
       var displayName = cell['displayName'];
 
       var fieldType = cell['fieldType'];
@@ -430,15 +431,33 @@ class WidgetUtil {
       double width = cell['width'] ?? 90.0;
       double height = cell['height'] ?? 30.0;
 
+      List<TextSpan> textSpans = new List();
+
+      ///必填标示
+      if (mandatory) {
+        textSpans.add(new TextSpan(
+          text: '* ',
+          style: new TextStyle(
+              fontSize: SetConstants.normalTextSize, color: SetColors.red),
+        ));
+      }
+
+      textSpans.add(new TextSpan(
+        text: displayName,
+        style: new TextStyle(
+            color: Colors.white, fontSize: SetConstants.normalTextSize),
+      ));
+
       columns.add(
         new Container(
           alignment: Alignment.center,
           height: height,
           width: width,
-          child: new Text(
-            displayName,
-            style: new TextStyle(
-                color: Colors.white, fontSize: RLZZConstant.normalTextSize),
+          child: new Text.rich(
+            new TextSpan(
+              text: '',
+              children: textSpans,
+            ),
           ),
           decoration: boxDecoration,
         ),
@@ -477,7 +496,7 @@ class WidgetUtil {
   static List<TableRow> renderTableRowColumnsByConfig(BuildContext context,
       List dataList, Map<String, Object> layoutConfig, Function onTap,
       {bool isOper: false}) {
-    var borderSide = new BorderSide(color: RLZZColors.darkGrey, width: 0.5);
+    var borderSide = new BorderSide(color: SetColors.darkGrey, width: 0.5);
 
     var boxDecoration = new BoxDecoration(
       border: new Border(right: borderSide, bottom: borderSide),
@@ -518,8 +537,8 @@ class WidgetUtil {
                   child: new Text(
                     cell['fieldName'],
                     style: new TextStyle(
-                        color: RLZZColors.mainColor,
-                        fontSize: RLZZConstant.smallTextSize,
+                        color: SetColors.mainColor,
+                        fontSize: SetConstants.smallTextSize,
                         decoration: TextDecoration.underline),
                   ),
                   decoration: boxDecoration,
@@ -540,8 +559,8 @@ class WidgetUtil {
               child: new Text(
                 (i + 1).toString(),
                 style: new TextStyle(
-                    color: RLZZColors.mainColor,
-                    fontSize: RLZZConstant.smallTextSize),
+                    color: SetColors.mainColor,
+                    fontSize: SetConstants.smallTextSize),
               ),
               decoration: boxDecoration,
             ));
@@ -559,12 +578,12 @@ class WidgetUtil {
           ));
         }
 
-        double fontSize = RLZZConstant.smallTextSize;
+        double fontSize = SetConstants.smallTextSize;
         if (null != cell['fontSize'] && '' != cell['fontSize']) {
           fontSize = cell['fontSize'];
         }
 
-        int fieldColor = RLZZColors.defaultFontColorValue;
+        int fieldColor = SetColors.defaultFontColorValue;
         if (null != cell['color'] && '' != cell['color']) {
           fieldColor = cell['color'];
         }
@@ -591,7 +610,7 @@ class WidgetUtil {
 
         TextStyle textStyle = new TextStyle(
             fontSize: fontSize,
-            color: isOnTap ? RLZZColors.mainColor : Color(fieldColor));
+            color: isOnTap ? SetColors.mainColor : Color(fieldColor));
 
         ///日期
         if (fieldType == Config.fieldTypeDate) {
@@ -659,7 +678,7 @@ class WidgetUtil {
     List dataList,
     Map<String, Object> layoutConfig,
   ) {
-    var borderSide = new BorderSide(color: RLZZColors.darkGrey, width: 0.5);
+    var borderSide = new BorderSide(color: SetColors.darkGrey, width: 0.5);
 
     var boxDecoration = new BoxDecoration(
       border: new Border(right: borderSide, bottom: borderSide),
@@ -689,13 +708,13 @@ class WidgetUtil {
 
         double cellWidth = cell['width'];
 
-        double fontSize = RLZZConstant.smallTextSize;
+        double fontSize = SetConstants.smallTextSize;
 
         if (null != cell['fontSize'] && '' != cell['fontSize']) {
           fontSize = cell['fontSize'];
         }
 
-        int fieldColor = RLZZColors.defaultFontColorValue;
+        int fieldColor = SetColors.defaultFontColorValue;
         if (null != cell['color'] && '' != cell['color']) {
           fieldColor = cell['color'];
         }
@@ -894,10 +913,10 @@ class WidgetUtil {
       width: 14.0,
       height: 17.0,
       decoration: new BoxDecoration(
-          border: Border.all(width: 1.0, color: RLZZColors.dividerColor)),
+          border: Border.all(width: 1.0, color: SetColors.dividerColor)),
       child: new Text(word,
           textAlign: TextAlign.center,
-          style: new TextStyle(fontSize: 10.0, color: RLZZColors.darkDarkGrey)),
+          style: new TextStyle(fontSize: 10.0, color: SetColors.darkDarkGrey)),
     );
   }
 
@@ -978,8 +997,8 @@ class WidgetUtil {
           '查看附件',
           textAlign: TextAlign.center,
           style: new TextStyle(
-              fontSize: RLZZConstant.smallTextSize,
-              color: bo ? RLZZColors.lightLightGrey : RLZZColors.mainColor,
+              fontSize: SetConstants.smallTextSize,
+              color: bo ? SetColors.lightLightGrey : SetColors.mainColor,
               decoration: bo ? TextDecoration.none : TextDecoration.underline),
         ),
         //decoration: boxDecoration,

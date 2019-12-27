@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
 import 'package:qms/common/net/QmsService.dart';
@@ -8,6 +9,7 @@ import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/ListCommonState.dart';
+import 'package:qms/page/PqcTestOrderSamplePage.dart';
 import 'package:qms/page/TestOrderSamplePage.dart';
 import 'package:qms/widget/AppBarWidget.dart';
 import 'package:qms/widget/ListPageWidget.dart';
@@ -51,7 +53,7 @@ class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
       'invName': '',
 
       ///审核状态
-      'auditStatus': '0',
+      'auditStatus': Config.value_no,
 
       ///检验员ID
       'checkerId': '',
@@ -63,23 +65,42 @@ class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
   @protected
   void initFilterModelList() {
     itemList = [
-      new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate', 'endDate'], '检验日期', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'docNo', '检验单号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
-      new FilterModel.select(
-          Config.filterItemTypeSingleSelect, 'auditStatus', '审核状态', [
-        {
-          'value': '',
-          'text': '全部',
-          'isSelect': false,
-        },
-        {'value': '1', 'text': '已审核', 'isSelect': false},
-        {'value': '0', 'text': '待审核', 'isSelect': true, 'default': true},
-      ]),
-      new FilterModel(Config.filterItemTypeRef, 'checkerId', 'checkerName',
-          '检验员', Config.ref_user, '请选择检验员', true, new RefBasic.empty()),
+      new FilterModel.date(Config.filterItemTypeDate, ['beginDate', 'endDate'],
+          StringZh.test_docNo, {}),
+      new FilterModel.input(Config.filterItemTypeInput, 'docNo', StringZh.test_docNo, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.select(Config.filterItemTypeSingleSelect, 'auditStatus',
+          StringZh.tip_testState, [
+            {'value': '', 'text': StringZh.all, 'isSelect': false},
+            {
+              'value': Config.value_yes,
+              'text': StringZh.is_audit,
+              'isSelect': false
+            },
+            {
+              'value': Config.value_no,
+              'text': StringZh.not_audit,
+              'isSelect': true,
+              'default': true
+            },
+          ]),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'checkerId',
+          'checkerName',
+          StringZh.checker,
+          Config.ref_user,
+          StringZh.tip_checker,
+          true,
+          new RefBasic.empty()),
     ];
   }
 
@@ -113,13 +134,13 @@ class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
       case 'docNo':
         NavigatorUtil.goToPage(
             context,
-            new TestOrderSamplePage(
+            new PqcTestOrderSamplePage(
                 id: data['id'],
                 docNo: data['docNo'],
                 docCat: Config.test_order_pqc,
                 testCat: Config.text_pqc,
                 title: StringZh.pqcTestOrderDetail_title),
-            permissions: Config.pqc_view,
+            permissions: UserPermissionsConfig.pqc_view,
             permissionsText: StringZh.pqcTestOrderDetail_view);
 
         break;

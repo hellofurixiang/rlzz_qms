@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
@@ -87,7 +88,7 @@ class ServiceSettingPageState extends State<ServiceSettingPage> {
 
     await MySelfInfo.setToken("");
 
-    await MySelfInfo.setDebug(isDebug);
+    GlobalInfo.instance.setDebug(isDebug);
 
     //bool isDebug = await MySelfInfo.isDebug();
 
@@ -245,7 +246,7 @@ class ServiceSettingPageState extends State<ServiceSettingPage> {
                     child: new Container(
                       margin: new EdgeInsets.only(top: 20.0),
                       decoration: new BoxDecoration(
-                        color: RLZZColors.mainColor,
+                        color: SetColors.mainColor,
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(6.0)),
                       ),
@@ -257,7 +258,7 @@ class ServiceSettingPageState extends State<ServiceSettingPage> {
                           StringZh.save,
                           style: new TextStyle(
                               color: Colors.white,
-                              fontSize: RLZZConstant.bigTextSize),
+                              fontSize: SetConstants.bigTextSize),
                         ),
                       ),
                     ),

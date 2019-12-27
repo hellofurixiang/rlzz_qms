@@ -1,4 +1,6 @@
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/page/ArrivalTestOrderSampleListPage.dart';
 import 'package:qms/page/ArrivalWaitTaskListPage.dart';
 import 'package:qms/page/ArrivalTestOrderListPage.dart';
@@ -20,80 +22,80 @@ import 'package:qms/page/report/ArrivalWeekReport.dart';
 class MenuConfig {
   List qmsMenuList = [
     {
-      'tabName': '来料检验',
+      'tabName': StringZh.arrivalTest,
       'menus': [
         {
-          'tabName': '来料待检任务',
+          'tabName': StringZh.arrivalWaitTask_title,
           'code': 'arrivalWaitTotal',
           'info': {'url': new ArrivalWaitTaskListPage(), 'img': 'task.png'},
-          'permissions': Config.arrivalWaitList_view
+          'permissions': UserPermissionsConfig.arrivalWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'arrivalTotal',
           'info': {
             'url': new ArrivalTestOrderListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.arrivalTestOrderList_view
+          'permissions': UserPermissionsConfig.arrivalTestOrderList_view
         },
         {
-          'tabName': '检验单(按样本)',
+          'tabName': StringZh.testOrder_sample,
           'code': 'arrivalSampleTotal',
           'info': {
             'url': new ArrivalTestOrderSampleListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.arrivalSampleList_view
+          'permissions': UserPermissionsConfig.arrivalSampleList_view
         }
       ]
     },
     {
-      'tabName': '完工检验',
+      'tabName': StringZh.completeTest,
       'menus': [
         {
-          'tabName': '完工待检任务',
+          'tabName': StringZh.completeWaitTask_title,
           'code': 'completeWaitTotal',
           'info': {
             'url': new CompleteWaitTaskListPage(),
             'img': 'task_finished.png'
           },
-          'permissions': Config.completeWaitList_view
+          'permissions': UserPermissionsConfig.completeWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'completeTotal',
           'info': {
             'url': new CompleteTestOrderListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.completeTestOrderList_view
+          'permissions': UserPermissionsConfig.completeTestOrderList_view
         },
         {
-          'tabName': '检验单(按样本)',
+          'tabName': StringZh.testOrder_sample,
           'code': 'completeSampleTotal',
           'info': {
             'url': new CompleteTestOrderSampleListPage(),
             'img': 'tasks_blue.png'
           },
-          'permissions': Config.completeSampleList_view
+          'permissions': UserPermissionsConfig.completeSampleList_view
         }
       ]
     },
     {
-      'tabName': '来料检验(IQC)',
+      'tabName': StringZh.arrivalTest + '(IQC)',
       'menus': [
         {
-          'tabName': '待检任务',
+          'tabName': StringZh.waitTask,
           'code': 'iqcWaitTotal',
           'info': {'url': new IqcWaitTaskListPage(), 'img': 'task.png'},
-          'permissions': Config.iqcWaitList_view
+          'permissions': UserPermissionsConfig.iqcWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'iqcTotal',
           'info': {'url': new IqcTestOrderListPage(), 'img': 'tasks_blue.png'},
-          'permissions': Config.iqcTestOrderList_view
+          'permissions': UserPermissionsConfig.iqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -106,36 +108,36 @@ class MenuConfig {
       ]
     },
     {
-      'tabName': '生产自检(PQC)',
+      'tabName': StringZh.production_self_inspection + '(PQC)',
       'menus': [
         {
-          'tabName': '待检任务',
+          'tabName': StringZh.waitTask,
           'code': 'pqcWaitTotal',
           'info': {'url': new PqcWaitTaskListPage(), 'img': 'task.png'},
-          'permissions': Config.pqcWaitList_view
+          'permissions': UserPermissionsConfig.pqcWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'pqcTotal',
           'info': {'url': new PqcTestOrderListPage(), 'img': 'tasks_blue.png'},
-          'permissions': Config.pqcTestOrderList_view
+          'permissions': UserPermissionsConfig.pqcTestOrderList_view
         },
       ]
     },
     {
-      'tabName': '生产巡检(IPQC)',
+      'tabName': StringZh.production_sampling + '(IPQC)',
       'menus': [
         {
-          'tabName': '待检任务',
+          'tabName': StringZh.waitTask,
           'code': 'ipqcWaitTotal',
           'info': {'url': new IpqcWaitTaskListPage(), 'img': 'task.png'},
-          'permissions': Config.ipqcWaitList_view
+          'permissions': UserPermissionsConfig.ipqcWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'ipqcTotal',
           'info': {'url': new IpqcTestOrderListPage(), 'img': 'tasks_blue.png'},
-          'permissions': Config.ipqcTestOrderList_view
+          'permissions': UserPermissionsConfig.ipqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -148,19 +150,19 @@ class MenuConfig {
       ]
     },
     {
-      'tabName': '完工检验(FQC)',
+      'tabName': StringZh.completeTest + '(FQC)',
       'menus': [
         {
-          'tabName': '待检任务',
+          'tabName': StringZh.waitTask,
           'code': 'fqcWaitTotal',
           'info': {'url': new FqcWaitTaskListPage(), 'img': 'task.png'},
-          'permissions': Config.fqcWaitList_view
+          'permissions': UserPermissionsConfig.fqcWaitList_view
         },
         {
-          'tabName': '检验单',
+          'tabName': StringZh.testOrder,
           'code': 'fqcTotal',
           'info': {'url': new FqcTestOrderListPage(), 'img': 'tasks_blue.png'},
-          'permissions': Config.fqcTestOrderList_view
+          'permissions': UserPermissionsConfig.fqcTestOrderList_view
         },
         /*{
           'tabName': '不良品处理单',
@@ -173,28 +175,31 @@ class MenuConfig {
       ]
     },
     {
-      'tabName': '报表',
+      'tabName': StringZh.report,
       'menus': [
         {
-          'tabName': '来料:质量分析(按月)',
+          'tabName': StringZh.arrivalTestOrderStatisticalForMonth,
           'code': 'salOutbound',
           'info': {'url': new ArrivalMonthReport(), 'img': 'report_blue.png'},
-          'permissions': Config.arrivalTestOrderStatisticalForMonth
+          'permissions':
+              UserPermissionsConfig.arrivalTestOrderStatisticalForMonth
         },
         {
-          'tabName': '来料:质量分析(按周)',
+          'tabName': StringZh.arrivalTestOrderStatisticalForWeek,
           'code': 'materialOutbound',
           'info': {'url': new ArrivalWeekReport(), 'img': 'report_blue.png'},
-          'permissions': Config.arrivalTestOrderStatisticalForWeek
+          'permissions':
+              UserPermissionsConfig.arrivalTestOrderStatisticalForWeek
         },
         {
-          'tabName': '来料:质量分析(按供应商)',
+          'tabName': StringZh.arrivalTestOrderStatisticalForSupplier,
           'code': 'otherOutbound',
           'info': {
             'url': new ArrivalSupplierReport(),
             'img': 'report_blue.png'
           },
-          'permissions': Config.arrivalTestOrderStatisticalForSupplier
+          'permissions':
+              UserPermissionsConfig.arrivalTestOrderStatisticalForSupplier
         }
       ]
     }

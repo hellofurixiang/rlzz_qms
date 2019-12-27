@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/PqcTestOrder.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/net/NetUtil.dart';
 
@@ -59,13 +60,13 @@ class QmsSampleService {
   }
 
   ///获取检验单表体指标列表
+  ///orderId 单据ID
+  ///orderDetailId 单据表体ID
   ///id 单据ID
   static void getTestOrderDetailTestQuotaById(
       BuildContext context,
-      String oper,
       String orderId,
       String orderDetailId,
-      String testTemplateId,
       Function successCallBack,
       Function errorCallBack) {
     String url =
@@ -73,11 +74,38 @@ class QmsSampleService {
 
     NetUtil.get(url, context,
         params: {
-          'oper': oper,
           'orderId': orderId,
-          'orderDetailId': orderDetailId,
+          'orderDetailId': orderDetailId
+        },
+        successCallBack: successCallBack,
+        errorCallBack: errorCallBack);
+  }
+
+  ///获取检验单表体指标列表
+  ///testTemplateId 检验模板ID
+  static void getTestOrderDetailTestQuotaByTestTemplateId(
+      BuildContext context,
+      String testTemplateId,
+      Function successCallBack,
+      Function errorCallBack) {
+    String url =
+        Config.qmsApiUrl + '/testOrderSample/getTestOrderDetailTestQuotaByTestTemplateId';
+
+    NetUtil.get(url, context,
+        params: {
           'testTemplateId': testTemplateId
         },
+        successCallBack: successCallBack,
+        errorCallBack: errorCallBack);
+  }
+
+  ///异步更新检验单及表体的检验指标信息
+  static void asynUpdateTestOrderDetailAndQuotaInfo(BuildContext context, PqcTestOrder testOrder,
+      Function successCallBack, Function errorCallBack) {
+    String url = Config.qmsApiUrl + '/testOrderSample/asynUpdateTestOrderDetailAndQuotaInfo';
+
+    NetUtil.post(url, context,
+        params: testOrder.toJson(),
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);
   }

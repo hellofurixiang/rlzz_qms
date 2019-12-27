@@ -16,7 +16,7 @@ class SelectWidget extends StatefulWidget {
 
   SelectWidget(
       {Key key,
-      this.fontSize: RLZZConstant.smallTextSize,
+      this.fontSize: SetConstants.smallTextSize,
       this.fontColor,
       this.selectText,
       this.selectValue,
@@ -51,12 +51,12 @@ class SelectWidgetState extends State<SelectWidget> {
       },
       child: new Material(
         color:
-            widget.selectMap['isSelect'] ? Colors.white : RLZZColors.lightGray,
+            widget.selectMap['isSelect'] ? Colors.white : SetColors.lightGray,
         shape: new StadiumBorder(
           side: new BorderSide(
               color: widget.selectMap['isSelect']
-                  ? RLZZColors.mainColor
-                  : RLZZColors.lightGray,
+                  ? SetColors.mainColor
+                  : SetColors.lightGray,
               width: 0.8,
               style: BorderStyle.solid),
         ),
@@ -72,8 +72,8 @@ class SelectWidgetState extends State<SelectWidget> {
                       margin: new EdgeInsets.only(right: 2.0),
                       width: 12.0,
                       height: 12.0,
-                      child: new SvgPicture.asset("assets/svg/correct.svg",
-                          color: RLZZColors.mainColor),
+                      child: new SvgPicture.asset(SetIcons.correct,
+                          color: SetColors.mainColor),
                     )
                   : new Container(),
               new Container(
@@ -82,7 +82,7 @@ class SelectWidgetState extends State<SelectWidget> {
                   style: TextStyle(
                       fontSize: widget.fontSize,
                       color: widget.selectMap['isSelect']
-                          ? RLZZColors.mainColor
+                          ? SetColors.mainColor
                           : Colors.black),
                 ),
               ),

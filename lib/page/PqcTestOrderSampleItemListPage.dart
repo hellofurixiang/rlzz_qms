@@ -7,7 +7,7 @@ import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 
 ///检验单表体列表
-class TestOrderSampleItemListPage extends StatefulWidget {
+class PqcTestOrderSampleItemListPage extends StatefulWidget {
   ///检验单对象
   final TestOrder testOrderInfo;
 
@@ -17,7 +17,7 @@ class TestOrderSampleItemListPage extends StatefulWidget {
   ///整单判定背景色
   final Color whole;
 
-  TestOrderSampleItemListPage({
+  PqcTestOrderSampleItemListPage({
     Key key,
     @required this.testOrderInfo,
     @required this.changeQuotaItemInfo,
@@ -25,12 +25,12 @@ class TestOrderSampleItemListPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  TestOrderSampleItemListPageState createState() =>
-      new TestOrderSampleItemListPageState();
+  PqcTestOrderSampleItemListPageState createState() =>
+      new PqcTestOrderSampleItemListPageState();
 }
 
-class TestOrderSampleItemListPageState
-    extends State<TestOrderSampleItemListPage> {
+class PqcTestOrderSampleItemListPageState
+    extends State<PqcTestOrderSampleItemListPage> {
   @override
   void initState() {
     super.initState();

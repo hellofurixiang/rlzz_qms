@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
 import 'package:qms/common/net/QmsService.dart';
@@ -53,7 +54,7 @@ class ArrivalTestOrderListPageState
       'invName': '',
 
       ///审核状态
-      'auditStatus': '0',
+      'auditStatus': Config.value_no,
 
       ///检验员ID
       'checkerId': '',
@@ -65,23 +66,47 @@ class ArrivalTestOrderListPageState
   @protected
   void initFilterModelList() {
     itemList = [
-      new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate', 'endDate'], '检验日期', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'docNo', '检验单号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
-      new FilterModel.select(
-          Config.filterItemTypeSingleSelect, 'auditStatus', '审核状态', [
+      new FilterModel.date(Config.filterItemTypeDate, ['beginDate', 'endDate'],
+          StringZh.test_docDate, {}),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'docNo', StringZh.test_docNo, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.select(Config.filterItemTypeSingleSelect, 'auditStatus',
+          StringZh.tip_auditState, [
         {
           'value': '',
-          'text': '全部',
+          'text': StringZh.all,
           'isSelect': false,
         },
-        {'value': '1', 'text': '已审核', 'isSelect': false},
-        {'value': '0', 'text': '待审核', 'isSelect': true, 'default': true},
+        {
+          'value': Config.value_yes,
+          'text': StringZh.is_audit,
+          'isSelect': false
+        },
+        {
+          'value': Config.value_no,
+          'text': StringZh.not_audit,
+          'isSelect': true,
+          'default': true
+        },
       ]),
-      new FilterModel(Config.filterItemTypeRef, 'checkerId', 'checkerName',
-          '检验员', Config.ref_user, '请选择检验员', true, new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'checkerId',
+          'checkerName',
+          StringZh.checker,
+          Config.ref_user,
+          StringZh.tip_checker,
+          true,
+          new RefBasic.empty()),
     ];
   }
 
@@ -121,7 +146,7 @@ class ArrivalTestOrderListPageState
                 docCat: Config.test_order_arrival,
                 testCat: Config.text_iqc,
                 title: StringZh.arrivalTestOrderDetail_title),
-            permissions: Config.arrival_view,
+            permissions: UserPermissionsConfig.arrival_view,
             permissionsText: StringZh.arrivalTestOrderDetail_view);
 
         break;

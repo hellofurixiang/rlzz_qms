@@ -41,10 +41,10 @@ class TextWidget extends StatefulWidget {
   TextWidget(
       {Key key,this.isCenter: false,
       this.height: 25.0,
-      this.textFillColor: RLZZColors.lightLightGrey,
-      this.containerFillColor: RLZZColors.lightLightGrey,
+      this.textFillColor: SetColors.lightLightGrey,
+      this.containerFillColor: SetColors.lightLightGrey,
       this.textColor: Colors.black,
-      this.textSize: RLZZConstant.normalTextSize,
+      this.textSize: SetConstants.normalTextSize,
       this.text,
       this.onTapFun,
       this.iconWidget,

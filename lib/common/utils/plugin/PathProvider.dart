@@ -6,9 +6,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 const MethodChannel _channel =
-    MethodChannel('com.szrlzz.qms/path_provider');
+    MethodChannel(Config.methodChannel_path_provider);
 
 /// Path to the temporary directory on the device that is not backed up and is
 /// suitable for storing caches of downloaded files.

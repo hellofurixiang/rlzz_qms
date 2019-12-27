@@ -14,7 +14,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '到货日期',
@@ -88,7 +88,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '报检日期',
@@ -182,7 +182,7 @@ class QMSFieldConfig {
         'displayName': '检验单号',
         'fieldCode': 'docNo',
         'onTap': true,
-        'color': RLZZColors.mainColorValue,
+        'color': SetColors.mainColorValue,
         'width': 150.0,
       },
       {
@@ -259,7 +259,7 @@ class QMSFieldConfig {
         'displayName': '检验单号',
         'fieldCode': 'docNo',
         'onTap': true,
-        'color': RLZZColors.mainColorValue,
+        'color': SetColors.mainColorValue,
         'width': 150.0,
       },
       {
@@ -383,7 +383,8 @@ class QMSFieldConfig {
         'displayName': '检测值',
         'fieldCode': 'testVal',
         'inputType': Config.inputTypeText,
-        'width': 60.0,
+        'width': 70.0,
+        'mandatory':true,
       },
       {
         'displayName': '状态',
@@ -680,7 +681,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '到货日期',
@@ -754,7 +755,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '到货日期',
@@ -828,7 +829,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '报检日期',
@@ -909,7 +910,7 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': RLZZColors.mainColorValue
+        'color': SetColors.mainColorValue
       },
       {
         'displayName': '报检日期',

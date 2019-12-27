@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
-import 'package:qms/common/net/MethodChannelUtil.dart';
+import 'package:qms/common/utils/MethodChannelUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
@@ -38,7 +38,7 @@ class FileListPageState extends State<FileListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.app_close,
       fontColor: Colors.white,
       clickFun: () {

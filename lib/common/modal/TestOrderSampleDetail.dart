@@ -55,17 +55,49 @@ class TestOrderSampleDetail extends BaseEntity {
   @JsonKey(name: 'quotaState')
   bool quotaState;
 
+  ///状态
+  @JsonKey(name: 'state')
+  String state;
+
+  ///检测时间
+  @JsonKey(name: 'testTime')
+  int testTime;
+
+  ///次数
+  @JsonKey(name: 'tick')
+  int tick;
+
+  ///测量工具
+  @JsonKey(name: 'measuringTool')
+  String measuringTool;
+
+  ///操作者
+  @JsonKey(name: 'operator')
+  String operator;
+
+  ///操作者
+  @JsonKey(name: 'rowNo')
+  int rowNo;
+
+  TestOrderSampleDetail.empty();
   TestOrderSampleDetail(
-      this.id,
-      this.remark,
-      this.sampleBarcode,
-      this.oper,
-      this.generalDefectsQty,
-      this.majorDefectsQty,
-      this.seriousDefectsQty,
-      this.quotaState,
-      this.timeInterval,
-      this.testOrderDetailTestQuota);
+    this.id,
+    this.remark,
+    this.sampleBarcode,
+    this.oper,
+    this.generalDefectsQty,
+    this.majorDefectsQty,
+    this.seriousDefectsQty,
+    this.quotaState,
+    this.timeInterval,
+    this.testOrderDetailTestQuota,
+    this.rowNo,
+    this.state,
+    this.testTime,
+    this.tick,
+    this.operator,
+    this.measuringTool,
+  );
 
   factory TestOrderSampleDetail.fromJson(Map<String, dynamic> srcJson) =>
       _$TestOrderSampleDetailFromJson(srcJson);

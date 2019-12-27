@@ -52,7 +52,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
     return new Container(
       //width: width * 0.75,
       height: 45.0,
-      color: RLZZColors.lightGray,
+      color: SetColors.lightGray,
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -67,7 +67,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
               height: 45.0,
               child: new Text(StringZh.first_page,
                   style: new TextStyle(
-                    fontSize: RLZZConstant.middleTextSize,
+                    fontSize: SetConstants.middleTextSize,
                   )),
             ),
           ),
@@ -82,7 +82,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
               height: 45.0,
               child: new Text(StringZh.pre_page,
                   style: new TextStyle(
-                    fontSize: RLZZConstant.middleTextSize,
+                    fontSize: SetConstants.middleTextSize,
                   )),
             ),
           ),
@@ -94,7 +94,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
             child: new Text(
               widget.page.toString() + '/' + getEndPage().toString()+'（' + widget.total.toString() + '）',
               style: new TextStyle(
-                fontSize: RLZZConstant.middleTextSize,
+                fontSize: SetConstants.middleTextSize,
                 //color: RLZZColors.mainColor,
               ),
             ),
@@ -112,7 +112,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
               child: new Text(
                 StringZh.next_page,
                 style: new TextStyle(
-                  fontSize: RLZZConstant.middleTextSize,
+                  fontSize: SetConstants.middleTextSize,
                   //color: RLZZColors.mainColor,
                 ),
               ),
@@ -131,7 +131,7 @@ class ListPageWidgetState extends State<ListPageWidget> {
               child: new Text(
                 StringZh.end_page,
                 style: new TextStyle(
-                  fontSize: RLZZConstant.middleTextSize,
+                  fontSize: SetConstants.middleTextSize,
                   //color: RLZZColors.mainColor,
                 ),
               ),

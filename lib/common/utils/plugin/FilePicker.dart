@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 enum FileType {
   ANY,
@@ -12,7 +13,7 @@ enum FileType {
 }
 
 class FilePicker {
-  static const MethodChannel _channel = const MethodChannel('com.szrlzz.qms/file_picker');
+  static const MethodChannel _channel = const MethodChannel(Config.methodChannel_file_picker);
   static const String _tag = 'FilePicker';
 
   FilePicker._();

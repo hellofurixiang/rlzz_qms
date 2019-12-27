@@ -109,7 +109,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
             ),
             child: new Text(
               filterModel.itemName,
-              style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+              style: new TextStyle(fontSize: SetConstants.normalTextSize),
             ),
           ),
           new InputWidget(
@@ -152,7 +152,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
             margin: new EdgeInsets.fromLTRB(0.0, 0.0, 4.0, 4.0),
             child: new Text(
               filterModel.itemName,
-              style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+              style: new TextStyle(fontSize: SetConstants.normalTextSize),
             ),
           ),
           new Row(
@@ -197,7 +197,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
             ),
             child: new Text(
               filterModel.itemName,
-              style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+              style: new TextStyle(fontSize: SetConstants.normalTextSize),
             ),
           ),
           new Row(
@@ -249,7 +249,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
         width: 20.0,
         child: new Icon(
           Icons.remove,
-          color: RLZZColors.lightGray,
+          color: SetColors.lightGray,
         ),
       ));
 
@@ -290,7 +290,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
             ),
             child: new Text(
               filterModel.itemName,
-              style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+              style: new TextStyle(fontSize: SetConstants.normalTextSize),
             ),
           ),
           new Row(
@@ -317,15 +317,15 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
             decoration: new BoxDecoration(
               border: Border(
                 bottom:
-                    new BorderSide(width: 1.0, color: RLZZColors.dividerColor),
+                    new BorderSide(width: 1.0, color: SetColors.dividerColor),
               ),
             ),
             child: new Text(
               StringZh.filter,
               textAlign: TextAlign.center,
               style: new TextStyle(
-                  color: RLZZColors.mainColor,
-                  fontSize: RLZZConstant.middleTextSize),
+                  color: SetColors.mainColor,
+                  fontSize: SetConstants.middleTextSize),
             ),
           ),
           new Expanded(
@@ -337,7 +337,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
               ),
             ),
           ),
-          WidgetUtil.getDivider(height: 1.0, color: RLZZColors.dividerColor),
+          WidgetUtil.getDivider(height: 1.0, color: SetColors.dividerColor),
           new Container(
             height: 35.0,
             //color: Colors.white,
@@ -359,7 +359,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
                       child: new Text(
                         StringZh.app_reset,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.middleTextSize),
+                            fontSize: SetConstants.middleTextSize),
                       ),
                     ),
                   ),
@@ -367,7 +367,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
                 Expanded(
                   flex: 1,
                   child: new Container(
-                    color: RLZZColors.mainColor,
+                    color: SetColors.mainColor,
                     alignment: Alignment.center,
                     child: new FlatButton(
                       onPressed: () {
@@ -379,7 +379,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
                         StringZh.app_ok,
                         style: new TextStyle(
                             color: Colors.white,
-                            fontSize: RLZZConstant.middleTextSize),
+                            fontSize: SetConstants.middleTextSize),
                       ),
                     ),
                   ),

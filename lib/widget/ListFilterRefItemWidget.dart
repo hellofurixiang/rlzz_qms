@@ -32,9 +32,9 @@ class ListFilterRefItemWidget extends StatefulWidget {
       this.itemList,
       this.callBack,
       this.labelColor: Colors.black,
-      this.labelSize: RLZZConstant.normalTextSize,
+      this.labelSize: SetConstants.normalTextSize,
       this.textColor: Colors.black,
-      this.textSize: RLZZConstant.normalTextSize,
+      this.textSize: SetConstants.normalTextSize,
       this.labelWidth,
       this.height: 40.0})
       : super(key: key);
@@ -133,7 +133,7 @@ class ListFilterRefItemWidgetState extends State<ListFilterRefItemWidget> {
             child: new IconButton(
                 iconSize: 20.0,
                 icon: Icon(Icons.keyboard_arrow_right),
-                color: RLZZColors.darkGrey,
+                color: SetColors.darkGrey,
                 onPressed: () {
                   _showRefSlider(widget.filterModel.refFlag,
                       widget.filterModel.title, widget.filterModel.hasAll);

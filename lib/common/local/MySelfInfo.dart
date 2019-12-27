@@ -77,13 +77,13 @@ class MySelfInfo {
     await LocalStorage.saveString(Config.loginDateKey, loginDate);
   }
 
-  static Future<int> getQtyScale() async {
+ /* static Future<int> getQtyScale() async {
     return await LocalStorage.get(Config.qtyScaleKey);
   }
 
   static setQtyScale(int qtyScale) async {
     await LocalStorage.saveInt(Config.qtyScaleKey, qtyScale);
-  }
+  }*/
 
   static Future<String> getAccount() async {
     return await LocalStorage.get(Config.accountKey);
@@ -111,14 +111,6 @@ class MySelfInfo {
 
   static setKeepPwd(bool isKeepPwd) async {
     await LocalStorage.saveBool(Config.isRememberPassKey, isKeepPwd);
-  }
-
-  static Future<bool> isDebug() async {
-    return await LocalStorage.get(Config.isDebugKey);
-  }
-
-  static setDebug(bool isDebug) async {
-    await LocalStorage.saveBool(Config.isDebugKey, isDebug);
   }
 
   static Future<User> getUserInfo() async {

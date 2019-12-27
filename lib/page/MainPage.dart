@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/MenuConfig.dart';
 import 'package:qms/common/local/GlobalInfo.dart';
+import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
@@ -101,14 +103,21 @@ class MainPageState extends State<MainPage> {
     ///一行三列
     var crossAxisCount = 3;
 
+    bool isDebug = GlobalInfo.instance.isDebug();
+
     for (var item in items) {
       bool bo = false;
       for (var menu in item['menus']) {
-        if (resources.contains(menu['permissions'])) {
+        if (isDebug) {
           menu['isShow'] = true;
           bo = true;
         } else {
-          menu['isShow'] = false;
+          if (resources.contains(menu['permissions'])) {
+            menu['isShow'] = true;
+            bo = true;
+          } else {
+            menu['isShow'] = false;
+          }
         }
       }
       if (!bo) {
@@ -147,7 +156,7 @@ class MainPageState extends State<MainPage> {
     ///我们需要进入某一个页面（比如点退出登录后进入了登录页），
     ///这个时候用户点击返回时不应该能进入任何一个页面，这种情况就可以使用。
     Navigator.of(context)
-        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+        .pushNamedAndRemoveUntil(Config.login, (Route<dynamic> route) => false);
 
     //Navigator.of(context).pushReplacementNamed('/login');
   }

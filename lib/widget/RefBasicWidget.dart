@@ -35,28 +35,48 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
   void initState() {
     super.initState();
     selectData = new RefBasic(
-        '', widget.filterModel.hasAll ? '全部' : '', null, null, null);
+        '', widget.filterModel.hasAll ? StringZh.all : '', null, null, null);
   }
 
   ///占屏幕宽度
   double width;
 
   var urls = [
-    {'type': Config.ref_supplier, 'url': '/getSupplierList', 'title': '供应商'},
-    {'type': Config.ref_inventory, 'url': '/getInventoryList', 'title': '物料'},
+    {
+      'type': Config.ref_supplier,
+      'url': '/getSupplierList',
+      'title': StringZh.supplier
+    },
+    {
+      'type': Config.ref_inventory,
+      'url': '/getInventoryList',
+      'title': StringZh.inventory
+    },
     {
       'type': Config.ref_invCat,
       'url': '/getInventoryCategoryList',
-      'title': '物料分类'
+      'title': StringZh.inventoryCategory
     },
-    {'type': Config.ref_customer, 'url': '/getCustomerList', 'title': '客户'},
+    {
+      'type': Config.ref_customer,
+      'url': '/getCustomerList',
+      'title': StringZh.customer
+    },
     {
       'type': Config.ref_workCenter,
       'url': '/getWorkCenterList',
-      'title': '工作中心'
+      'title': StringZh.workCenter
     },
-    {'type': Config.ref_workStep, 'url': '/getWorkStepList', 'title': '工序'},
-    {'type': Config.ref_user, 'url': '/api/user/search', 'title': '用户'},
+    {
+      'type': Config.ref_workStep,
+      'url': '/getWorkStepList',
+      'title': StringZh.workStep
+    },
+    {
+      'type': Config.ref_user,
+      'url': '/api/user/search',
+      'title': StringZh.user
+    },
   ];
 
   ///搜索条件
@@ -166,7 +186,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
     }
     if (page == 1) {
       if (widget.filterModel.hasAll) {
-        RefBasic item = new RefBasic('', '全部', null, null, null);
+        RefBasic item = new RefBasic('', StringZh.all, null, null, null);
 
         ///比较选中编码
         item.isSelect =
@@ -228,7 +248,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
               width: width * 0.3,
               child: new Text(
                 data.arcCode,
-                style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+                style: new TextStyle(fontSize: SetConstants.normalTextSize),
               ),
             ),
             new Expanded(
@@ -236,7 +256,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                 alignment: Alignment.centerLeft,
                 child: new Text(
                   data.arcName,
-                  style: new TextStyle(fontSize: RLZZConstant.normalTextSize),
+                  style: new TextStyle(fontSize: SetConstants.normalTextSize),
                 ),
               ),
             ),
@@ -245,7 +265,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                     alignment: Alignment.centerRight,
                     child: new Icon(
                       Icons.done,
-                      color: RLZZColors.mainColor,
+                      color: SetColors.mainColor,
                       size: 20.0,
                     ),
                   )
@@ -290,14 +310,14 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                     decoration: new BoxDecoration(
                         border: Border(
                             bottom:
-                                new BorderSide(color: RLZZColors.darkGrey))),
+                                new BorderSide(color: SetColors.darkGrey))),
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         new IconButton(
                           icon: new Icon(
                             Icons.keyboard_arrow_left,
-                            color: RLZZColors.darkDarkGrey,
+                            color: SetColors.darkDarkGrey,
                           ),
                           onPressed: () {
                             //_slideKey.currentState.changeOffstage();
@@ -308,8 +328,8 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                           widget.filterModel.title,
                           textAlign: TextAlign.center,
                           style: new TextStyle(
-                            color: RLZZColors.mainColor,
-                            fontSize: RLZZConstant.normalTextSize,
+                            color: SetColors.mainColor,
+                            fontSize: SetConstants.normalTextSize,
                           ),
                         ),
                         new GestureDetector(
@@ -324,7 +344,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                             child: new Text(
                               StringZh.app_ok,
                               style: new TextStyle(
-                                fontSize: RLZZConstant.normalTextSize,
+                                fontSize: SetConstants.normalTextSize,
                               ),
                             ),
                           ),
@@ -351,7 +371,7 @@ class RefBasicWidgetState extends RefListCommonState<RefBasicWidget> {
                             ),
                           ),
                           WidgetUtil.getDivider(
-                              height: 1.0, color: RLZZColors.dividerColor),
+                              height: 1.0, color: SetColors.dividerColor),
                           new Expanded(
                             child: PullLoadWidget(
                               control: pullLoadWidgetControl,

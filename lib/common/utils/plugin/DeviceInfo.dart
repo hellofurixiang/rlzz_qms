@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 /// Provides device and operating system information.
 class DeviceInfoPlugin {
@@ -12,7 +13,7 @@ class DeviceInfoPlugin {
 
   /// Channel used to communicate to native code.
   static const MethodChannel channel =
-      MethodChannel('com.szrlzz.qms/device_info');
+      MethodChannel(Config.methodChannel_device_info);
 
   /// This information does not change from call to call. Cache it.
   AndroidDeviceInfo _cachedAndroidDeviceInfo;

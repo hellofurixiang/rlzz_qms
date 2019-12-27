@@ -58,13 +58,13 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
   void initFilterModelList() {
     itemList = [
       new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate'], '检验日期', {}),
+          Config.filterItemTypeDate, ['beginDate'], StringZh.test_docDate, {}),
       new FilterModel(Config.filterItemTypeRef, 'supplierCode', 'supplierName',
-          '供应商', Config.ref_supplier, '请选择供应商', true, new RefBasic.empty()),
+          StringZh.supplier, Config.ref_supplier, StringZh.tip_supplier, true, new RefBasic.empty()),
       new FilterModel(Config.filterItemTypeRef, 'invCatCode', 'invCatName',
-          '物料分类', Config.ref_invCat, '请选择物料分类', true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
+          StringZh.inventoryCategory, Config.ref_invCat, StringZh.tip_inventoryCategory, true, new RefBasic.empty()),
+      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', StringZh.inventory,
+          Config.ref_inventory, StringZh.tip_inventory, true, new RefBasic.empty()),
     ];
   }
 

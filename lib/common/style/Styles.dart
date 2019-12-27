@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 ///颜色
-class RLZZColors {
+class SetColors {
   ///主色调
   static const Color mainColor = Color(mainColorValue);
   static const int mainColorValue = 0xFF03A9F5;
@@ -52,11 +52,16 @@ class RLZZColors {
   static const int itemBodyColorValue = 0xFFeff9fd;
 
   static const Color completeColor = Color(0xFFFFB800);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color black = Color(0xFF000000);
 
+  static const Color grey = Color(0xFF757575);
+
+  static const Color transparent = Color(0x00000000);
 }
 
 ///文本样式
-class RLZZConstant {
+class SetConstants {
   static const hugeTextSize = 28.0;
   static const veryLagerTextSize = 22.0;
   static const lagerTextSize = 20.0;
@@ -67,6 +72,9 @@ class RLZZConstant {
   static const bitSmallTextSize = 10.0;
 }
 
-class RLZZICons {
+class SetIcons {
   static const String DEFAULT_USER_ICON = 'assets/images/logo.png';
+  static const String splash = 'assets/images/splash.png';
+  static const String filter = 'assets/svg/filter.svg';
+  static const String correct = 'assets/svg/correct.svg';
 }

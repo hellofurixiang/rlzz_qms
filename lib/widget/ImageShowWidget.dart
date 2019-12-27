@@ -216,7 +216,7 @@ class MySwiperPlugin extends StatelessWidget {
     return new StreamBuilder<int>(
       builder: (BuildContext context, data) {
         return new DefaultTextStyle(
-          style: new TextStyle(color: RLZZColors.mainColor),
+          style: new TextStyle(color: SetColors.mainColor),
           child: new Container(
             height: 50.0,
             width: double.infinity,

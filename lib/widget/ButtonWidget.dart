@@ -20,7 +20,7 @@ class ButtonWidget extends StatefulWidget {
       this.width: 90.0,
       this.height: 25.0,
       @required this.text,
-      this.fontSize: RLZZConstant.smallTextSize,
+      this.fontSize: SetConstants.smallTextSize,
       @required this.clickFun,
       this.fontColor: Colors.white})
       : super(key: key);

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 import 'dart:convert';
 import 'bean/upgrade_info.dart';
 import 'bean/init_result_info.dart';
@@ -11,7 +12,7 @@ class FlutterBugly {
   FlutterBugly._();
 
   static const MethodChannel _channel =
-      const MethodChannel('com.szrlzz.qms/flutter_bugly');
+      const MethodChannel(Config.methodChannel_flutter_bugly);
 
   static Future<InitResultInfo> init({
     String androidAppId,

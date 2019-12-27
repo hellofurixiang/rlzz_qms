@@ -54,7 +54,7 @@ class MessageDialog extends Dialog {
                           child: new Text(
                             title,
                             style: new TextStyle(
-                              fontSize: RLZZConstant.smallTextSize,
+                              fontSize: SetConstants.smallTextSize,
                             ),
                           ),
                         ),
@@ -64,7 +64,7 @@ class MessageDialog extends Dialog {
                             padding: new EdgeInsets.all(5.0),
                             child: new Icon(
                               Icons.close,
-                              color: RLZZColors.darkGrey,
+                              color: SetColors.darkGrey,
                               size: 18.0,
                             ),
                           ),
@@ -73,7 +73,7 @@ class MessageDialog extends Dialog {
                     ),
                   ),
                   new Container(
-                    color: RLZZColors.lineLightGray,
+                    color: SetColors.lineLightGray,
                     height: 1.0,
                   ),
                   new Container(
@@ -84,12 +84,12 @@ class MessageDialog extends Dialog {
                       ///一个根据内部子控件高度来调整高度
                       child: new Text(
                         message,
-                        style: TextStyle(fontSize: RLZZConstant.smallTextSize),
+                        style: TextStyle(fontSize: SetConstants.smallTextSize),
                       ),
                     ),
                   ),
                   new Container(
-                    color: RLZZColors.lineLightGray,
+                    color: SetColors.lineLightGray,
                     height: 1.0,
                   ),
                   this._buildBottomButtonGroup(),
@@ -123,7 +123,7 @@ class MessageDialog extends Dialog {
           decoration: new BoxDecoration(
             border: new Border(
               right: new BorderSide(
-                color: RLZZColors.lineLightGray,
+                color: SetColors.lineLightGray,
               ),
             ),
           ),
@@ -133,7 +133,7 @@ class MessageDialog extends Dialog {
           child: new Text(
             cancelText,
             style: TextStyle(
-              fontSize: RLZZConstant.smallTextSize,
+              fontSize: SetConstants.smallTextSize,
             ),
           ),
         ),
@@ -154,8 +154,8 @@ class MessageDialog extends Dialog {
           child: new Text(
             okText,
             style: TextStyle(
-              color: RLZZColors.mainColor,
-              fontSize: RLZZConstant.smallTextSize,
+              color: SetColors.mainColor,
+              fontSize: SetConstants.smallTextSize,
             ),
           ),
         ),

@@ -45,13 +45,13 @@ class ListItemWidgetState extends State<ListItemWidget> {
         width: Config.screenMode ? 20.0 : 40.0,
         child: new Material(
           borderRadius: BorderRadius.circular(100.0),
-          color: RLZZColors.mainColor,
+          color: SetColors.mainColor,
           child: new Padding(
               padding: new EdgeInsets.all(2.5),
               child: new Text(
                 widget.index,
                 style: new TextStyle(
-                    color: Colors.white, fontSize: RLZZConstant.smallTextSize),
+                    color: Colors.white, fontSize: SetConstants.smallTextSize),
               )),
         ),
         margin: new EdgeInsets.only(

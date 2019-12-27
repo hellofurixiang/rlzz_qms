@@ -5,9 +5,10 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 const MethodChannel _kChannel =
-    MethodChannel('com.szrlzz.qms/package_info');
+    MethodChannel(Config.methodChannel_package_info);
 
 /// Application metadata. Provides application bundle information on iOS and
 /// application package information on Android.

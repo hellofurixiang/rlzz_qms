@@ -246,12 +246,12 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
         child: new Text(
           vo.enumValue,
           style: new TextStyle(
-              fontSize: RLZZConstant.bitSmallTextSize,
+              fontSize: SetConstants.bitSmallTextSize,
               color: vo.status == 1 ? Colors.white : Colors.black),
         ),
         decoration: BoxDecoration(
           color:
-              vo.status == 1 ? RLZZColors.mainColor : RLZZColors.lightLightGrey,
+              vo.status == 1 ? SetColors.mainColor : SetColors.lightLightGrey,
           borderRadius: BorderRadius.all(Radius.circular(6.0)),
         ),
       ),
@@ -279,8 +279,8 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                 child: new Text(
                   (i + 1).toString(),
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new Expanded(
@@ -310,7 +310,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
           ));
       list.add(item);
       list.add(
-          WidgetUtil.getDivider(height: 1.0, color: RLZZColors.dividerColor));
+          WidgetUtil.getDivider(height: 1.0, color: SetColors.dividerColor));
     }
     list.add(new Container(margin: EdgeInsets.only(bottom: 20.0)));
 
@@ -329,7 +329,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: SetColors.darkGrey,
       text: StringZh.app_cancel,
       fontColor: Colors.white,
       clickFun: () {
@@ -340,7 +340,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.app_ok,
       fontColor: Colors.white,
       clickFun: clickFunOK,
@@ -377,10 +377,10 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                     child: Text(
                       StringZh.testValue,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+                      style: TextStyle(fontSize: SetConstants.normalTextSize),
                     ),
                     decoration: BoxDecoration(
-                      color: RLZZColors.lightGray,
+                      color: SetColors.lightGray,
                       borderRadius:
                           new BorderRadius.vertical(top: Radius.circular(6.0)),
                     ),
@@ -395,9 +395,9 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                           alignment: Alignment.center,
                           width: 60.0,
                           child: Text(
-                            '样本号',
+                            StringZh.serialNumber,
                             style: TextStyle(
-                              fontSize: RLZZConstant.normalTextSize,
+                              fontSize: SetConstants.normalTextSize,
                               //color: Colors.white
                             ),
                           ),
@@ -415,9 +415,9 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                           child: new Container(
                             alignment: Alignment.center,
                             child: Text(
-                              '检测值',
+                              StringZh.testVal,
                               style: TextStyle(
-                                fontSize: RLZZConstant.normalTextSize,
+                                fontSize: SetConstants.normalTextSize,
                                 //color: Colors.white
                               ),
                             ),
@@ -427,7 +427,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                     ),
                   ),
                   WidgetUtil.getDivider(
-                      height: 1.0, color: RLZZColors.dividerColor),
+                      height: 1.0, color: SetColors.dividerColor),
                   new Expanded(
                     child: wList.length == 0
                         ? new Container()
@@ -438,7 +438,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
                           ),
                   ),
                   WidgetUtil.getDivider(
-                      height: 1.0, color: RLZZColors.darkGrey),
+                      height: 1.0, color: SetColors.darkGrey),
                   new Container(
                     margin:
                         new EdgeInsets.only(top: 5.0, bottom: 5.0, right: 10.0),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/AttachmentVo.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetail.dart';
@@ -77,19 +78,19 @@ class TestOrderService {
 
     switch (widgetDocCat) {
       case Config.test_order_arrival:
-        permissions = Config.arrival_edit;
+        permissions = UserPermissionsConfig.arrival_edit;
         permissionsText = StringZh.arrivalTestOrderDetail_edit;
         break;
       case Config.test_order_complete:
-        permissions = Config.complete_edit;
+        permissions = UserPermissionsConfig.complete_edit;
         permissionsText = StringZh.arrivalTestOrderDetail_edit;
         break;
       case Config.test_order_iqc:
-        permissions = Config.iqc_edit;
+        permissions = UserPermissionsConfig.iqc_edit;
         permissionsText = StringZh.iqcTestOrderDetail_edit;
         break;
       case Config.test_order_fqc:
-        permissions = Config.fqc_edit;
+        permissions = UserPermissionsConfig.fqc_edit;
         permissionsText = StringZh.fqcTestOrderDetail_edit;
         break;
       default:
@@ -118,7 +119,7 @@ class TestOrderService {
         if (v.quotaCat != Config.quotaTypeEntryNumber) {
           continue;
         }
-        var testQtyInfos = v.testQtyInfo.split("|");
+        var testQtyInfos = v.testQtyInfo.split('|');
 
         ///指标数必须等于检验数量
         if (testQtyInfos.length != v.quantity) {
@@ -254,19 +255,19 @@ class TestOrderService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival:
-        permissions = Config.arrival_audit;
+        permissions = UserPermissionsConfig.arrival_audit;
         permissionsText = StringZh.arrivalTestOrderDetail_audit;
         break;
       case Config.test_order_complete:
-        permissions = Config.complete_audit;
+        permissions = UserPermissionsConfig.complete_audit;
         permissionsText = StringZh.arrivalTestOrderDetail_audit;
         break;
       case Config.test_order_iqc:
-        permissions = Config.iqc_audit;
+        permissions = UserPermissionsConfig.iqc_audit;
         permissionsText = StringZh.iqcTestOrderDetail_audit;
         break;
       case Config.test_order_fqc:
-        permissions = Config.fqc_audit;
+        permissions = UserPermissionsConfig.fqc_audit;
         permissionsText = StringZh.fqcTestOrderDetail_audit;
         break;
       default:
@@ -318,19 +319,19 @@ class TestOrderService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival:
-        permissions = Config.arrival_unaudit;
+        permissions = UserPermissionsConfig.arrival_unaudit;
         permissionsText = StringZh.arrivalTestOrderDetail_unaudit;
         break;
       case Config.test_order_complete:
-        permissions = Config.complete_unaudit;
+        permissions = UserPermissionsConfig.complete_unaudit;
         permissionsText = StringZh.arrivalTestOrderDetail_unaudit;
         break;
       case Config.test_order_iqc:
-        permissions = Config.iqc_unaudit;
+        permissions = UserPermissionsConfig.iqc_unaudit;
         permissionsText = StringZh.iqcTestOrderDetail_unaudit;
         break;
       case Config.test_order_fqc:
-        permissions = Config.fqc_unaudit;
+        permissions = UserPermissionsConfig.fqc_unaudit;
         permissionsText = StringZh.fqcTestOrderDetail_unaudit;
         break;
       default:
@@ -357,19 +358,19 @@ class TestOrderService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival:
-        permissions = Config.arrival_del;
+        permissions = UserPermissionsConfig.arrival_del;
         permissionsText = StringZh.arrivalTestOrderDetail_del;
         break;
       case Config.test_order_complete:
-        permissions = Config.complete_del;
+        permissions = UserPermissionsConfig.complete_del;
         permissionsText = StringZh.arrivalTestOrderDetail_del;
         break;
       case Config.test_order_iqc:
-        permissions = Config.iqc_del;
+        permissions = UserPermissionsConfig.iqc_del;
         permissionsText = StringZh.iqcTestOrderDetail_del;
         break;
       case Config.test_order_fqc:
-        permissions = Config.fqc_del;
+        permissions = UserPermissionsConfig.fqc_del;
         permissionsText = StringZh.fqcTestOrderDetail_del;
         break;
       default:

@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 class SimplePermissions {
   static const MethodChannel _channel =
-      const MethodChannel('com.szrlzz.qms/simple_permissions');
+      const MethodChannel(Config.methodChannel_simple_permissions);
 
   static Future<String> get platformVersion async {
     final String platform = await _channel.invokeMethod('getPlatformVersion');

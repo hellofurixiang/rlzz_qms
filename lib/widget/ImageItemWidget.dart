@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 
 class ImageItemWidget extends StatefulWidget {
@@ -62,8 +63,8 @@ class ImageItemWidgetState extends State<ImageItemWidget> {
               child: new Text(
                 widget.enclosure.name ?? '',
                 style: new TextStyle(
-                    fontSize: RLZZConstant.smallTextSize,
-                    color: RLZZColors.mainColor),
+                    fontSize: SetConstants.smallTextSize,
+                    color: SetColors.mainColor),
               ),
             ),
           ],
@@ -127,12 +128,12 @@ class ImageItemWidgetState extends State<ImageItemWidget> {
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
             return new Container(
-              child: new Text('图片异常'),
+              child: new Text(StringZh.imageError),
             );
           }
           if (!snapshot.hasData) {
             return new Container(
-              child: new Text('图片不见了'),
+              child: new Text(StringZh.picture_is_gone),
             );
           }
           return new Image.memory(

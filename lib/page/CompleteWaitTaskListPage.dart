@@ -96,23 +96,54 @@ class CompleteWaitTaskListPageState
   @protected
   void initFilterModelList() {
     itemList = [
-      new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate', 'endDate'], '报检日期', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'moDocNo', '生产订单', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'opDocNo', '报工单号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'cusCode', 'cusName', '客户',
-          Config.ref_customer, '请选择客户', true, new RefBasic.empty()),
+      new FilterModel.date(Config.filterItemTypeDate, ['beginDate', 'endDate'],
+          StringZh.tip_inspectionDate, {}),
       new FilterModel.input(
-          Config.filterItemTypeInput, 'batchNumber', '批号', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'protype', '产品类型', {}),
-      new FilterModel(Config.filterItemTypeRef, 'opCode', 'opName', '工序',
-          Config.ref_workStep, '请选择工序', true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'wcCode', 'wcName', '工作中心',
-          Config.ref_workCenter, '请选择工作中心', true, new RefBasic.empty()),
-      new FilterModel.select(
-          Config.filterItemTypeSingleSelect, 'checkStatus', '检验状态', [
+          Config.filterItemTypeInput, 'moDocNo', StringZh.production_order, {}),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'opDocNo', StringZh.work_orderNo, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'cusCode',
+          'cusName',
+          StringZh.customer,
+          Config.ref_customer,
+          StringZh.tip_customer,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'batchNumber', StringZh.batch, {}),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'protype', StringZh.proType, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'opCode',
+          'opName',
+          StringZh.workStep,
+          Config.ref_workStep,
+          StringZh.tip_workStep,
+          true,
+          new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'wcCode',
+          'wcName',
+          StringZh.workCenter,
+          Config.ref_workCenter,
+          StringZh.tip_workCenter,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.select(Config.filterItemTypeSingleSelect, 'checkStatus',
+          StringZh.tip_testState, [
         {'value': '未检', 'text': '未检', 'isSelect': true, 'default': true},
         {'value': '已检', 'text': '已检', 'isSelect': false},
         {'value': '全部', 'text': '全部', 'isSelect': false},

@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
@@ -180,8 +182,9 @@ class LoginPageState extends State<LoginPage> {
       await MySelfInfo.setPassword(_passwordController.text);
       await MySelfInfo.setLoginDate(dateStr);
     }
-
     await MySelfInfo.setToken(token);
+    GlobalInfo.instance.setLoginDate(dateStr);
+    GlobalInfo.instance.setAccount(_accountController.text);
   }
 
   void _loginSuccess(String token) async {
@@ -192,7 +195,7 @@ class LoginPageState extends State<LoginPage> {
 
     ApiUtil.getUserInfoAndConfig(context, _accountController.text, () {
       Navigator.pop(context);
-      Navigator.pushNamed(context, '/mainPage');
+      Navigator.pushNamed(context, Config.mainPage);
     }, (errorMsg) {
       Navigator.pop(context);
       Fluttertoast.showToast(msg: errorMsg, timeInSecForIos: 3);
@@ -217,7 +220,7 @@ class LoginPageState extends State<LoginPage> {
 
   ///跳转到设置页面，并接收返回值，刷新帐套列表
   void _goToSetting(BuildContext context) {
-    Navigator.pushNamed(context, '/serviceSetting').then((onValue) {
+    Navigator.pushNamed(context, Config.serviceSetting).then((onValue) {
       if (onValue != null) {
         _getSobs();
       }
@@ -330,7 +333,7 @@ class LoginPageState extends State<LoginPage> {
                               },
                               icon: new Icon(
                                 Icons.calendar_today,
-                                color: RLZZColors.gray,
+                                color: SetColors.gray,
                               ),
                             ),
                           ]),
@@ -368,13 +371,13 @@ class LoginPageState extends State<LoginPage> {
                           new TextSpan(
                             text: StringZh.login_setting,
                             style: new TextStyle(
-                                fontSize: RLZZConstant.smallTextSize),
+                                fontSize: SetConstants.smallTextSize),
                             children: [
                               new TextSpan(
                                 text: StringZh.setting,
                                 style: new TextStyle(
-                                    fontSize: RLZZConstant.smallTextSize,
-                                    color: RLZZColors.mainColor),
+                                    fontSize: SetConstants.smallTextSize,
+                                    color: SetColors.mainColor),
                                 recognizer: new TapGestureRecognizer()
                                   ..onTap = () {
                                     _goToSetting(context);
@@ -400,7 +403,7 @@ class LoginPageState extends State<LoginPage> {
                                         ? Icons.check_box
                                         : Icons.check_box_outline_blank,
                                     color: isKeepPwd
-                                        ? RLZZColors.mainColor
+                                        ? SetColors.mainColor
                                         : Colors.grey,
                                     size: 20.0,
                                   ),
@@ -409,7 +412,7 @@ class LoginPageState extends State<LoginPage> {
                               new Text(
                                 StringZh.remember_password,
                                 style: new TextStyle(
-                                    fontSize: RLZZConstant.smallTextSize),
+                                    fontSize: SetConstants.smallTextSize),
                               )
                             ],
                           ),
@@ -424,7 +427,7 @@ class LoginPageState extends State<LoginPage> {
                     child: new Container(
                       margin: new EdgeInsets.only(top: 10.0),
                       decoration: new BoxDecoration(
-                        color: RLZZColors.mainColor,
+                        color: SetColors.mainColor,
                         borderRadius:
                             new BorderRadius.all(new Radius.circular(6.0)),
                       ),
@@ -436,7 +439,7 @@ class LoginPageState extends State<LoginPage> {
                           StringZh.login,
                           style: new TextStyle(
                               color: Colors.white,
-                              fontSize: RLZZConstant.bigTextSize),
+                              fontSize: SetConstants.bigTextSize),
                         ),
                       ),
                     ),
@@ -449,12 +452,12 @@ class LoginPageState extends State<LoginPage> {
                       new TextSpan(
                         text: StringZh.version,
                         style: new TextStyle(
-                            fontSize: 9.0, color: RLZZColors.darkDarkGrey),
+                            fontSize: 9.0, color: SetColors.darkDarkGrey),
                         children: [
                           new TextSpan(
                             text: _packageInfo.version,
                             style: new TextStyle(
-                                fontSize: 9.0, color: RLZZColors.darkDarkGrey),
+                                fontSize: 9.0, color: SetColors.darkDarkGrey),
                           ),
                         ],
                       ),

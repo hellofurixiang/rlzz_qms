@@ -49,14 +49,14 @@ class SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       body: new Center(
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Image.asset(
-              'assets/images/splash.png',
+              SetIcons.splash,
               width: 120.0,
               height: 140.0,
               //fit: BoxFit.cover,        //告诉引用图片的控件，图像应尽可能小，但覆盖整个控件。
@@ -66,7 +66,7 @@ class SplashPageState extends State<SplashPage> {
               textAlign: TextAlign.center,
               style: new TextStyle(
                 color: Colors.white,
-                fontSize: RLZZConstant.hugeTextSize,
+                fontSize: SetConstants.hugeTextSize,
                 decoration: TextDecoration.none,
               ),
             ),
@@ -75,7 +75,7 @@ class SplashPageState extends State<SplashPage> {
               textAlign: TextAlign.center,
               style: new TextStyle(
                 color: Colors.white,
-                fontSize: RLZZConstant.middleTextSize,
+                fontSize: SetConstants.middleTextSize,
                 decoration: TextDecoration.none,
               ),
             ),
@@ -84,7 +84,7 @@ class SplashPageState extends State<SplashPage> {
               textAlign: TextAlign.center,
               style: new TextStyle(
                 color: Colors.white,
-                fontSize: RLZZConstant.middleTextSize,
+                fontSize: SetConstants.middleTextSize,
                 decoration: TextDecoration.none,
               ),
             )

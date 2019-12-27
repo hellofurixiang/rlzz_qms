@@ -82,8 +82,8 @@ class QmsService {
   ///testTemplateId 检验模板id
   static void getTestQuotaListByOrderInfo(BuildContext context, String barcode,
       Function successCallBack, Function errorCallBack) {
-    String url = Config.qmsApiUrl +
-        '/api/qms/app/testTemplateAllot/getTestQuotaListByOrderInfo';
+    String url =
+        Config.qmsApiUrl + '/testTemplateAllot/getTestQuotaListByOrderInfo';
 
     NetUtil.post(url, context,
         params: {'barcode': barcode},
@@ -95,7 +95,7 @@ class QmsService {
   ///id 检验单表头id
   static void auditTestOrder(BuildContext context, String id, String docCat,
       int version, Function successCallBack, Function errorCallBack) {
-    String url = Config.qmsApiUrl + '/api/qms/app/testOrder/auditTestOrder';
+    String url = Config.qmsApiUrl + '/testOrder/auditTestOrder';
 
     NetUtil.get(url, context,
         params: {'id': id, 'docCat': docCat, 'version': version},
@@ -107,7 +107,7 @@ class QmsService {
   ///id 检验单表头id
   static void unAuditTestOrder(BuildContext context, String id, String docCat,
       int version, Function successCallBack, Function errorCallBack) {
-    String url = Config.qmsApiUrl + '/api/qms/app/testOrder/unAuditTestOrder';
+    String url = Config.qmsApiUrl + '/testOrder/unAuditTestOrder';
 
     NetUtil.get(url, context,
         params: {'id': id, 'docCat': docCat, 'version': version},
@@ -119,7 +119,7 @@ class QmsService {
   ///id 检验单表头id
   static void delTestOrder(BuildContext context, String id, String docCat,
       int version, Function successCallBack, Function errorCallBack) {
-    String url = Config.qmsApiUrl + '/api/qms/app/testOrder/delTestOrder';
+    String url = Config.qmsApiUrl + '/testOrder/delTestOrder';
 
     NetUtil.get(url, context,
         params: {'id': id, 'docCat': docCat, 'version': version},
@@ -128,14 +128,9 @@ class QmsService {
   }
 
   ///获取生产订单详情
-  static void getProductionOrderInfo(
-      BuildContext context,
-      String moDocNo,
-      String detailId,
-      Function successCallBack,
-      Function errorCallBack) {
-    String url = Config.qmsApiUrl +
-        '/productionOrder/getProductionOrderInfo';
+  static void getProductionOrderInfo(BuildContext context, String moDocNo,
+      String detailId, Function successCallBack, Function errorCallBack) {
+    String url = Config.qmsApiUrl + '/productionOrder/getProductionOrderInfo';
 
     NetUtil.post(url, context,
         params: {'id': detailId, 'docNo': moDocNo},
@@ -157,7 +152,7 @@ class QmsService {
   ///不良原因参照，分页接口
   static void getBadReasonRef(
       BuildContext context, Function successCallBack, Function errorCallBack) {
-    String url = Config.qmsApiUrl + '/badReason/findBadReasonRef';
+    String url = Config.qmsApiUrl + Config.badReasonRefUrl;
 
     NetUtil.post(url, context,
         params: {},
@@ -305,5 +300,15 @@ class QmsService {
         params: params,
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);
+  }
+
+  ///根据单据ID获取不良信息列表
+  ///id 检验单ID
+  static void getTestOrderBadInfoList(
+      BuildContext context, String id, Function successCallBack) {
+    String url = Config.qmsApiUrl + '/testOrder/getBadInfoList';
+
+    NetUtil.get(url, context,
+        params: {'id': id}, successCallBack: successCallBack);
   }
 }

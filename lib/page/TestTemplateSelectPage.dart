@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
+import 'package:qms/page/PqcTestOrderSamplePage.dart';
 import 'package:qms/page/TestOrderPage.dart';
 import 'package:qms/page/TestOrderSamplePage.dart';
 import 'package:qms/widget/ButtonWidget.dart';
@@ -146,47 +148,47 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
 
     switch (widget.docCat) {
       case Config.test_order_arrival:
-        permissions = Config.arrival_add;
+        permissions = UserPermissionsConfig.arrival_add;
         permissionsText = StringZh.arrivalTestOrderDetail_add;
         if (testRule == Config.testForInv) {
           detailTitle = StringZh.arrivalTestOrderSampleDetail_title;
           testOrderType = 'sample';
           docCat = Config.test_order_arrival_sample;
 
-          permissions = Config.arrivalSample_add;
+          permissions = UserPermissionsConfig.arrivalSample_add;
           permissionsText = StringZh.arrivalTestOrderSampleDetail_add;
         }
         break;
       case Config.test_order_complete:
-        permissions = Config.complete_add;
+        permissions = UserPermissionsConfig.complete_add;
         permissionsText = StringZh.arrivalTestOrderDetail_add;
         if (testRule == Config.testForInv) {
           detailTitle = StringZh.completeTestOrderSampleDetail_title;
           testOrderType = 'sample';
           docCat = Config.test_order_complete_sample;
 
-          permissions = Config.completeSample_add;
+          permissions = UserPermissionsConfig.completeSample_add;
           permissionsText = StringZh.arrivalTestOrderSampleDetail_add;
         }
         break;
 
       case Config.test_order_iqc:
-        permissions = Config.iqc_add;
+        permissions = UserPermissionsConfig.iqc_add;
         permissionsText = StringZh.iqcTestOrderDetail_add;
         break;
       case Config.test_order_fqc:
-        permissions = Config.fqc_add;
+        permissions = UserPermissionsConfig.fqc_add;
         permissionsText = StringZh.fqcTestOrderDetail_add;
         break;
 
       case Config.test_order_ipqc:
         testOrderType = 'sample';
-        permissions = Config.ipqc_add;
+        permissions = UserPermissionsConfig.ipqc_add;
         permissionsText = StringZh.ipqcTestOrderDetail_add;
         break;
       case Config.test_order_pqc:
         testOrderType = 'sample';
-        permissions = Config.pqc_add;
+        permissions = UserPermissionsConfig.pqc_add;
         permissionsText = StringZh.pqcTestOrderDetail_add;
         break;
       default:
@@ -198,10 +200,10 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       return;
     }*/
 
-    if (testOrderType == 'sample') {
+    if (widget.docCat == Config.test_order_pqc) {
       NavigatorUtil.goToPage(
           context,
-          new TestOrderSamplePage(
+          new PqcTestOrderSamplePage(
             docCat: docCat,
             testCat: testCat,
             qty: qtyEc.text,
@@ -212,18 +214,33 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
             title: detailTitle,
           ));
     } else {
-      NavigatorUtil.goToPage(
-          context,
-          new TestOrderPage(
-            docCat: docCat,
-            testCat: testCat,
-            qty: qtyEc.text,
-            srcDocDetailId: widget.srcDocDetailId,
-            testTemplateId: testTemplateId,
-            testTemplateName: testTemplateName,
-            invCatCode: widget.invCatCode,
-            title: detailTitle,
-          ));
+      if (testOrderType == 'sample') {
+        NavigatorUtil.goToPage(
+            context,
+            new TestOrderSamplePage(
+              docCat: docCat,
+              testCat: testCat,
+              qty: qtyEc.text,
+              srcDocDetailId: widget.srcDocDetailId,
+              testTemplateId: testTemplateId,
+              testTemplateName: testTemplateName,
+              invCatCode: widget.invCatCode,
+              title: detailTitle,
+            ));
+      } else {
+        NavigatorUtil.goToPage(
+            context,
+            new TestOrderPage(
+              docCat: docCat,
+              testCat: testCat,
+              qty: qtyEc.text,
+              srcDocDetailId: widget.srcDocDetailId,
+              testTemplateId: testTemplateId,
+              testTemplateName: testTemplateName,
+              invCatCode: widget.invCatCode,
+              title: detailTitle,
+            ));
+      }
     }
   }
 
@@ -242,13 +259,13 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       alignment: Alignment.center,
       child: Icon(
         isSelect ? Icons.check_box : Icons.check_box_outline_blank,
-        color: RLZZColors.mainColor,
+        color: SetColors.mainColor,
         size: 20.0,
       ),
       decoration: new BoxDecoration(
         color: Colors.white,
         border: new Border(
-          bottom: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+          bottom: new BorderSide(color: SetColors.darkGrey, width: 0.5),
         ),
       ),
     );
@@ -259,12 +276,12 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       width: width * 0.5 * 0.3,
       child: Text(
         data['arcCode'],
-        style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+        style: TextStyle(fontSize: SetConstants.normalTextSize),
       ),
       decoration: new BoxDecoration(
         color: Colors.white,
         border: new Border(
-          left: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+          left: new BorderSide(color: SetColors.darkGrey, width: 0.5),
         ),
       ),
     ));
@@ -273,13 +290,13 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
         alignment: Alignment.center,
         child: Text(
           data['arcName'],
-          style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+          style: TextStyle(fontSize: SetConstants.normalTextSize),
         ),
         decoration: new BoxDecoration(
           color: Colors.white,
           border: new Border(
-            right: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
-            left: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+            right: new BorderSide(color: SetColors.darkGrey, width: 0.5),
+            left: new BorderSide(color: SetColors.darkGrey, width: 0.5),
           ),
         ),
       ),
@@ -289,7 +306,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       width: width * 0.5 * 0.2,
       child: Text(
         data['testRule'] ?? '',
-        style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+        style: TextStyle(fontSize: SetConstants.normalTextSize),
       ),
     ));
     /*if (null != data['isSelect'] && data['isSelect']) {
@@ -330,7 +347,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
           decoration: new BoxDecoration(
             color: Colors.white,
             border: new Border(
-              bottom: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+              bottom: new BorderSide(color: SetColors.darkGrey, width: 0.5),
             ),
           )),
     );
@@ -345,7 +362,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: SetColors.darkGrey,
       text: StringZh.app_cancel,
       fontColor: Colors.white,
       clickFun: () {
@@ -357,7 +374,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       btnList.add(ButtonWidget(
         height: 30.0,
         width: 65.0,
-        backgroundColor: RLZZColors.mainColor,
+        backgroundColor: SetColors.mainColor,
         text: StringZh.app_ok,
         fontColor: Colors.white,
         clickFun: () {
@@ -394,7 +411,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
         ),
         new Container(
           //padding: new EdgeInsets.all(2.0),
-          color: RLZZColors.mainColor,
+          color: SetColors.mainColor,
           height: 25.0,
           child: new Row(
             children: <Widget>[
@@ -406,16 +423,15 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
                 alignment: Alignment.center,
                 width: width * 0.5 * 0.3,
                 child: Text(
-                  '编码',
+                  StringZh.code,
                   style: TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.white),
                 ),
                 decoration: new BoxDecoration(
-                  color: RLZZColors.mainColor,
+                  color: SetColors.mainColor,
                   border: new Border(
-                    left:
-                        new BorderSide(color: RLZZColors.darkGrey, width: 1.0),
+                    left: new BorderSide(color: SetColors.darkGrey, width: 1.0),
                   ),
                 ),
               ),
@@ -423,18 +439,18 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    '名称',
+                    StringZh.name,
                     style: TextStyle(
-                        fontSize: RLZZConstant.normalTextSize,
+                        fontSize: SetConstants.normalTextSize,
                         color: Colors.white),
                   ),
                   decoration: new BoxDecoration(
-                    color: RLZZColors.mainColor,
+                    color: SetColors.mainColor,
                     border: new Border(
-                      right: new BorderSide(
-                          color: RLZZColors.darkGrey, width: 1.0),
-                      left: new BorderSide(
-                          color: RLZZColors.darkGrey, width: 1.0),
+                      right:
+                          new BorderSide(color: SetColors.darkGrey, width: 1.0),
+                      left:
+                          new BorderSide(color: SetColors.darkGrey, width: 1.0),
                     ),
                   ),
                 ),
@@ -443,9 +459,9 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
                 alignment: Alignment.center,
                 width: width * 0.5 * 0.2,
                 child: Text(
-                  '检验规则',
+                  StringZh.testRule,
                   style: TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.white),
                 ),
               ),

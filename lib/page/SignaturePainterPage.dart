@@ -92,7 +92,7 @@ class SignaturePainterPageState extends State<SignaturePainterPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: SetColors.darkGrey,
       text: StringZh.app_cancel,
       fontColor: Colors.white,
       clickFun: () {
@@ -102,8 +102,8 @@ class SignaturePainterPageState extends State<SignaturePainterPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.red,
-      text: '清屏',
+      backgroundColor: SetColors.red,
+      text: StringZh.clear,
       fontColor: Colors.white,
       clickFun: () {
         _points.clear();
@@ -112,7 +112,7 @@ class SignaturePainterPageState extends State<SignaturePainterPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.app_ok,
       fontColor: Colors.white,
       clickFun: () {

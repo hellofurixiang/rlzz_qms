@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/TestOrder.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
-import 'package:qms/page/RefPage.dart';
+import 'package:qms/page/BadInfoListPage.dart';
 import 'package:qms/page/SignPage.dart';
 import 'package:qms/widget/InputWidget.dart';
 import 'package:qms/widget/TextWidget.dart';
@@ -134,22 +135,22 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Container(
                 width: 90.0,
                 child: new Text(
-                  '检验结果',
+                  StringZh.testResult,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
               new Container(
                 width: 90.0,
                 //height: 40.0,
-                color: RLZZColors.twoLevel,
+                color: SetColors.twoLevel,
                 margin: new EdgeInsets.only(top: 2.0, bottom: 2.0),
                 padding: new EdgeInsets.only(left: 5.0),
                 child: new DropdownButtonHideUnderline(
@@ -163,7 +164,7 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                     value: widget.testOrderInfo.testResult,
                     //hint: new Text(StringZh.prompt_sob),
                     style: new TextStyle(
-                        fontSize: RLZZConstant.normalTextSize,
+                        fontSize: SetConstants.normalTextSize,
                         color: Colors.black),
                     //iconEnabledColor: Colors.white,
                   ),
@@ -183,10 +184,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 70.0,
                 child: new Text(
-                  '合格数量',
+                  StringZh.qualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new Container(
@@ -202,10 +203,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '不良数量',
+                  StringZh.unQualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -217,7 +218,9 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                   onChanged: (v) {
                     double unQualifiedQty = getDoubleValue(v);
                     if (unQualifiedQty > widget.testOrderInfo.quantity) {
-                      Fluttertoast.showToast(msg: '不良数量不能大于应检数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_unQualifiedQty_not_greater_than_shouldQty);
                       unQualifiedQtyController.text =
                           widget.testOrderInfo.unQualifiedQty.toString();
                       return;
@@ -242,10 +245,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '返工数量',
+                  StringZh.reworkQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -268,7 +271,9 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                     //double scrapQty = widget.testOrderInfo.scrapQty;
 
                     if (reworkQty + spQty > unQualifiedQty) {
-                      Fluttertoast.showToast(msg: '特采数量+返工数量不能超过不良数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_spQty_and_reworkQty_not_greater_than_unQualifiedQty);
 
                       reworkQtyController.text =
                           widget.testOrderInfo.reworkQty.toString();
@@ -299,10 +304,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 70.0,
                 child: new Text(
-                  '让步接收数',
+                  StringZh.concessionReceivedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new Container(
@@ -317,7 +322,9 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                     double concessionReceivedQty = getDoubleValue(v);
 
                     if (concessionReceivedQty > widget.testOrderInfo.quantity) {
-                      Fluttertoast.showToast(msg: '让步接收数不能大于应检数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_concessionReceivedQty_not_greater_than_shouldQty);
                       concessionReceivedQtyController.text = widget
                           .testOrderInfo.concessionReceivedQuantity
                           .toString();
@@ -345,10 +352,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '特采数量',
+                  StringZh.spQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -367,10 +374,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '报废数量',
+                  StringZh.scrapQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -402,16 +409,16 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                       margin: new EdgeInsets.only(left: 5.0, right: 5.0),
                       width: 70.0,
                       child: new Text(
-                        '不良原因',
+                        StringZh.text_badReason,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
-                            color: RLZZColors.darkDarkGrey),
+                            fontSize: SetConstants.normalTextSize,
+                            color: SetColors.darkDarkGrey),
                       ),
                     ),
                     new TextWidget(
                       height: 30.0,
                       width: 130.0,
-                      text: widget.testOrderInfo.badReasonName,
+                      //text: widget.testOrderInfo.badReasonName,
                       onTapFun: getReasonInfoModel,
                       iconWidget: new GestureDetector(
                         onTap: getReasonInfoModel,
@@ -421,7 +428,7 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                           child: new Icon(
                             Icons.search,
                             size: 22.0,
-                            color: RLZZColors.darkDarkGrey,
+                            color: SetColors.darkDarkGrey,
                           ),
                         ),
                       ),
@@ -440,10 +447,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                       margin: EdgeInsets.only(right: 5.0, left: 5.0),
                       width: 60.0,
                       child: new Text(
-                        '不良说明',
+                        StringZh.badReasonInfo,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
-                            color: RLZZColors.darkDarkGrey),
+                            fontSize: SetConstants.normalTextSize,
+                            color: SetColors.darkDarkGrey),
                       ),
                     ),
                     new Container(
@@ -466,10 +473,10 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                             margin: EdgeInsets.only(right: 5.0, left: 5.0),
                             width: 60.0,
                             child: new Text(
-                              '签 名',
+                              StringZh.sign,
                               style: new TextStyle(
-                                  fontSize: RLZZConstant.normalTextSize,
-                                  color: RLZZColors.darkDarkGrey),
+                                  fontSize: SetConstants.normalTextSize,
+                                  color: SetColors.darkDarkGrey),
                             ),
                           ),
                           showSignImage(),
@@ -477,7 +484,7 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                             height: 30.0,
                             width: 60.0,
                             isCenter: true,
-                            text: '签名',
+                            text: StringZh.sign,
                             onTapFun: getSignature,
                           ),
                         ],
@@ -496,9 +503,9 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
           child: new Row(
             children: <Widget>[
               new Text(
-                '(注:不良数量=返工数量+特采数量+报废数量)',
+                StringZh.tip_unQualifiedQty_reworkQty_spQty_scrapQty,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.smallTextSize, color: Colors.red),
+                    fontSize: SetConstants.smallTextSize, color: Colors.red),
               ),
             ],
           ),
@@ -507,13 +514,13 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
           height: 30.0,
           margin: new EdgeInsets.only(top: 10.0),
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Text(
-                '图像附件',
+                StringZh.imageAttachment,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
               ),
             ],
           ),
@@ -529,7 +536,7 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
 
   ///获取不良原因
   void getReasonInfoModel() {
-    showDialog<Null>(
+    /*showDialog<Null>(
         context: context, //BuildContext对象
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -540,6 +547,21 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
                 widget.testOrderInfo.badReasonCode = obj['arcCode'];
                 widget.testOrderInfo.badReasonName = obj['arcName'];
               });
+            },
+          );
+        });*/
+
+    ///测量值列表页面
+    showDialog<Null>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return new BadInfoListPage(
+            testOrderId: widget.testOrderInfo.id,
+            unQualifiedQty: widget.testOrderInfo.unQualifiedQty,
+            valueList: widget.testOrderInfo.badInfoList,
+            okFun: (valueList) {
+              widget.testOrderInfo.badInfoList = valueList;
             },
           );
         });
@@ -578,7 +600,7 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: Text(
-                  '签名图片',
+                  StringZh.signPic,
                   style: TextStyle(
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w300,
@@ -602,12 +624,12 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
             return new Container(
-              child: new Text('图片异常'),
+              child: new Text(StringZh.imageError),
             );
           }
           if (!snapshot.hasData) {
             return new Container(
-              child: new Text('图片不见了'),
+              child: new Text(StringZh.picture_is_gone),
             );
           }
           return new Image.memory(

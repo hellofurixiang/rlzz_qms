@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 
@@ -36,7 +37,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
       @required this.title,
       this.isBack: true,
       this.backIcon: Icons.arrow_back,
-      this.backgroundColor: RLZZColors.mainColor,
+      this.backgroundColor: SetColors.mainColor,
       this.iconColor: Colors.white,
       this.titleColor: Colors.white,
       this.rightWidget,
@@ -74,7 +75,7 @@ class AppBarWidgetState extends State<AppBarWidget> {
           widget.backIcon,
           color: widget.iconColor,
         ),
-        tooltip: '返回',
+        tooltip: StringZh.back,
         onPressed: () {
           if (null != widget.backFun) {
             widget.backFun();
@@ -93,7 +94,7 @@ class AppBarWidgetState extends State<AppBarWidget> {
         child: new Text(
           widget.title,
           style: new TextStyle(
-              color: widget.titleColor, fontSize: RLZZConstant.bigTextSize),
+              color: widget.titleColor, fontSize: SetConstants.bigTextSize),
         ),
       ),
     ));

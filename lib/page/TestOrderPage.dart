@@ -85,7 +85,7 @@ class TestOrderPageState extends State<TestOrderPage> {
   bool isLoading = true;
 
   ///整单判定背景色
-  Color whole = RLZZColors.threeLevel;
+  Color whole = SetColors.threeLevel;
 
   ///新增状态
   bool isAdd = false;
@@ -153,7 +153,7 @@ class TestOrderPageState extends State<TestOrderPage> {
     setState(() {
       testOrderInfo = TestOrder.fromJson(res);
       if (CommonUtil.isEmpty(testOrderInfo.testResult)) {
-        testOrderInfo.testResult = '接收';
+        testOrderInfo.testResult = Config.receive;
       }
 
       if (isAdd) {
@@ -198,7 +198,7 @@ class TestOrderPageState extends State<TestOrderPage> {
         if (testItemCode == v.testItemCode) {
           if (bo) {
             ///默认第一个选中
-            v.color = RLZZColors.selectLevel;
+            v.color = SetColors.selectLevel;
             cacheInfo = v;
             bo = false;
           }
@@ -233,10 +233,10 @@ class TestOrderPageState extends State<TestOrderPage> {
     if (isAll) {
       selIndex = -1;
       setState(() {
-        whole = RLZZColors.selectLevel;
+        whole = SetColors.selectLevel;
         isAllSelect = true;
         testOrderDetailList.forEach((k) {
-          k.color = RLZZColors.threeLevel;
+          k.color = SetColors.threeLevel;
         });
       });
       if (testOrderInfo.docCat == Config.test_order_complete) {
@@ -248,11 +248,11 @@ class TestOrderPageState extends State<TestOrderPage> {
       }
     } else {
       setState(() {
-        whole = RLZZColors.threeLevel;
+        whole = SetColors.threeLevel;
         testOrderDetailList.forEach((k) {
-          k.color = RLZZColors.threeLevel;
+          k.color = SetColors.threeLevel;
         });
-        testOrderDetailList[index].color = RLZZColors.selectLevel;
+        testOrderDetailList[index].color = SetColors.selectLevel;
         selIndex = index;
         cacheInfo = testOrderDetailList[index];
         isAllSelect = false;
@@ -389,30 +389,37 @@ class TestOrderPageState extends State<TestOrderPage> {
   List<Widget> _getHeadInfo() {
     List<Widget> list = new List();
     if (CommonUtil.isNotEmpty(testOrderInfo.docNo)) {
-      list.add(_getHeadWidget('单号：', testOrderInfo.docNo, 150.0));
+      list.add(_getHeadWidget(
+          StringZh.test_docNo + '：', testOrderInfo.docNo, 150.0));
     }
     list.add(_getHeadWidget(
-        '物料：',
+        StringZh.inventory + '：',
         testOrderInfo.invCode ?? '' + ' ' + testOrderInfo.invName ?? '',
         250.0));
 
     if (widget.docCat == Config.test_order_arrival) {
-      list.add(_getHeadWidget('供应商：', testOrderInfo.supplierName, 200.0));
+      list.add(_getHeadWidget(
+          StringZh.supplier + '：', testOrderInfo.supplierName, 200.0));
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget('客户：', testOrderInfo.cusName, 150.0));
+      list.add(_getHeadWidget(
+          StringZh.customer + '：', testOrderInfo.cusName, 150.0));
     }
 
-    list.add(_getHeadWidget('来源单据号：', testOrderInfo.srcDocNo, 100.0));
-    list.add(_getHeadWidget('检验数量：', testOrderInfo.quantity.toString(), 50.0));
+    list.add(
+        _getHeadWidget(StringZh.srcDocNo + '：', testOrderInfo.srcDocNo, 100.0));
+    list.add(_getHeadWidget(
+        StringZh.testQty + '：', testOrderInfo.quantity.toString(), 50.0));
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget('批号：', testOrderInfo.batchNumber, 60.0));
+      list.add(_getHeadWidget(
+          StringZh.batch + '：', testOrderInfo.batchNumber, 60.0));
     }
 
     if (widget.docCat == Config.test_order_complete) {
-      list.add(_getHeadWidget('生产订单号：', testOrderInfo.moDocNo, 100.0,
+      list.add(_getHeadWidget(
+          StringZh.production_order + '：', testOrderInfo.moDocNo, 100.0,
           onLongPress: () {
         ///生产订单
         showDialog<Null>(
@@ -425,6 +432,10 @@ class TestOrderPageState extends State<TestOrderPage> {
             });
       }));
     }
+
+    list.add(_getHeadWidget(
+        StringZh.testTemplate + '：', testOrderInfo.testTemplateName, 120.0));
+
     return list;
   }
 
@@ -551,8 +562,8 @@ class TestOrderPageState extends State<TestOrderPage> {
         child: new Text(
           text,
           style: new TextStyle(
-              fontSize: RLZZConstant.middleTextSize,
-              color: RLZZColors.mainColor),
+              fontSize: SetConstants.middleTextSize,
+              color: SetColors.mainColor),
         ),
       ),
     );
@@ -587,7 +598,7 @@ class TestOrderPageState extends State<TestOrderPage> {
               new Container(
                 width: width,
                 height: 40.0,
-                color: RLZZColors.threeLevel,
+                color: SetColors.threeLevel,
                 child: new Row(
                   children: _getHeadInfo(),
                 ),
@@ -609,9 +620,10 @@ class TestOrderPageState extends State<TestOrderPage> {
                     alignment: Alignment.center,
                     width: width,
                     height: 35.0,
-                    color: RLZZColors.completeColor,
+                    color: SetColors.completeColor,
                     child: new Text(
-                      '当前已录入到 ${lastCompleteIndex + 1} 行,点击此处继续录入',
+                      CommonUtil.getText(StringZh.mark_prompt,
+                          [(lastCompleteIndex + 1).toString()]),
                       style: new TextStyle(color: Colors.white),
                     ),
                   ),
@@ -634,12 +646,12 @@ class TestOrderPageState extends State<TestOrderPage> {
                             new Container(
                               //width: width * 0.75,
                               height: 45.0,
-                              color: RLZZColors.lightGray,
+                              color: SetColors.lightGray,
                               child: new Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: _getOperBtns(),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

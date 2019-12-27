@@ -105,20 +105,21 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Text(
-                '检验描述',
+                StringZh.testDescribe,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
               ),
               new Expanded(child: new Container()),
               new Text(
-                '检验方法：' + (widget.cacheInfo.testMethodName ?? ''),
+                '${StringZh.testMethod}：' +
+                    (widget.cacheInfo.testMethodName ?? ''),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ],
           ),
@@ -127,27 +128,29 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
           margin: new EdgeInsets.only(top: 10.0),
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new Text(
-                '检验方式：' + (widget.cacheInfo.testWay ?? ''),
+                '${StringZh.testWay}：' + (widget.cacheInfo.testWay ?? ''),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               new Text(
-                '抽检方式：' + (widget.cacheInfo.samplingWay ?? ''),
+                '${StringZh.samplingWay}：' +
+                    (widget.cacheInfo.samplingWay ?? ''),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               new Text(
-                '应检数量：' + widget.cacheInfo.quantity.toString(),
+                '${StringZh.shouldQty}：' +
+                    CommonUtil.getVal(widget.cacheInfo.quantity),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ],
           ),
@@ -155,33 +158,36 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new Text(
-                '标准值：' + widget.cacheInfo.standardValue.toString(),
+                '${StringZh.standardValue}：' +
+                    CommonUtil.getVal(widget.cacheInfo.standardValue),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               new Text(
-                '上限：' + widget.cacheInfo.upperLimitValue.toString(),
+                '${StringZh.lowerLimitValue}：' +
+                    CommonUtil.getVal(widget.cacheInfo.lowerLimitValue),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               new Text(
-                '下限：' + widget.cacheInfo.lowerLimitValue.toString(),
+                '${StringZh.upperLimitValue}：' +
+                    CommonUtil.getVal(widget.cacheInfo.upperLimitValue),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               new Text(
-                '指标类型：' + widget.cacheInfo.quotaCat,
+                '${StringZh.quotaCat}：' + (widget.cacheInfo.quotaCat ?? ''),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ],
           ),
@@ -189,15 +195,16 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new Text(
-                '检验描述：' + (widget.cacheInfo.testDecription ?? ''),
+                '${StringZh.testDescribe}：' +
+                    (widget.cacheInfo.testDecription ?? ''),
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ],
           ),
@@ -205,14 +212,14 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Text(
-                '相关附件：',
+                '${StringZh.relatedAttachment}：',
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
               WidgetUtil.getFileWidget(context, widget.cacheInfo.enclosure),
             ],
@@ -222,14 +229,14 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
           height: 30.0,
           margin: new EdgeInsets.only(top: 10.0),
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               new Text(
-                '检验结果',
+                StringZh.testResult,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
               ),
             ],
           ),
@@ -245,10 +252,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                 margin: EdgeInsets.only(right: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '合格数量',
+                  StringZh.qualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new Container(
@@ -264,10 +271,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '不良数量',
+                  StringZh.unQualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -277,7 +284,6 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                   isNumber: true,
                   controller: unQualifiedQtyController,
                   onChanged: (v) {
-                    print('不良数量:' + v);
                     if ('' == v.trim()) {
                       widget.cacheInfo.unQualifiedQty = double.parse('0');
                       widget.cacheInfo.qualifiedQty = widget.cacheInfo.quantity;
@@ -286,7 +292,9 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                     } else {
                       double unQualifiedQty = double.parse(v);
                       if (unQualifiedQty > widget.cacheInfo.quantity) {
-                        Fluttertoast.showToast(msg: '不良数量不能大于应检数量');
+                        Fluttertoast.showToast(
+                            msg: StringZh
+                                .tip_unQualifiedQty_not_greater_than_shouldQty);
                         unQualifiedQtyController.text = '';
                         qualifiedQtyController.text =
                             widget.cacheInfo.quantity.toString();
@@ -308,16 +316,16 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '测量值',
+                  StringZh.testVal,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new TextWidget(
                 height: 30.0,
                 width: 150.0,
-                text: widget.cacheInfo.testQtyInfo,
+                text: widget.cacheInfo.testQtyInfo ?? '',
                 onTapFun: () {
                   if (null != widget.cacheInfo.testQtyInfo) {
                     WidgetUtil.showRemark(context,
@@ -331,15 +339,15 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                   child: new Container(
                     decoration: new BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      color: RLZZColors.mainColor,
+                      color: SetColors.mainColor,
                     ),
                     margin: new EdgeInsets.only(left: 6.0),
                     padding: new EdgeInsets.only(
                         top: 6.0, bottom: 6.0, right: 10.0, left: 10.0),
                     child: new Text(
-                      '样',
+                      StringZh.sample,
                       style: TextStyle(
-                          fontSize: RLZZConstant.smallTextSize,
+                          fontSize: SetConstants.smallTextSize,
                           color: Colors.white),
                     ),
                   ),
@@ -364,10 +372,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                       margin: new EdgeInsets.only(right: 5.0),
                       width: 60.0,
                       child: new Text(
-                        '不良原因',
+                        StringZh.text_badReason,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
-                            color: RLZZColors.darkDarkGrey),
+                            fontSize: SetConstants.normalTextSize,
+                            color: SetColors.darkDarkGrey),
                       ),
                     ),
                     new TextWidget(
@@ -383,7 +391,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                           child: new Icon(
                             Icons.search,
                             size: 22.0,
-                            color: RLZZColors.darkDarkGrey,
+                            color: SetColors.darkDarkGrey,
                           ),
                         ),
                       ),
@@ -402,10 +410,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                       margin: EdgeInsets.only(right: 5.0, left: 5.0),
                       width: 60.0,
                       child: new Text(
-                        '不良说明',
+                        StringZh.badReasonInfo,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
-                            color: RLZZColors.darkDarkGrey),
+                            fontSize: SetConstants.normalTextSize,
+                            color: SetColors.darkDarkGrey),
                       ),
                     ),
                     new Container(
@@ -426,10 +434,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                         margin: EdgeInsets.only(right: 5.0, left: 5.0),
                         width: 60.0,
                         child: new Text(
-                          '操作者',
+                          StringZh.producer,
                           style: new TextStyle(
-                              fontSize: RLZZConstant.normalTextSize,
-                              color: RLZZColors.darkDarkGrey),
+                              fontSize: SetConstants.normalTextSize,
+                              color: SetColors.darkDarkGrey),
                         ),
                       ),
                     ),
@@ -457,13 +465,13 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
           height: 30.0,
           margin: new EdgeInsets.only(top: 10.0),
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Text(
-                '图像附件',
+                StringZh.imageAttachment,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
               ),
             ],
           ),
@@ -550,10 +558,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
               margin: new EdgeInsets.only(right: 5.0),
               width: 60.0,
               child: new Text(
-                '计量单位' ,
+                StringZh.unitName,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ),
             new Container(
@@ -569,10 +577,10 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
               margin: EdgeInsets.only(right: 5.0, left: 5.0),
               width: 60.0,
               child: new Text(
-                '测量工具',
+                StringZh.measuringTool,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,
-                    color: RLZZColors.darkDarkGrey),
+                    fontSize: SetConstants.normalTextSize,
+                    color: SetColors.darkDarkGrey),
               ),
             ),
             new TextWidget(
@@ -588,7 +596,7 @@ class TestOrderBodyItemPageState extends State<TestOrderBodyItemPage> {
                   child: new Icon(
                     Icons.search,
                     size: 22.0,
-                    color: RLZZColors.darkDarkGrey,
+                    color: SetColors.darkDarkGrey,
                   ),
                 ),
               ),

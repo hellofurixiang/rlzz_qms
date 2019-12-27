@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 
 const String kTypeImage = 'image';
 const String kTypeVideo = 'video';
@@ -22,7 +23,7 @@ enum ImageSource {
 
 class ImagePicker {
   static const MethodChannel _channel =
-      MethodChannel('com.szrlzz.qms/image_picker');
+      MethodChannel(Config.methodChannel_image_picker);
 
   /// Returns a [File] object pointing to the image that was picked.
   ///

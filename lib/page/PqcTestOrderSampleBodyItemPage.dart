@@ -20,7 +20,7 @@ import 'package:qms/widget/InputWidget.dart';
 import 'package:qms/widget/TextWidget.dart';
 
 ///检验单表体详情
-class TestOrderSampleBodyItemPage extends StatefulWidget {
+class PqcTestOrderSampleBodyItemPage extends StatefulWidget {
   ///检验单对象
   final TestOrder testOrderInfo;
 
@@ -48,7 +48,7 @@ class TestOrderSampleBodyItemPage extends StatefulWidget {
   ///指标列表
   //final List<TestOrderDetailTestQuota> testOrderDetailTestQuotaList;
 
-  TestOrderSampleBodyItemPage({
+  PqcTestOrderSampleBodyItemPage({
     Key key,
     @required this.testOrderInfo,
     @required this.cacheInfo,
@@ -62,24 +62,13 @@ class TestOrderSampleBodyItemPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  TestOrderSampleBodyItemPageState createState() =>
-      new TestOrderSampleBodyItemPageState();
+  PqcTestOrderSampleBodyItemPageState createState() =>
+      new PqcTestOrderSampleBodyItemPageState();
 }
 
-class TestOrderSampleBodyItemPageState
-    extends State<TestOrderSampleBodyItemPage> {
+class PqcTestOrderSampleBodyItemPageState
+    extends State<PqcTestOrderSampleBodyItemPage> {
   double width;
-
-  ///一般缺陷
-  TextEditingController generalDefectsQtyController =
-      new TextEditingController();
-
-  ///主要缺陷
-  TextEditingController majorDefectsQtyController = new TextEditingController();
-
-  ///严重数量
-  TextEditingController seriousDefectsQtyController =
-      new TextEditingController();
 
   ///备注
   TextEditingController remarkController = new TextEditingController();
@@ -87,13 +76,28 @@ class TestOrderSampleBodyItemPageState
   ///样本条码
   TextEditingController barcodeController = new TextEditingController();
 
+  ///测量工具
+  TextEditingController measuringToolController = new TextEditingController();
+
   ///指标列表中的输入框控制器
   List<TextEditingController> testValCtlList = [];
+
+  ///检验结果
+  List<DropdownMenuItem> resultItems = [];
 
   @override
   void initState() {
     super.initState();
 
+    resultItems =
+        Config.testResult_pqc.map<DropdownMenuItem<String>>((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: Text(value),
+      );
+    }).toList();
+
+    ///初始化数据
     if (widget.cacheInfo.testOrderDetailTestQuota == null) {
       widget.cacheInfo.testOrderDetailTestQuota = [];
     }
@@ -103,7 +107,7 @@ class TestOrderSampleBodyItemPageState
   }
 
   @override
-  void didUpdateWidget(TestOrderSampleBodyItemPage oldWidget) {
+  void didUpdateWidget(PqcTestOrderSampleBodyItemPage oldWidget) {
     //print('组件状态改变：didUpdateWidget');
     super.didUpdateWidget(oldWidget);
     _setDetailControllerInfo();
@@ -112,6 +116,9 @@ class TestOrderSampleBodyItemPageState
   ///当整个页面dispose时，记得把控制器也dispose掉，释放内存
   @override
   void dispose() {
+    barcodeController.dispose();
+    measuringToolController.dispose();
+    remarkController.dispose();
     super.dispose();
   }
 
@@ -126,15 +133,7 @@ class TestOrderSampleBodyItemPageState
 
     barcodeController.text = widget.cacheInfo.sampleBarcode ?? '';
     remarkController.text = widget.cacheInfo.remark ?? '';
-
-    ///一般缺陷数
-    getQtyInfo(generalDefectsQtyController, widget.cacheInfo.generalDefectsQty);
-
-    ///主要缺陷数
-    getQtyInfo(majorDefectsQtyController, widget.cacheInfo.majorDefectsQty);
-
-    ///严重缺陷数
-    getQtyInfo(seriousDefectsQtyController, widget.cacheInfo.seriousDefectsQty);
+    measuringToolController.text = widget.cacheInfo.measuringTool ?? '';
 
     testValCtlList.clear();
     widget.cacheInfo.testOrderDetailTestQuota.forEach((f) {
@@ -150,70 +149,41 @@ class TestOrderSampleBodyItemPageState
 
   ///获取表体信息，封装控件
   Widget _getDetailInfo() {
-    List<Widget> wList = [];
-    wList.add(new Container(
-      alignment: Alignment.centerRight,
-      margin: EdgeInsets.only(right: 10.0, left: 5.0),
-      child: new Text(
-        StringZh.nowSample + '：' + (widget.selIndex + 1).toString(),
-        style: new TextStyle(
-            fontSize: SetConstants.normalTextSize, color: Colors.black),
-      ),
-    ));
-    if (widget.cacheInfo.timeInterval != null) {
-      wList.add(new Container(
-        alignment: Alignment.centerRight,
-        margin: EdgeInsets.only(right: 5.0, left: 5.0),
-        //width: 70.0,
-        child: new Text(
-          StringZh.timeInterval + '：',
-          style: new TextStyle(
-              fontSize: SetConstants.normalTextSize, color: Colors.black),
-        ),
-      ));
-
-      wList.add(new Container(
-        alignment: Alignment.centerRight,
-        margin: EdgeInsets.only(right: 5.0, left: 5.0),
-        //width: 70.0,
-        child: new Text(
-          widget.cacheInfo.timeInterval,
-          style: new TextStyle(
-              fontSize: SetConstants.normalTextSize, color: Colors.black),
-        ),
-      ));
-    }
-
-    wList.add(new Container(
-      alignment: Alignment.centerRight,
-      margin: EdgeInsets.only(right: 5.0, left: 5.0),
-      width: 70.0,
-      child: new Text(
-        StringZh.sampleBarcode,
-        style: new TextStyle(
-            fontSize: SetConstants.normalTextSize, color: Colors.black),
-      ),
-    ));
-    wList.add(new Container(
-      height: 30.0,
-      width: 180.0,
-      child: new InputWidget(
-        controller: barcodeController,
-        onChanged: (v) {
-          widget.cacheInfo.sampleBarcode = v;
-        },
-      ),
-    ));
-
     return new Column(
       children: <Widget>[
         new Container(
           height: 40.0,
-          padding: new EdgeInsets.only(left: 10.0, right: 10.0),
           margin: new EdgeInsets.only(bottom: 10.0),
           color: SetColors.itemBodyColor,
           child: new Row(
-            children: wList,
+            children: <Widget>[
+              /*new Container(
+                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 10.0),
+                child: new Text(
+                  StringZh.nowSample + '：' + (widget.selIndex + 1).toString(),
+                  style: new TextStyle(
+                      fontSize: SetConstants.normalTextSize,
+                      color: Colors.black),
+                ),
+              ),*/
+              getLabelWidget(StringZh.tick, 40.0),
+              getEnabledWidget(
+                  widget.cacheInfo.tick == null
+                      ? ''
+                      : widget.cacheInfo.tick.toString(),
+                  50),
+              getLabelWidget(StringZh.operator, 60.0),
+              getEnabledWidget(widget.cacheInfo.operator ?? '', 80.0),
+              getLabelWidget(StringZh.state, 60.0),
+              getStateWidget(),
+              getLabelWidget(StringZh.testTime, 70.0),
+              getEnabledWidget(
+                  CommonUtil.getDateFromTimeStamp(
+                      widget.cacheInfo.testTime.toString(),
+                      dateFormat: Config.formatDateTime),
+                  130.0),
+            ],
           ),
         ),
         new Expanded(
@@ -247,119 +217,157 @@ class TestOrderSampleBodyItemPageState
           ),
         ),
         new Container(
-          //height: 30.0,
-          color: SetColors.itemBodyColor,
-          padding: new EdgeInsets.only(top: 10.0),
-          child: new Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 5.0, left: 5.0),
-                width: 70.0,
-                child: new Text(
-                  StringZh.seriousDefectsQty,
-                  style: new TextStyle(
-                      fontSize: SetConstants.normalTextSize,
-                      color: SetColors.darkDarkGrey),
-                ),
-              ),
-              new Container(
-                height: 30.0,
-                width: 150.0,
-                child: new InputWidget(
-                  enabled: false,
-                  isNumber: true,
-                  controller: seriousDefectsQtyController,
-                  onChanged: (v) {
-                    widget.cacheInfo.seriousDefectsQty =
-                        CommonUtil.getIntValue(v);
-                  },
-                ),
-              ),
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 5.0, left: 5.0),
-                width: 60.0,
-                child: new Text(
-                  StringZh.majorDefectsQty,
-                  style: new TextStyle(
-                      fontSize: SetConstants.normalTextSize,
-                      color: SetColors.darkDarkGrey),
-                ),
-              ),
-              new Container(
-                height: 30.0,
-                width: 150.0,
-                child: new InputWidget(
-                  enabled: false,
-                  isNumber: true,
-                  controller: majorDefectsQtyController,
-                  onChanged: (v) {
-                    widget.cacheInfo.majorDefectsQty =
-                        CommonUtil.getIntValue(v);
-                  },
-                ),
-              ),
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 5.0, left: 5.0),
-                width: 60.0,
-                child: new Text(
-                  StringZh.generalDefectsQty,
-                  style: new TextStyle(
-                      fontSize: SetConstants.normalTextSize,
-                      color: SetColors.darkDarkGrey),
-                ),
-              ),
-              new Container(
-                height: 30.0,
-                width: 150.0,
-                child: new InputWidget(
-                  enabled: false,
-                  isNumber: true,
-                  controller: generalDefectsQtyController,
-                  onChanged: (v) {
-                    widget.cacheInfo.generalDefectsQty =
-                        CommonUtil.getIntValue(v);
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-        new Container(
-          height: 50.0,
+          //height: 50.0,
           color: SetColors.itemBodyColor,
           padding: new EdgeInsets.only(top: 10.0, bottom: 10.0),
-          child: new Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: new Column(
             children: <Widget>[
-              new Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: 5.0, left: 5.0),
-                width: 70.0,
-                child: new Text(
-                  StringZh.describe,
-                  style: new TextStyle(
-                      fontSize: SetConstants.normalTextSize,
-                      color: SetColors.darkDarkGrey),
-                ),
+              new Row(
+                children: <Widget>[
+                  new Container(
+                    alignment: Alignment.centerRight,
+                    margin: EdgeInsets.only(left: 5.0, right: 5.0),
+                    width: 70.0,
+                    child: new Text.rich(
+                      new TextSpan(
+                        text: '* ',
+                        children: [
+                          new TextSpan(
+                              text: StringZh.sampleBarcode,
+                              style: new TextStyle(
+                                  fontSize: SetConstants.normalTextSize,
+                                  color: SetColors.black)),
+                        ],
+                      ),
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: new TextStyle(
+                          fontSize: SetConstants.smallTextSize,
+                          color: SetColors.red),
+                      //maxLines: 2,
+                    ),
+                  ),
+                  new Container(
+                    height: 30.0,
+                    width: 300.0,
+                    child: new InputWidget(
+                      enabled: widget.cacheInfo.id == null ? true : false,
+                      controller: barcodeController,
+                      onChanged: (v) {
+                        widget.cacheInfo.sampleBarcode = v;
+                        setState(() {
+                          widget.cacheInfo.testTime =
+                              new DateTime.now().millisecondsSinceEpoch;
+                        });
+                      },
+                    ),
+                  ),
+                  new Container(
+                    child: new Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        getLabelWidget(StringZh.measuringTool, 70.0),
+                        new Container(
+                          height: 30.0,
+                          width: 180.0,
+                          child: new InputWidget(
+                            controller: measuringToolController,
+                            onChanged: (v) {
+                              widget.cacheInfo.measuringTool = v;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               new Container(
-                //height: 30.0,
-                width: 300.0,
-                child: new InputWidget(
-                  controller: remarkController,
-                  onChanged: (v) {
-                    widget.cacheInfo.remark = v;
-                  },
+                margin: EdgeInsets.only(top: 10.0),
+                child: new Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.centerRight,
+                      margin: EdgeInsets.only(right: 5.0, left: 5.0),
+                      width: 70.0,
+                      child: new Text(
+                        StringZh.remark,
+                        style: new TextStyle(
+                            fontSize: SetConstants.normalTextSize,
+                            color: SetColors.black),
+                      ),
+                    ),
+                    new Container(
+                      height: 30.0,
+                      width: 300.0,
+                      child: new InputWidget(
+                        controller: remarkController,
+                        onChanged: (v) {
+                          widget.cacheInfo.remark = v;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Widget getStateWidget() {
+    return CommonUtil.isEmpty(widget.cacheInfo.id)
+        ? new Container(
+            width: 80.0,
+            //height: 40.0,
+            color: SetColors.white,
+            margin: new EdgeInsets.only(top: 4.0, bottom: 4.0),
+            padding: new EdgeInsets.only(left: 5.0),
+            child: new DropdownButtonHideUnderline(
+              child: new DropdownButton(
+                items: resultItems,
+                onChanged: (value) {
+                  setState(() {
+                    widget.cacheInfo.state = value;
+                  });
+                },
+                value: widget.cacheInfo.state,
+                //hint: new Text(StringZh.prompt_sob),
+                style: new TextStyle(
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
+                //iconEnabledColor: Colors.white,
+              ),
+            ),
+          )
+        : getEnabledWidget(widget.cacheInfo.state ?? '', 80.0);
+  }
+
+  Widget getLabelWidget(String labelText, double width,
+      {EdgeInsetsGeometry margin}) {
+    return new Container(
+      alignment: Alignment.centerRight,
+      margin: margin ?? EdgeInsets.only(right: 5.0, left: 5.0),
+      width: width,
+      child: new Text(
+        labelText,
+        style: new TextStyle(
+            fontSize: SetConstants.normalTextSize, color: SetColors.black),
+      ),
+    );
+  }
+
+  Widget getEnabledWidget(String text, double width) {
+    return new Container(
+      height: 30.0,
+      width: width,
+      padding: EdgeInsets.only(left: 3.0),
+      alignment: Alignment.centerLeft,
+      color: SetColors.lightLightGrey,
+      child: new Text(text),
     );
   }
 
@@ -606,14 +614,14 @@ class TestOrderSampleBodyItemPageState
 
   void changeTestVal(
       TestOrderDetailTestQuota vo, String v, TextEditingController controller) {
-    ///一般缺陷数
+    /*///一般缺陷数
     int generalDefectsQty = 0;
 
     ///主要缺陷数
     int majorDefectsQty = 0;
 
     ///严重缺陷数
-    int seriousDefectsQty = 0;
+    int seriousDefectsQty = 0;*/
     setState(() {
       if (vo.quotaCat != Config.quotaTypeEntryNumber) {
         vo.state = false;
@@ -641,43 +649,16 @@ class TestOrderSampleBodyItemPageState
         }
       }
 
-      widget.cacheInfo.testOrderDetailTestQuota.forEach((f) {
-        if (f.state) {
-          if (f.defectLevel == Config.generalDefectsQty) {
-            generalDefectsQty++;
-          }
-          if (f.defectLevel == Config.majorDefectsQty) {
-            majorDefectsQty++;
-          }
-          if (f.defectLevel == Config.seriousDefectsQty) {
-            seriousDefectsQty++;
-          }
+      for (int i = 0;
+          i < widget.cacheInfo.testOrderDetailTestQuota.length;
+          i++) {
+        TestOrderDetailTestQuota tq =
+            widget.cacheInfo.testOrderDetailTestQuota[i];
+        if (tq.state) {
+          widget.cacheInfo.state = Config.qualified;
+          break;
         }
-      });
-      widget.cacheInfo
-        ..generalDefectsQty = generalDefectsQty
-        ..majorDefectsQty = majorDefectsQty
-        ..seriousDefectsQty = seriousDefectsQty;
-
-      ///一般缺陷数
-      int generalDefectsQtyTotal = 0;
-
-      ///主要缺陷数
-      int majorDefectsQtyTotal = 0;
-
-      ///严重缺陷数
-      int seriousDefectsQtyTotal = 0;
-
-      widget.testOrderInfo.testOrderSampleDetail.forEach((f) {
-        generalDefectsQtyTotal += f.generalDefectsQty;
-        majorDefectsQtyTotal += f.majorDefectsQty;
-        seriousDefectsQtyTotal += f.seriousDefectsQty;
-      });
-
-      widget.testOrderInfo
-        ..generalDefectsQty = generalDefectsQtyTotal
-        ..majorDefectsQty = majorDefectsQtyTotal
-        ..seriousDefectsQty = seriousDefectsQtyTotal;
+      }
     });
 
     widget.changeState();
@@ -691,6 +672,7 @@ class TestOrderSampleBodyItemPageState
         barrierDismissible: false,
         builder: (BuildContext context) {
           return new RefPage(
+            title: StringZh.text_badReason,
             url: Config.qmsApiUrl + Config.badReasonRefUrl,
             arcCode: ttq.badReasonCode.toString(),
             okFun: (obj) {
@@ -705,6 +687,10 @@ class TestOrderSampleBodyItemPageState
   }
 
   ///输入框
+  ///指标对象
+  ///控制器
+  ///修改回调方法
+  ///是否为数字
   Widget getInputWidget(TestOrderDetailTestQuota vo,
       TextEditingController controller, Function changeInfo,
       {bool isNumber: false}) {

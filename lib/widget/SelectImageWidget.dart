@@ -62,11 +62,11 @@ class SelectImageWidgetState extends State<SelectImageWidget> {
                 child: new Text(
                   StringZh.camera,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.white),
                 ),
                 decoration: new BoxDecoration(
-                  color: RLZZColors.mainColor,
+                  color: SetColors.mainColor,
                   borderRadius: new BorderRadius.all(
                     new Radius.circular(6.0),
                   ),
@@ -84,11 +84,11 @@ class SelectImageWidgetState extends State<SelectImageWidget> {
                 child: new Text(
                   StringZh.gallery,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.white),
                 ),
                 decoration: new BoxDecoration(
-                  color: RLZZColors.mainColor,
+                  color: SetColors.mainColor,
                   borderRadius: new BorderRadius.all(
                     new Radius.circular(6.0),
                   ),
@@ -111,10 +111,10 @@ class SelectImageWidgetState extends State<SelectImageWidget> {
             child: new Text(
               StringZh.upload,
               style: new TextStyle(
-                  fontSize: RLZZConstant.normalTextSize, color: Colors.white),
+                  fontSize: SetConstants.normalTextSize, color: Colors.white),
             ),
             decoration: new BoxDecoration(
-              color: RLZZColors.mainColor,
+              color: SetColors.mainColor,
               borderRadius: new BorderRadius.all(
                 new Radius.circular(6.0),
               ),
@@ -139,7 +139,7 @@ class SelectImageWidgetState extends State<SelectImageWidget> {
       height: widget.enclosures.length == 0 ? 30.0 : 250.0,
       padding: new EdgeInsets.all(10.0),
       margin: new EdgeInsets.only(top: 10.0),
-      color: RLZZColors.itemBodyColor,
+      color: SetColors.itemBodyColor,
       child: new ImageListWidget(
         widget.enclosures,
         isShowRemove: true,

@@ -12,7 +12,7 @@ import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/FilterModel.dart';
-import 'package:qms/common/net/LogUtils.dart';
+import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
 import 'package:qms/common/utils/plugin/SimplePermissions.dart';
@@ -36,10 +36,10 @@ class CommonUtil {
       return '';
     }
     try {
-      int microsecondsSinceEpoch = int.tryParse(timeStamp) * 1000;
+      int microsecondsSinceEpoch = int.tryParse(timeStamp);
 
       DateTime dateTime =
-          DateTime.fromMicrosecondsSinceEpoch(microsecondsSinceEpoch);
+          DateTime.fromMillisecondsSinceEpoch(microsecondsSinceEpoch);
 
       var formatter = new DateFormat(dateFormat ?? 'yyyy-MM-dd');
 
@@ -475,11 +475,30 @@ class CommonUtil {
   }
 
   static double getDoubleValue(String oldVal) {
-    if ('' == oldVal.trim()) {
-      return 0;
+    double value = 0;
+    if ('' != oldVal.trim()) {
+      value = double.parse(oldVal.trim());
     }
+    int qtyScale = GlobalInfo.instance.getQtyScale();
+    return double.parse(formatNum(value, qtyScale));
+  }
 
-    return double.parse(oldVal.trim());
+  static String getDoubleScale(double oldVal) {
+    int qtyScale = GlobalInfo.instance.getQtyScale();
+
+    return formatNum(oldVal == null ? 0 : oldVal, qtyScale);
+  }
+
+  static String formatNum(double num, int postion) {
+    if ((num.toString().length - num.toString().lastIndexOf(".") - 1) <
+        postion) {
+      //小数点后有几位小数
+      return num.toStringAsFixed(postion)
+          .substring(0, num.toString().lastIndexOf(".") + postion + 1);
+    } else {
+      num.toString()
+          .substring(0, num.toString().lastIndexOf(".") + postion + 1);
+    }
   }
 
   static int getIntValue(String oldVal) {
@@ -488,6 +507,10 @@ class CommonUtil {
     }
 
     return int.parse(oldVal.trim());
+  }
+
+  static String getVal(var val) {
+    return val == null ? '' : val.toString();
   }
 
   ///获取用户权限列表
@@ -504,6 +527,10 @@ class CommonUtil {
 
     if (Config.debug) {
       LogUtils.i('info:', '权限 $permissionsText:$permissions');
+    }
+
+    if (GlobalInfo.instance.isDebug()) {
+      return true;
     }
 
     if (list.contains(permissions)) {

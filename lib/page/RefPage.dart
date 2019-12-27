@@ -101,7 +101,7 @@ class RefPageState extends RefListCommonState<RefPage> {
       alignment: Alignment.center,
       child: Icon(
         isSelect ? Icons.check_box : Icons.check_box_outline_blank,
-        color: RLZZColors.mainColor,
+        color: SetColors.mainColor,
         size: 20.0,
       ),
     );
@@ -112,13 +112,13 @@ class RefPageState extends RefListCommonState<RefPage> {
       width: width * 0.5 * 0.3,
       child: Text(
         data['arcCode'],
-        style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+        style: TextStyle(fontSize: SetConstants.normalTextSize),
       ),
       decoration: new BoxDecoration(
         //color: RLZZColors.mainColor,
         border: new Border(
-          right: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
-          left: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+          right: new BorderSide(color: SetColors.darkGrey, width: 0.5),
+          left: new BorderSide(color: SetColors.darkGrey, width: 0.5),
         ),
       ),
     ));
@@ -127,7 +127,7 @@ class RefPageState extends RefListCommonState<RefPage> {
         alignment: Alignment.center,
         child: Text(
           data['arcName'],
-          style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+          style: TextStyle(fontSize: SetConstants.normalTextSize),
         ),
       ),
     ));
@@ -159,7 +159,7 @@ class RefPageState extends RefListCommonState<RefPage> {
           decoration: new BoxDecoration(
             color: Colors.white,
             border: new Border(
-              bottom: new BorderSide(color: RLZZColors.darkGrey, width: 0.5),
+              bottom: new BorderSide(color: SetColors.darkGrey, width: 0.5),
             ),
           )),
     );
@@ -195,7 +195,7 @@ class RefPageState extends RefListCommonState<RefPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: SetColors.darkGrey,
       text: StringZh.app_cancel,
       fontColor: Colors.white,
       clickFun: () {
@@ -207,7 +207,7 @@ class RefPageState extends RefListCommonState<RefPage> {
       btnList.add(ButtonWidget(
         height: 30.0,
         width: 65.0,
-        backgroundColor: RLZZColors.mainColor,
+        backgroundColor: SetColors.mainColor,
         text: StringZh.app_ok,
         fontColor: Colors.white,
         clickFun: () {
@@ -220,7 +220,7 @@ class RefPageState extends RefListCommonState<RefPage> {
       children: <Widget>[
         new Container(
           padding: new EdgeInsets.all(2.0),
-          color: RLZZColors.mainColor,
+          color: SetColors.mainColor,
           height: 25.0,
           child: new Row(
             children: <Widget>[
@@ -232,18 +232,18 @@ class RefPageState extends RefListCommonState<RefPage> {
                 alignment: Alignment.center,
                 width: width * 0.5 * 0.3,
                 child: Text(
-                  '编码',
+                  StringZh.code,
                   style: TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.white),
                 ),
                 decoration: new BoxDecoration(
-                  color: RLZZColors.mainColor,
+                  color: SetColors.mainColor,
                   border: new Border(
                     right:
-                        new BorderSide(color: RLZZColors.darkGrey, width: 1.0),
+                        new BorderSide(color: SetColors.darkGrey, width: 1.0),
                     left:
-                        new BorderSide(color: RLZZColors.darkGrey, width: 1.0),
+                        new BorderSide(color: SetColors.darkGrey, width: 1.0),
                   ),
                 ),
               ),
@@ -251,9 +251,9 @@ class RefPageState extends RefListCommonState<RefPage> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    '名称',
+                    StringZh.name,
                     style: TextStyle(
-                        fontSize: RLZZConstant.normalTextSize,
+                        fontSize: SetConstants.normalTextSize,
                         color: Colors.white),
                   ),
                 ),

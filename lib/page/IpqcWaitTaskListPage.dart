@@ -77,18 +77,25 @@ class IpqcWaitTaskListPageState extends ListCommonState<IpqcWaitTaskListPage> {
   @protected
   void initFilterModelList() {
     itemList = [
-      new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate', 'endDate'], '报检日期', {}),
-      new FilterModel.input(
-          Config.filterItemTypeInput, 'arrivalDocNo', '到货单号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
-      new FilterModel.select(
-          Config.filterItemTypeSingleSelect, 'checkStatus', '检验状态', [
-        {'value': '未检', 'text': '未检', 'isSelect': true, 'default': true},
-        {'value': '已检', 'text': '已检', 'isSelect': false},
-        {'value': '全部', 'text': '全部', 'isSelect': false},
-      ]),
+      new FilterModel.date(Config.filterItemTypeDate, ['beginDate', 'endDate'],
+          StringZh.tip_inspectionDate, {}),
+      new FilterModel.input(Config.filterItemTypeInput, 'arrivalDocNo',
+          StringZh.tip_arrivalDocNo, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.select(Config.filterItemTypeSingleSelect, 'checkStatus',
+          StringZh.tip_testState, [
+            {'value': '未检', 'text': '未检', 'isSelect': true, 'default': true},
+            {'value': '已检', 'text': '已检', 'isSelect': false},
+            {'value': '全部', 'text': '全部', 'isSelect': false},
+          ]),
     ];
   }
 

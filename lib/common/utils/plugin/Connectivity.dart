@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
+import 'package:qms/common/config/Config.dart';
 
 /// Connection Status Check Result
 ///
@@ -36,12 +37,12 @@ class Connectivity {
 
   @visibleForTesting
   static const MethodChannel methodChannel = MethodChannel(
-    'com.szrlzz.qms/connectivity',
+    Config.methodChannel_connectivity
   );
 
   @visibleForTesting
   static const EventChannel eventChannel = EventChannel(
-    'com.szrlzz.qms/connectivity_status',
+      Config.methodChannel_connectivity_status
   );
 
   /// Fires whenever the connectivity state changes.

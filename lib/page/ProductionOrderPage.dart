@@ -49,29 +49,29 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
   ///初始化数据
   void _getDataRequest() {
     QmsService.getProductionOrderInfo(context, widget.moDocNo, widget.detailId,
-            (res) {
-          setState(() {
-            vo = ProductionOrder.fromJson(res);
-            loading = false;
-          });
-        }, (err) {
-          setState(() {
-            loading = false;
-          });
-          Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
-          Navigator.pop(context);
-        });
+        (res) {
+      setState(() {
+        vo = ProductionOrder.fromJson(res);
+        loading = false;
+      });
+    }, (err) {
+      setState(() {
+        loading = false;
+      });
+      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+      Navigator.pop(context);
+    });
   }
 
   _clickFunOK() {
     Navigator.pop(context);
   }
 
-  Widget getColumn(String leftLabel, String left, String rightLabel,
-      String right) {
+  Widget getColumn(
+      String leftLabel, String left, String rightLabel, String right) {
     return new Container(
       margin: new EdgeInsets.only(left: 5.0),
-      padding: new EdgeInsets.only(top: 5.0,bottom: 5.0),
+      padding: new EdgeInsets.only(top: 5.0, bottom: 5.0),
       //color: RLZZColors.mainColor,
       //height: 25.0,
       child: new Row(
@@ -82,8 +82,9 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
             child: Text(
               leftLabel + (left ?? ''),
               style: TextStyle(
-                  fontSize: RLZZConstant.normalTextSize,),
-                  //color: Colors.white),
+                fontSize: SetConstants.normalTextSize,
+              ),
+              //color: Colors.white),
             ),
           ),
           new Container(
@@ -92,7 +93,8 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
             child: Text(
               rightLabel + (right ?? ''),
               style: TextStyle(
-                  fontSize: RLZZConstant.normalTextSize,),
+                fontSize: SetConstants.normalTextSize,
+              ),
             ),
           ),
         ],
@@ -100,10 +102,9 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    width = CommonUtil.getScreenWidth(context)*0.6;
+    width = CommonUtil.getScreenWidth(context) * 0.6;
 
     ///操作按钮
     List<Widget> btnList = new List();
@@ -111,7 +112,7 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.app_close,
       fontColor: Colors.white,
       clickFun: () {
@@ -121,22 +122,29 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
 
     Widget mainWidget = new Column(
       children: <Widget>[
-        getColumn('单据号：', vo.docNo, '单据日期：', vo.docDate),
-        getColumn('客户：', vo.customerName, '行号：', vo.rowNo),
-        getColumn('物料编码：', vo.invCode, '物料名称：', vo.invName),
-        getColumn('规格型号：', vo.invSpec, '数量：', vo.qty),
-        getColumn('主单位：', vo.mainUnit, '生产批号：', vo.batchNumber),
-        getColumn('开始日期：', vo.startDate, '完工日期：', vo.completionDate),
-        getColumn('需求跟踪号：', vo.followNumber, '备注：', vo.remark),
-
+        getColumn(
+            '${StringZh.docNo}：', vo.docNo, '${StringZh.docNo}：', vo.docDate),
+        getColumn('${StringZh.customer}：', vo.customerName,
+            '${StringZh.rowNo}：', vo.rowNo),
+        getColumn('${StringZh.invCode}：', vo.invCode, '${StringZh.invName}：',
+            vo.invName),
+        getColumn(
+            '${StringZh.invSpec}：', vo.invSpec, '${StringZh.qty}：', vo.qty),
+        getColumn('${StringZh.mainUnit}：', vo.mainUnit,
+            '${StringZh.batchNumber}：', vo.batchNumber),
+        getColumn('${StringZh.startDate}：', vo.startDate,
+            '${StringZh.completionDate}：', vo.completionDate),
+        getColumn('${StringZh.followNumber}：', vo.followNumber,
+            '${StringZh.remark}：', vo.remark),
         new Container(
           margin: new EdgeInsets.only(left: 5.0),
           child: new Row(
             children: <Widget>[
               new Text(
-                '表头附件：',
+                '${StringZh.head_attachment}：',
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,),
+                  fontSize: SetConstants.normalTextSize,
+                ),
               ),
               WidgetUtil.getFileWidget(context, vo.enclosure),
             ],
@@ -147,9 +155,10 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
           child: new Row(
             children: <Widget>[
               new Text(
-                '表体附件：',
+                '${StringZh.body_attachment}：',
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize,),
+                  fontSize: SetConstants.normalTextSize,
+                ),
               ),
               WidgetUtil.getFileWidget(context, vo.bodyEnclosure),
             ],

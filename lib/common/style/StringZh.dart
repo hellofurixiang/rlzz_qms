@@ -162,6 +162,7 @@ class StringZh {
   static const String prompt_login_date = '请输入登录日期';
 
   static const String save = '保存';
+  static const String saveSuccess = '保存成功';
 
   static const String connection = '连接成功';
 
@@ -261,10 +262,12 @@ class StringZh {
 
   static const String sweep_out = '扫出';
 
-  static const String prompt_batch = '请扫批号';
+  static const String tip_batch = '请扫批号';
   static const String batch = '批号';
   static const String prompt_production_date = '请选择生产日期';
   static const String production_date = '生产日期';
+
+  static const String production_order = '生产订单';
 
   static const String prompt_picking_success = '装箱成功,单据号:';
 
@@ -291,6 +294,9 @@ class StringZh {
   static const String selectAll = '全选';
   static const String unSelect = '反选';
   static const String all = '全部';
+
+  static const String is_audit = '已审核';
+  static const String not_audit = '待审核';
 
   static const String auditSuccess = '审核成功';
   static const String unAuditSuccess = '弃审成功';
@@ -341,9 +347,27 @@ class StringZh {
   static const String end_page = '末页';
 
   static const String qms_describe = '瑞联智造QMS';
+  static const String waitTask = '待检任务';
   static const String arrivalWaitTask_title = '来料待检任务';
   static const String completeWaitTask_title = '完工待检任务';
   static const String text_badReason = '不良原因';
+  static const String badReasonInfo = '不良说明';
+
+  static const String testOrder = '检验单';
+  static const String completeTest = '完工检验';
+  static const String arrivalTest = '来料检验';
+
+  static const String testOrder_sample = '检验单(按样本)';
+
+  static const String production_self_inspection = '生产自检';
+  static const String production_inspection = '生产巡检';
+  static const String production_sampling = '生产抽检';
+  static const String report = '报表';
+
+  static const String arrivalTestOrderStatisticalForMonth = '来料:质量分析(按月)';
+  static const String arrivalTestOrderStatisticalForWeek = '来料:质量分析(按周)';
+  static const String arrivalTestOrderStatisticalForSupplier = '来料:质量分析(按供应商)';
+
   static const String selectTestTemplate = '选择检验模板';
   static const String selectTestTemplate_testQty = '报检数量：';
 
@@ -467,26 +491,174 @@ class StringZh {
   static const String saveAndSubmit = '保存且提交';
   static const String saveAndNextStep = '保存且进入下一步';
 
+  static const String addNew = '新增';
+  static const String saveAndAddNew = '保存并新增';
+
   static const String arrivalWeekReportTitle = '来料检验周统计';
   static const String arrivalMonthReportTitle = '来料检验月统计';
   static const String arrivalSupplierReportTitle = '来料供应商统计';
 
-  static const listOper = '操作';
+  static const String listOper = '操作';
 
-  static const selectPhotoError = '选择图片异常';
+  static const String selectPhotoError = '选择图片异常';
 
-  static const photoUploadFinish = '图片上传完成';
-  static const getSobError = '帐套获取失败,请检查服务器配置是否正确!';
+  static const String photoUploadFinish = '图片上传完成';
+  static const String getSobError = '帐套获取失败,请检查服务器配置是否正确!';
 
-  static const selectFirstItem = '--请选择--';
+  static const String selectFirstItem = '--请选择--';
 
-  static const noMenuPermissions = '无菜单，请配置列表查看权限并重新登录。';
+  static const String noMenuPermissions = '无菜单，请配置列表查看权限并重新登录。';
 
-  static const test_measuringTool = '测量工具';
+  static const String test_measuringTool = '测量工具';
 
-  static const tip_permissions_error = '权限异常，请分配「{0}」权限并重新登录';
+  static const String tip_permissions_error = '权限异常，请分配「{0}」权限并重新登录';
 
+  static const String tip_testItem_entry_incomplete =
+      '第{0}行，检验项目：{1} [{2}]检测值未录完，请录入';
+  static const String tip_testItem_entry_empty = '第{0}行检验指标{1}{2}尚未录入，是否审核？';
 
-  static const tip_testItem_entry_incomplete = '第{0}行，检验项目：{1} [{2}]检测值未录完，请录入';
-  static const tip_testItem_entry_empty = '第{0}行检验指标{1}{2}尚未录入，是否审核？';
+  static const String addNewRow = '增一行';
+  static const String text_badInfo = '不良信息';
+
+  static const String test_docNo = '检验单号';
+  static const String test_docDate = '检验日期';
+  static const String inventory = '物料';
+
+  static const String tip_inventory = '请选择物料';
+  static const String tip_auditState = '审核状态';
+
+  static const String checker = '检验员';
+
+  static const String tip_checker = '请选择检验员';
+
+  static const String tip_testState = '检验状态';
+
+  static const String tip_inspectionDate = '报检日期';
+
+  static const String tip_arrivalDocNo = '到货单号';
+
+  static const String tip_isEmpty_badReasonCode = '第{0}行不良原因不能为空';
+
+  static const String tip_badQty_not_zero = '第{0}行不良数量不能为空或0';
+
+  static const String tip_badQty_is_greater_than_unQualifiedQty =
+      '第{0}行不良数量不能大于报检不良数量';
+
+  static const String serialNumber = '序号';
+
+  static const String badQty = '不良数';
+  static const String customer = '客户';
+  static const String tip_customer = '请选择客户';
+
+  static const String srcDocNo = '来源单据号';
+
+  static const String soCode = '需求跟踪号';
+
+  static const String workStep = '工序';
+  static const String tip_workStep = '请选择工序';
+
+  static const String work_orderNo = '报工单号';
+  static const String proType = '产品类型';
+  static const String workCenter = '工作中心';
+  static const String tip_workCenter = '请选择工作中心';
+
+  static const String testQty = '检验数量';
+  static const String docNo = '单据号';
+  static const String docDate = '单据日期';
+  static const String rowNo = '行号';
+  static const String invCode = '物料编码';
+  static const String invName = '物料名称';
+  static const String invSpec = '规格型号';
+  static const String mainUnit = '主单位';
+  static const String batchNumber = '生产批号';
+  static const String startDate = '开始日期';
+  static const String completionDate = '完工日期';
+  static const String followNumber = '需求跟踪号';
+  static const String remark = '备注';
+  static const String testTemplate = '检验模板';
+
+  static const String sampleQty = '样本数量';
+
+  static const String head_attachment = '表头附件';
+  static const String body_attachment = '表体附件';
+
+  static const String code = '编码';
+  static const String name = '名称';
+
+  static const String testDescribe = '检验描述';
+  static const String describe = '描述';
+  static const String testMethod = '检验方法';
+  static const String testWay = '检验方式';
+  static const String samplingWay = '抽检方式';
+  static const String shouldQty = '应检数量';
+  static const String standardValue = '标准值';
+  static const String lowerLimitValue = '下限';
+  static const String upperLimitValue = '上限';
+  static const String quotaCat = '指标类型';
+  static const String relatedAttachment = '相关附件';
+  static const String testResult = '检验结果';
+  static const String qualifiedQty = '合格数量';
+  static const String unQualifiedQty = '不良数量';
+  static const String reworkQty = '返工数量';
+  static const String spQty = '特采数量';
+  static const String concessionReceivedQty = '让步接收数';
+  static const String scrapQty = '报废数量';
+  static const String tip_unQualifiedQty_not_greater_than_shouldQty =
+      '不良数量不能大于应检数量';
+  static const String tip_spQty_and_reworkQty_not_greater_than_unQualifiedQty =
+      '特采数量+返工数量不能超过不良数量';
+  static const String tip_concessionReceivedQty_not_greater_than_shouldQty =
+      '让步接收数不能大于应检数量';
+  static const String testVal = '测量值';
+  static const String sample = '样';
+  static const String producer = '操作者';
+  static const String imageAttachment = '图像附件';
+  static const String unitName = '计量单位';
+  static const String measuringTool = '测量工具';
+  static const String sign = '签 名';
+  static const String signPic = '签名图片';
+  static const String tip_unQualifiedQty_reworkQty_spQty_scrapQty =
+      '(注:不良数量=返工数量+特采数量+报废数量)';
+  static const String imageError = '图片异常';
+  static const String picture_is_gone = '图片不见了';
+  static const String supplier = '供应商';
+  static const String tip_supplier = '请选择供应商';
+  static const String user = '用户';
+
+  static const String inventoryCategory = '物料分类';
+  static const String tip_inventoryCategory = '请选择物料分类';
+
+  static const String mark_prompt = '当前已录入到{0}行,点击此处继续录入';
+
+  static const String nowSample = '当前样本';
+  static const String timeInterval = '时段';
+
+  static const String sampleBarcode = '样本条码';
+  static const String tick = '次数';
+  static const String operator = '操作者';
+  static const String state = '状态';
+  static const String testTime = '检测时间';
+
+  ///一般缺陷数
+  static const String generalDefectsQty = '一般缺陷';
+
+  ///主要缺陷数
+  static const String majorDefectsQty = '主要缺陷';
+
+  ///严重缺陷数
+  static const String seriousDefectsQty = '严重缺陷';
+
+  static const String uploadImage = '上传图片';
+
+  static const String viewAttachment = '查看附件';
+  static const String testRule = '检验规则';
+
+  static const String checkoutQty = '已检数量';
+  static const String uncheckedQty = '未检数量';
+  static const String mendingQty = '在修数量';
+  static const String mendedQty = '已修好';
+  static const String totalUnQualifiedQty = '累计不良数量';
+
+  static const String tip_testVal_not_null = '第{0}行检测值不能为空';
+  static const String tip_sampleBarcode_not_null = '样本条码不能为空';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
 import 'package:qms/common/net/QmsService.dart';
@@ -8,9 +9,7 @@ import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/page/ListCommonState.dart';
-import 'package:qms/page/TestOrderPage.dart';
 import 'package:qms/page/TestOrderSamplePage.dart';
-import 'package:qms/page/TestTemplateSelectPage.dart';
 import 'package:qms/widget/AppBarWidget.dart';
 import 'package:qms/widget/ListPageWidget.dart';
 import 'package:qms/widget/ListTopFilterWidget.dart';
@@ -76,7 +75,7 @@ class CompleteTestOrderSampleListPageState
       'opName': '',
 
       ///审核状态
-      'auditStatus': '0',
+      'auditStatus': Config.value_no,
 
       ///检验员ID
       'checkerId': '',
@@ -90,28 +89,67 @@ class CompleteTestOrderSampleListPageState
   @protected
   void initFilterModelList() {
     itemList = [
-      new FilterModel.date(
-          Config.filterItemTypeDate, ['beginDate', 'endDate'], '检验日期', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'moDocNo', '生产订单', {}),
+      new FilterModel.date(Config.filterItemTypeDate, ['beginDate', 'endDate'],
+          StringZh.test_docNo, {}),
       new FilterModel.input(
-          Config.filterItemTypeInput, 'srcDocNo', '来源单据号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', '物料',
-          Config.ref_inventory, '请选择物料', true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'cusCode', 'cusName', '客户',
-          Config.ref_inventory, '请选择客户', true, new RefBasic.empty()),
+          Config.filterItemTypeInput, 'moDocNo', StringZh.production_order, {}),
       new FilterModel.input(
-          Config.filterItemTypeInput, 'batchNumber', '批号', {}),
-      new FilterModel.input(Config.filterItemTypeInput, 'socode', '需求跟踪号', {}),
-      new FilterModel(Config.filterItemTypeRef, 'opCode', 'opName', '工序',
-          Config.ref_workStep, '请选择工序', true, new RefBasic.empty()),
-      new FilterModel.select(
-          Config.filterItemTypeSingleSelect, 'auditStatus', '检验状态', [
-        {'value': '', 'text': '全部', 'isSelect': false},
-        {'value': '1', 'text': '已审核', 'isSelect': false},
-        {'value': '0', 'text': '待审核', 'isSelect': true, 'default': true},
-      ]),
-      new FilterModel(Config.filterItemTypeRef, 'checkerId', 'checkerName',
-          '质检员', Config.ref_user, '请选择质检员', true, new RefBasic.empty()),
+          Config.filterItemTypeInput, 'srcDocNo', StringZh.srcDocNo, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'cusCode',
+          'cusName',
+          StringZh.customer,
+          Config.ref_inventory,
+          StringZh.tip_customer,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'batchNumber', StringZh.batch, {}),
+      new FilterModel.input(
+          Config.filterItemTypeInput, 'socode', StringZh.soCode, {}),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'opCode',
+          'opName',
+          StringZh.workStep,
+          Config.ref_workStep,
+          StringZh.tip_workStep,
+          true,
+          new RefBasic.empty()),
+      new FilterModel.select(Config.filterItemTypeSingleSelect, 'auditStatus',
+          StringZh.tip_testState, [
+            {'value': '', 'text': StringZh.all, 'isSelect': false},
+            {
+              'value': Config.value_yes,
+              'text': StringZh.is_audit,
+              'isSelect': false
+            },
+            {
+              'value': Config.value_no,
+              'text': StringZh.not_audit,
+              'isSelect': true,
+              'default': true
+            },
+          ]),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'checkerId',
+          'checkerName',
+          StringZh.checker,
+          Config.ref_user,
+          StringZh.tip_checker,
+          true,
+          new RefBasic.empty()),
     ];
   }
 
@@ -157,7 +195,7 @@ class CompleteTestOrderSampleListPageState
                 testCat: Config.text_fqc,
                 title: StringZh.completeTestOrderSampleDetail_title
             ),
-            permissions: Config.completeSample_view,
+            permissions: UserPermissionsConfig.completeSample_view,
             permissionsText: StringZh.completeTestOrderSampleDetail_view);
 
         break;

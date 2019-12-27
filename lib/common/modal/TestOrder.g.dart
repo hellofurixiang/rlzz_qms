@@ -10,7 +10,7 @@ TestOrder _$TestOrderFromJson(Map<String, dynamic> json) {
   return TestOrder(
     json['id'] as String,
     json['docNo'] as String,
-    json['docDate'] as String,
+    json['docDate'] as int,
     json['operator'] as String,
     json['operatorName'] as String,
     json['operatorId'] as String,
@@ -80,6 +80,16 @@ TestOrder _$TestOrderFromJson(Map<String, dynamic> json) {
     (json['generalDefectsQty'] as num)?.toInt(),
     (json['majorDefectsQty'] as num)?.toInt(),
     (json['seriousDefectsQty'] as num)?.toInt(),
+    json['remark'] as String,
+    (json['badInfoList'] as List)
+        ?.map((e) => e == null
+            ? null
+            : TestOrderBadInfo.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    (json['mendedQty'] as num)?.toDouble(),
+    (json['mendingQty'] as num)?.toDouble(),
+    (json['checkoutQty'] as num)?.toDouble(),
+    (json['uncheckedQty'] as num)?.toDouble(),
   );
 }
 
@@ -145,4 +155,10 @@ Map<String, dynamic> _$TestOrderToJson(TestOrder instance) => <String, dynamic>{
       'generalDefectsQty': instance.generalDefectsQty,
       'majorDefectsQty': instance.majorDefectsQty,
       'seriousDefectsQty': instance.seriousDefectsQty,
+      'remark': instance.remark,
+      'badInfoList': instance.badInfoList,
+      'mendedQty': instance.mendedQty,
+      'mendingQty': instance.mendingQty,
+      'checkoutQty': instance.checkoutQty,
+      'uncheckedQty': instance.uncheckedQty,
     };

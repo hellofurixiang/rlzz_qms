@@ -21,7 +21,7 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
   }
 
   SvgPicture fliter = new SvgPicture.asset(
-    'assets/svg/filter.svg',
+    SetIcons.filter,
     color: Colors.black,
   );
 
@@ -29,7 +29,7 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
   Widget build(BuildContext context) {
     return new Container(
       height: 30.0,
-      color: RLZZColors.lightGray,
+      color: SetColors.lightGray,
       alignment: Alignment.centerRight,
       child: new Stack(
         alignment: Alignment.centerLeft,

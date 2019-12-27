@@ -1,4 +1,4 @@
-import 'package:qms/common/net/MethodChannelUtil.dart';
+import 'package:qms/common/utils/MethodChannelUtil.dart';
 
 class LogUtils {
   static void v(String tag, String message) {

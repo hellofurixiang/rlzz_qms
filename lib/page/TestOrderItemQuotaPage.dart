@@ -79,11 +79,11 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
           child: new Text(
             v.testItemName,
             style: new TextStyle(
-                fontSize: RLZZConstant.smallTextSize,
-                color: RLZZColors.selectLevel),
+                fontSize: SetConstants.smallTextSize,
+                color: SetColors.selectLevel),
           ),
           decoration: new BoxDecoration(
-            color: RLZZColors.twoLevel,
+            color: SetColors.twoLevel,
           ),
         ));
       }
@@ -98,7 +98,7 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
           },
           child: new Container(
             decoration: new BoxDecoration(
-              color: v.color ?? RLZZColors.threeLevel,
+              color: v.color ?? SetColors.threeLevel,
               border: new Border(
                   top: new BorderSide(color: Colors.white, width: 0.2),
                   bottom: new BorderSide(color: Colors.white, width: 0.2)),
@@ -113,7 +113,7 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
                   child: new Text(
                     v.testQuotaName,
                     style: new TextStyle(
-                        fontSize: RLZZConstant.normalTextSize,
+                        fontSize: SetConstants.normalTextSize,
                         color: Colors.white),
                   ),
                 )),
@@ -121,7 +121,7 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
                   alignment: Alignment.centerRight,
                   child: Icon(
                     Icons.done_all,
-                    color: v.edited ? RLZZColors.red : Colors.transparent,
+                    color: v.edited ? SetColors.red : Colors.transparent,
                     size: 20.0,
                   ),
                 ),
@@ -150,10 +150,10 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
             child: new Text(
               StringZh.testOrder_testItem_one,
               style: new TextStyle(
-                  fontSize: RLZZConstant.bigTextSize, color: Colors.white),
+                  fontSize: SetConstants.bigTextSize, color: Colors.white),
             ),
             decoration: new BoxDecoration(
-              color: RLZZColors.oneLevel,
+              color: SetColors.oneLevel,
               //border: new Border.all(color: Colors.white, width: 1.0),
             ),
           ),
@@ -171,10 +171,10 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
             child: new Text(
               StringZh.testOrder_testItem_two,
               style: new TextStyle(
-                  fontSize: RLZZConstant.bigTextSize, color: Colors.white),
+                  fontSize: SetConstants.bigTextSize, color: Colors.white),
             ),
             decoration: new BoxDecoration(
-              color: RLZZColors.oneLevel,
+              color: SetColors.oneLevel,
             ),
           ),
           new GestureDetector(
@@ -188,7 +188,7 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
               child: new Text(
                 StringZh.testOrder_result_entry,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.white),
+                    fontSize: SetConstants.normalTextSize, color: Colors.white),
               ),
               decoration: new BoxDecoration(
                 color: widget.whole,
@@ -200,9 +200,9 @@ class TestOrderItemQuotaPageState extends State<TestOrderItemQuotaPage> {
         ],
       ),
       decoration: new BoxDecoration(
-        color: RLZZColors.threeLevel,
+        color: SetColors.threeLevel,
         border: new Border(
-            right: new BorderSide(color: RLZZColors.darkGrey, width: 1.0)),
+            right: new BorderSide(color: SetColors.darkGrey, width: 1.0)),
       ),
     );
   }

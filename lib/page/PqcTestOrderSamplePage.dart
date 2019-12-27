@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/modal/PqcTestOrder.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetailTestQuota.dart';
 import 'package:qms/common/modal/TestOrderSampleDetail.dart';
@@ -12,15 +14,15 @@ import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/TestOrderSampleService.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
-import 'package:qms/page/TestOrderSampleBodyItemPage.dart';
-import 'package:qms/page/TestOrderSampleHeadInfoPage.dart';
+import 'package:qms/page/PqcTestOrderSampleBodyItemPage.dart';
+import 'package:qms/page/PqcTestOrderSampleHeadInfoPage.dart';
 import 'package:qms/page/TestOrderSampleItemListPage.dart';
 import 'package:qms/widget/AppBarWidget.dart';
 import 'package:qms/widget/TextWidget.dart';
 
 ///检验单详情
 ///按样本检验
-class TestOrderSamplePage extends StatefulWidget {
+class PqcTestOrderSamplePage extends StatefulWidget {
   ///单据ID
   final int id;
 
@@ -51,7 +53,7 @@ class TestOrderSamplePage extends StatefulWidget {
   ///物料分类编码
   final String invCatCode;
 
-  TestOrderSamplePage({
+  PqcTestOrderSamplePage({
     Key key,
     this.id,
     this.docNo,
@@ -66,10 +68,11 @@ class TestOrderSamplePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  TestOrderSamplePageState createState() => new TestOrderSamplePageState();
+  PqcTestOrderSamplePageState createState() =>
+      new PqcTestOrderSamplePageState();
 }
 
-class TestOrderSamplePageState extends State<TestOrderSamplePage> {
+class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
   ///检验单对象
   TestOrder testOrderInfo;
 
@@ -101,6 +104,9 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
 
   ///选中指标索引
   int selIndex = 0;
+
+  ///是否有未保存的表体数据
+  bool isEditDetail = false;
 
   ///是否选中整单判定
   bool isAllSelect = false;
@@ -314,31 +320,11 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
         testOrderInfo.invCode ?? '' + ' ' + testOrderInfo.invName ?? '',
         250.0));
 
-    /*if (widget.docCat == Config.ARRIVAL) {
-      list.add(_getHeadWidget(testOrderInfo.supplierName, 200.0));
-    }
-
-    if (widget.docCat == Config.COMPLETE) {
-      list.add(_getHeadWidget(testOrderInfo.cusName, 150.0));
-    }*/
-
     list.add(
         _getHeadWidget(StringZh.srcDocNo + '：', testOrderInfo.srcDocNo, 150.0));
     list.add(_getHeadWidget(
         StringZh.testQty + '：', testOrderInfo.quantity.toString(), 50.0));
 
-    if (widget.docCat != Config.test_order_pqc) {
-      list.add(_getHeadWidget(
-          StringZh.sampleQty + '：', testOrderInfo.sampleQty.toString(), 50.0));
-    }
-
-    /*if (widget.docCat == Config.COMPLETE) {
-      list.add(_getHeadWidget(testOrderInfo.batchNumber, 60.0));
-    }
-
-    if (widget.docCat == Config.COMPLETE) {
-      list.add(_getHeadWidget(testOrderInfo.moDocNo, 100.0));
-    }*/
     return list;
   }
 
@@ -363,13 +349,13 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
   ///获取表体信息，封装控件
   Widget _getDetailInfo() {
     if (isAllSelect) {
-      return new TestOrderSampleHeadInfoPage(
+      return new PqcTestOrderSampleHeadInfoPage(
         testOrderInfo: testOrderInfo,
         isAdd: isAdd,
         auditStatus: auditStatus,
       );
     } else {
-      return new TestOrderSampleBodyItemPage(
+      return new PqcTestOrderSampleBodyItemPage(
           testOrderInfo: testOrderInfo,
           cacheInfo: cacheInfo,
           isAdd: isAdd,
@@ -377,8 +363,7 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
           quotaEnclosures: quotaEnclosures,
           selIndex: selIndex,
           changeState: changeState,
-          isLoadingQuota: isLoadingQuota
-      );
+          isLoadingQuota: isLoadingQuota);
     }
   }
 
@@ -403,21 +388,165 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
     }
 
     if (isAllSelect) {
-      if (!auditStatus) {
+      if (!auditStatus && isAdd) {
         btnList.add(_getOperBtn(StringZh.saveAllOrder, () {
           TestOrderSampleService.checkSavePermissions(context, widget.docCat,
               widget.testCat, setInfo, isAdd, testOrderInfo);
         }, 80.0, 45.0, 40.0));
       }
     } else {
-      btnList.add(_getOperBtn(StringZh.saveAndSubmit, () {
-        nextStepFun(isToLast: true);
-      }, 160.0, 45.0, 40.0));
+      if (!isAdd) {
+        if (!isEditDetail) {
+          btnList.add(_getOperBtn(StringZh.addNew, () {
+            addNewFun();
+          }, 60.0, 45.0, 10.0));
+        }
+
+        btnList.add(_getOperBtn(StringZh.save, () {
+          saveFun();
+        }, 120.0, 45.0, 10.0));
+      }
+
+      if (isAdd) {
+        btnList.add(_getOperBtn(StringZh.saveAndSubmit, () {
+          nextStepFun(isToLast: true);
+        }, 120.0, 45.0, 10.0));
+      }
       btnList.add(_getOperBtn(StringZh.saveAndNextStep, () {
-        nextStepFun();
+        saveFun(isToNext: true);
       }, 160.0, 45.0, 40.0));
     }
+
     return btnList;
+  }
+
+  ///新增数据
+  void addNewFun() {
+    setState(() {
+      isLoadingQuota = true;
+    });
+
+    String testTemplateId;
+    if (null != widget.testTemplateId) {
+      testTemplateId = widget.testTemplateId.toString();
+    } else {
+      testTemplateId = testOrderInfo.testTemplateId;
+    }
+
+    QmsSampleService.getTestOrderDetailTestQuotaByTestTemplateId(
+        context, testTemplateId, (res) {
+      ///指标列表
+      List<TestOrderDetailTestQuota> testOrderDetailTestQuotaList = [];
+
+      for (int i = 0; i < res.length; i++) {
+        TestOrderDetailTestQuota vo = TestOrderDetailTestQuota.fromJson(res[i]);
+        testOrderDetailTestQuotaList.add(vo);
+      }
+
+      setState(() {
+        TestOrderSampleDetail sampleDetail = TestOrderSampleDetail.empty();
+        sampleDetail.testTime = DateTime.now().millisecondsSinceEpoch;
+        sampleDetail.tick = 1;
+        sampleDetail.state = Config.qualified;
+        sampleDetail.operator = GlobalInfo.instance.getAccount();
+        sampleDetail.testOrderDetailTestQuota = testOrderDetailTestQuotaList;
+        testOrderInfo.testOrderSampleDetail.add(sampleDetail);
+        isLoadingQuota = false;
+        isEditDetail = true;
+      });
+
+      _changeQuotaItemInfo(testOrderInfo.testOrderSampleDetail.length - 1);
+
+      //Navigator.pop(context);
+    }, (err) {
+      Fluttertoast.showToast(
+          msg: StringZh.quotaLoadingError, timeInSecForIos: 3);
+      //Navigator.pop(context);
+      setState(() {
+        isLoadingQuota = false;
+      });
+    });
+  }
+
+  ///保存
+  void saveFun({bool isToNext: false}) {
+    ///获取表体数据
+    TestOrderSampleDetail voDetail =
+        testOrderInfo.testOrderSampleDetail[selIndex];
+
+    if (CommonUtil.isEmpty(voDetail.sampleBarcode)) {
+      Fluttertoast.showToast(
+          msg: StringZh.tip_sampleBarcode_not_null, timeInSecForIos: 3);
+      return;
+    }
+
+    ///表体指标列表
+    List<TestOrderDetailTestQuota> list = voDetail.testOrderDetailTestQuota;
+    for (int i = 0; i < list.length; i++) {
+      TestOrderDetailTestQuota tt = list[i];
+
+      if (CommonUtil.isEmpty(tt.testVal)) {
+        Fluttertoast.showToast(
+            msg: CommonUtil.getText(
+                StringZh.tip_testVal_not_null, [(i + 1).toString()]),
+            timeInSecForIos: 3);
+        return;
+      }
+    }
+    PqcTestOrder pqcTestOrder = new PqcTestOrder.empty();
+    pqcTestOrder.id = testOrderInfo.id;
+    pqcTestOrder.quantity = testOrderInfo.quantity;
+    pqcTestOrder.qualifiedQty = testOrderInfo.qualifiedQty;
+    pqcTestOrder.scrapQty = testOrderInfo.scrapQty;
+    pqcTestOrder.testQuotaList = list;
+    pqcTestOrder.checkoutQty = testOrderInfo.scrapQty;
+    pqcTestOrder.uncheckedQty = testOrderInfo.scrapQty;
+    pqcTestOrder.mendingQty = testOrderInfo.scrapQty;
+    pqcTestOrder.mendedQty = testOrderInfo.scrapQty;
+    pqcTestOrder.detailId = voDetail.id;
+    pqcTestOrder.sampleBarcode = voDetail.sampleBarcode;
+    pqcTestOrder.remark = voDetail.remark;
+    pqcTestOrder.tick = voDetail.tick;
+    pqcTestOrder.operator = voDetail.operator;
+    pqcTestOrder.state = voDetail.state;
+    pqcTestOrder.testTime = voDetail.testTime;
+    pqcTestOrder.measuringTool = voDetail.measuringTool;
+
+    WidgetUtil.showLoadingDialog(context, StringZh.submiting);
+    QmsSampleService.asynUpdateTestOrderDetailAndQuotaInfo(
+        context, pqcTestOrder, (res) {
+      ///指标列表
+      for (int i = 0; i < res.length; i++) {
+        TestOrderDetailTestQuota vo = TestOrderDetailTestQuota.fromJson(res[i]);
+
+        list[i].id = vo.id;
+        list[i].orderDetailId = vo.orderDetailId;
+        voDetail.id = vo.orderDetailId;
+      }
+
+      if (res.length > 0) {
+        setState(() {
+          isEditDetail = false;
+        });
+      }
+
+      if (isToNext) {
+        nextStepFun();
+      }
+
+      Fluttertoast.showToast(msg: StringZh.saveSuccess, timeInSecForIos: 3);
+
+      ///消除加载控件
+      Navigator.pop(context);
+
+      ///回退
+      //Navigator.pop(context);
+
+      //_operCompleteJumpPage(context, testOrderInfo.docCat, testOrderInfo.id);
+    }, (err) {
+      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+      Navigator.pop(context);
+    });
   }
 
   ///下一步操作
@@ -430,7 +559,10 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
       TestOrderDetailTestQuota tt = list[i];
 
       if (CommonUtil.isEmpty(tt.testVal)) {
-        Fluttertoast.showToast(msg: '第${i + 1}行检测值不能为空', timeInSecForIos: 3);
+        Fluttertoast.showToast(
+            msg: CommonUtil.getText(
+                StringZh.tip_testVal_not_null, [(i + 1).toString()]),
+            timeInSecForIos: 3);
         return;
       }
     }

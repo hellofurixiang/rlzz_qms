@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
-import 'package:qms/common/net/LogUtils.dart';
+import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/plugin/Connectivity.dart';
 import 'package:qms/common/utils/DeviceUtil.dart';
@@ -176,7 +177,7 @@ class NetUtil {
 
     String requestUrl;
     if (!url.startsWith(new RegExp(r"http?:"))) {
-      bool isDebug = await MySelfInfo.isDebug();
+      bool isDebug = GlobalInfo.instance.isDebug();
       if (Config.debug) {
         LogUtils.i(logTag, '<net> 测试状态  $isDebug');
       }
@@ -216,7 +217,7 @@ class NetUtil {
       }
 
       successCallBack(response.data);
-    } on DioError catch (e) {
+    } catch (e) {
       var error = '';
       if (e.response != null) {
         if (e.response.data != null) {

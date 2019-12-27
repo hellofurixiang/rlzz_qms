@@ -11,7 +11,7 @@ import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/Code.dart';
-import 'package:qms/common/net/LogUtils.dart';
+import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/net/NetUtil.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 
@@ -21,8 +21,9 @@ class ApiUtil {
 
   ///测试服务器网络是否正常
   static void testNetwork(BuildContext context, String protocol, String ip,
-      String post, Function successCallBack, Function errorCallBack) {
+      String post, Function successCallBack, Function errorCallBack){
     String url = '$protocol://$ip:$post/info';
+
     NetUtil.get(url, context,
         successCallBack: successCallBack, errorCallBack: errorCallBack);
   }
@@ -61,7 +62,7 @@ class ApiUtil {
   static void getUserInfoAndConfig(BuildContext context, String account,
       Function successCallBack, Function errorCallBack) async {
     ///调试状态
-    bool isDebug = await MySelfInfo.isDebug();
+    bool isDebug = GlobalInfo.instance.isDebug();
 
     var url = await CommonUtil.getServiceMainAddress();
 
@@ -128,7 +129,8 @@ class ApiUtil {
           case 1:*/
 
             ///精度
-            await MySelfInfo.setQtyScale(response.data);
+            //await MySelfInfo.setQtyScale(response.data);
+            GlobalInfo.instance.setQtyScale(response.data);
             break;
           case 1:
             //GlobalInfo globalInfo = new GlobalInfo();
@@ -157,7 +159,7 @@ class ApiUtil {
     String url = Config.bossApiUrl + '/api/user/password/change';
 
     Map<String, String> params = {
-      'account': await MySelfInfo.getAccount(),
+      'account': GlobalInfo.instance.getAccount(),
       'oldPwd': oldPassword,
       'newPwd': newPassword
     };
@@ -183,7 +185,7 @@ class ApiUtil {
     Dio dio = new Dio(options);
 
     ///调试状态
-    bool isDebug = await MySelfInfo.isDebug();
+    bool isDebug = GlobalInfo.instance.isDebug();
 
     ///服务器地址
     String requestUrl = (isDebug
@@ -239,7 +241,7 @@ class ApiUtil {
     Dio dio = new Dio(options);
 
     ///调试状态
-    bool isDebug = await MySelfInfo.isDebug();
+    bool isDebug = GlobalInfo.instance.isDebug();
 
     ///服务器地址
     String requestUrl = (isDebug
@@ -287,7 +289,7 @@ class ApiUtil {
     Dio dio = new Dio(options);
 
     ///调试状态
-    bool isDebug = await MySelfInfo.isDebug();
+    bool isDebug = GlobalInfo.instance.isDebug();
 
     ///服务器地址
     String requestUrl = (isDebug
@@ -342,7 +344,7 @@ class ApiUtil {
     Dio dio = new Dio(options);
 
     ///调试状态
-    bool isDebug = await MySelfInfo.isDebug();
+    bool isDebug = GlobalInfo.instance.isDebug();
 
     ///服务器地址
     String requestUrl = (isDebug
@@ -434,7 +436,7 @@ class ApiUtil {
       Dio dio = new Dio(options);
 
       ///调试状态
-      bool isDebug = await MySelfInfo.isDebug();
+      bool isDebug = GlobalInfo.instance.isDebug();
 
       ///服务器地址
       String requestUrl = (isDebug
@@ -496,7 +498,7 @@ class ApiUtil {
       Dio dio = new Dio(options);
 
       ///调试状态
-      bool isDebug = await MySelfInfo.isDebug();
+      bool isDebug = GlobalInfo.instance.isDebug();
 
       ///服务器地址
       String requestUrl = (isDebug

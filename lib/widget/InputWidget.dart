@@ -85,7 +85,7 @@ class InputWidget extends StatefulWidget {
       this.isShowPrompt: false,
       this.promptText,
       this.textColor: Colors.black,
-      this.textSize: RLZZConstant.normalTextSize,
+      this.textSize: SetConstants.normalTextSize,
       this.enabled: true,
       this.isNumber: false,
       this.maxLines: 1});
@@ -173,23 +173,23 @@ class InputWidgetState extends State<InputWidget> {
             hintText: widget.hintText,
             fillColor: widget.enabled
                 ? widget.textFillColor
-                : RLZZColors.lightLightGrey,
+                : SetColors.lightLightGrey,
             filled: true,
             // 以下属性可用来去除TextField的边框
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide:
-                  new BorderSide(color: RLZZColors.lightLightGrey, width: 1.0),
+                  new BorderSide(color: SetColors.lightLightGrey, width: 1.0),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide:
-                  new BorderSide(color: RLZZColors.darkGrey, width: 1.0),
+                  new BorderSide(color: SetColors.darkGrey, width: 1.0),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide:
-                  new BorderSide(color: RLZZColors.mainColor, width: 1.0),
+                  new BorderSide(color: SetColors.mainColor, width: 1.0),
             ),
             suffixIcon: clearWidget,
           ),

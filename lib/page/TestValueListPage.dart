@@ -79,7 +79,7 @@ class TestValueListPageState extends State<TestValueListPage> {
       count++;
     }
     for (int i = 0; i < count; i++) {
-      InputTextValue inputVal = InputTextValue.rowNum(i+1);
+      InputTextValue inputVal = InputTextValue.rowNum(i + 1);
 
       ///预置标准值
       if (Config.quotaTypeEntryNumber == widget.quotaCat) {
@@ -108,7 +108,6 @@ class TestValueListPageState extends State<TestValueListPage> {
             for (int i = 0; i < res.length; i++) {
               list.add(InputNumberValue.fromJson(res[i]));
             }
-
           } else {
             for (int i = 0; i < res.length; i++) {
               list.add(InputTextValue.fromJson(res[i]));
@@ -234,8 +233,8 @@ class TestValueListPageState extends State<TestValueListPage> {
                 child: new Text(
                   (i + 1).toString(),
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.darkDarkGrey),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.darkDarkGrey),
                 ),
               ),
               new Expanded(
@@ -269,7 +268,7 @@ class TestValueListPageState extends State<TestValueListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.darkGrey,
+      backgroundColor: SetColors.darkGrey,
       text: StringZh.app_cancel,
       fontColor: Colors.white,
       clickFun: () {
@@ -280,7 +279,7 @@ class TestValueListPageState extends State<TestValueListPage> {
     btnList.add(ButtonWidget(
       height: 30.0,
       width: 65.0,
-      backgroundColor: RLZZColors.mainColor,
+      backgroundColor: SetColors.mainColor,
       text: StringZh.app_ok,
       fontColor: Colors.white,
       clickFun: clickFunOK,
@@ -317,17 +316,17 @@ class TestValueListPageState extends State<TestValueListPage> {
                     child: Text(
                       StringZh.testValue,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: RLZZConstant.normalTextSize),
+                      style: TextStyle(fontSize: SetConstants.normalTextSize),
                     ),
                     decoration: BoxDecoration(
-                      color: RLZZColors.lightGray,
+                      color: SetColors.lightGray,
                       borderRadius:
                           new BorderRadius.vertical(top: Radius.circular(6.0)),
                     ),
                   ),
                   new Container(
                     padding: new EdgeInsets.all(2.0),
-                    color: RLZZColors.mainColor,
+                    color: SetColors.mainColor,
                     height: 25.0,
                     child: new Row(
                       children: <Widget>[
@@ -335,18 +334,18 @@ class TestValueListPageState extends State<TestValueListPage> {
                           alignment: Alignment.center,
                           width: 60.0,
                           child: Text(
-                            '样本号',
+                            StringZh.serialNumber,
                             style: TextStyle(
-                                fontSize: RLZZConstant.normalTextSize,
+                                fontSize: SetConstants.normalTextSize,
                                 color: Colors.white),
                           ),
                           decoration: new BoxDecoration(
-                            color: RLZZColors.mainColor,
+                            color: SetColors.mainColor,
                             border: new Border(
                               right: new BorderSide(
-                                  color: RLZZColors.darkGrey, width: 0.5),
+                                  color: SetColors.darkGrey, width: 0.5),
                               left: new BorderSide(
-                                  color: RLZZColors.darkGrey, width: 0.5),
+                                  color: SetColors.darkGrey, width: 0.5),
                             ),
                           ),
                         ),
@@ -354,9 +353,9 @@ class TestValueListPageState extends State<TestValueListPage> {
                           child: new Container(
                             alignment: Alignment.center,
                             child: Text(
-                              '检测值',
+                              StringZh.testVal,
                               style: TextStyle(
-                                  fontSize: RLZZConstant.normalTextSize,
+                                  fontSize: SetConstants.normalTextSize,
                                   color: Colors.white),
                             ),
                           ),
@@ -374,7 +373,7 @@ class TestValueListPageState extends State<TestValueListPage> {
                           ),
                   ),
                   WidgetUtil.getDivider(
-                      height: 1.0, color: RLZZColors.darkGrey),
+                      height: 1.0, color: SetColors.darkGrey),
                   Container(
                     margin:
                         new EdgeInsets.only(top: 5.0, bottom: 5.0, right: 10.0),

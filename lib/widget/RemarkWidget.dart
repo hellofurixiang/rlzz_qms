@@ -43,11 +43,11 @@ class RemarkWidgetState extends State<RemarkWidget> {
             widget.title,
             textAlign: TextAlign.center,
             style: new TextStyle(
-                color: RLZZColors.mainColor,
-                fontSize: RLZZConstant.normalTextSize),
+                color: SetColors.mainColor,
+                fontSize: SetConstants.normalTextSize),
           )));
 
-      list.add(WidgetUtil.getDivider(height: 0.5, color: RLZZColors.mainColor));
+      list.add(WidgetUtil.getDivider(height: 0.5, color: SetColors.mainColor));
     }
 
     list.add(new Expanded(
@@ -70,7 +70,7 @@ class RemarkWidgetState extends State<RemarkWidget> {
         alignment: Alignment.bottomRight,
         child: new ButtonWidget(
           width: 65.0,
-          backgroundColor: RLZZColors.mainColor,
+          backgroundColor: SetColors.mainColor,
           text: StringZh.app_close,
           fontColor: Colors.white,
           clickFun: () {
@@ -78,7 +78,7 @@ class RemarkWidgetState extends State<RemarkWidget> {
           },
         ),
         decoration: new BoxDecoration(
-          color: RLZZColors.lightLightGrey,
+          color: SetColors.lightLightGrey,
           borderRadius: new BorderRadius.only(
               bottomLeft: new Radius.circular(6.0),
               bottomRight: new Radius.circular(6.0)),

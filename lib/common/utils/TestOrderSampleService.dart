@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/config/UserPermissionsConfig.dart';
+import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/modal/AttachmentVo.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetailTestQuota.dart';
@@ -79,19 +81,19 @@ class TestOrderSampleService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival_sample:
-        permissions = Config.arrivalSample_edit;
+        permissions = UserPermissionsConfig.arrivalSample_edit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_edit;
         break;
       case Config.test_order_complete_sample:
-        permissions = Config.completeSample_edit;
+        permissions = UserPermissionsConfig.completeSample_edit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_edit;
         break;
       case Config.test_order_ipqc:
-        permissions = Config.ipqc_edit;
+        permissions = UserPermissionsConfig.ipqc_edit;
         permissionsText = StringZh.ipqcTestOrderDetail_edit;
         break;
       case Config.test_order_pqc:
-        permissions = Config.pqc_edit;
+        permissions = UserPermissionsConfig.pqc_edit;
         permissionsText = StringZh.pqcTestOrderDetail_edit;
         break;
       default:
@@ -178,10 +180,10 @@ class TestOrderSampleService {
       if (f.edited) {
         List quotaInfos = [];
 
-        List<TestOrderDetailTestQuota> testOrderDetailTestQuota =
+        List<TestOrderDetailTestQuota> testOrderDetailTestQuotas =
             f.testOrderDetailTestQuota;
 
-        testOrderDetailTestQuota.forEach((q) {
+        testOrderDetailTestQuotas.forEach((q) {
           if (CommonUtil.isNotEmpty(q.enclosure)) {
             q.enclosure = q.enclosure.replaceAll("'", "\"");
           }
@@ -202,7 +204,7 @@ class TestOrderSampleService {
             q.badPictures = '';
           }
 
-          quotaInfos.add({
+          /*quotaInfos.add({
             'testTemplateDetailId': q.testTemplateDetailId,
             'testVal': q.testVal,
             'id': q.id,
@@ -212,9 +214,9 @@ class TestOrderSampleService {
             'badPictures': q.badPictures,
             'producer': q.producer,
             'state': q.state,
-          });
+          });*/
         });
-        f.oper = json.encode(quotaInfos);
+        //f.oper = json.encode(quotaInfos);
       }
     });
 
@@ -248,19 +250,19 @@ class TestOrderSampleService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival_sample:
-        permissions = Config.arrivalSample_audit;
+        permissions = UserPermissionsConfig.arrivalSample_audit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_audit;
         break;
       case Config.test_order_complete_sample:
-        permissions = Config.completeSample_audit;
+        permissions = UserPermissionsConfig.completeSample_audit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_audit;
         break;
       case Config.test_order_ipqc:
-        permissions = Config.ipqc_audit;
+        permissions = UserPermissionsConfig.ipqc_audit;
         permissionsText = StringZh.ipqcTestOrderDetail_audit;
         break;
       case Config.test_order_pqc:
-        permissions = Config.pqc_audit;
+        permissions = UserPermissionsConfig.pqc_audit;
         permissionsText = StringZh.pqcTestOrderDetail_audit;
         break;
       default:
@@ -287,19 +289,19 @@ class TestOrderSampleService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival_sample:
-        permissions = Config.arrivalSample_unaudit;
+        permissions = UserPermissionsConfig.arrivalSample_unaudit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_unaudit;
         break;
       case Config.test_order_complete_sample:
-        permissions = Config.completeSample_unaudit;
+        permissions = UserPermissionsConfig.completeSample_unaudit;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_unaudit;
         break;
       case Config.test_order_ipqc:
-        permissions = Config.ipqc_unaudit;
+        permissions = UserPermissionsConfig.ipqc_unaudit;
         permissionsText = StringZh.ipqcTestOrderDetail_unaudit;
         break;
       case Config.test_order_pqc:
-        permissions = Config.pqc_unaudit;
+        permissions = UserPermissionsConfig.pqc_unaudit;
         permissionsText = StringZh.pqcTestOrderDetail_unaudit;
         break;
       default:
@@ -326,33 +328,38 @@ class TestOrderSampleService {
 
     switch (testOrderInfo.docCat) {
       case Config.test_order_arrival_sample:
-        permissions = Config.arrivalSample_del;
+        permissions = UserPermissionsConfig.arrivalSample_del;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_del;
         break;
       case Config.test_order_complete_sample:
-        permissions = Config.completeSample_del;
+        permissions = UserPermissionsConfig.completeSample_del;
         permissionsText = StringZh.arrivalTestOrderSampleDetail_del;
         break;
       case Config.test_order_ipqc:
-        permissions = Config.ipqc_del;
+        permissions = UserPermissionsConfig.ipqc_del;
         permissionsText = StringZh.ipqcTestOrderDetail_del;
         break;
       case Config.test_order_pqc:
-        permissions = Config.pqc_del;
+        permissions = UserPermissionsConfig.pqc_del;
         permissionsText = StringZh.pqcTestOrderDetail_del;
         break;
       default:
         break;
     }
 
-    if (!CommonUtil.checkUserPermissions(permissions, permissionsText)) {
-      //Navigator.pop(context);
-      return;
+    if(!GlobalInfo.instance.isDebug()) {
+      if (!CommonUtil.checkUserPermissions(permissions, permissionsText)) {
+        Navigator.pop(context);
+        return;
+      }
     }
 
     WidgetUtil.showLoadingDialog(context, StringZh.deling);
     QmsService.delTestOrder(context, testOrderInfo.id, testOrderInfo.docCat,
-        testOrderInfo.version, _operSuccessCallBack, () {});
+        testOrderInfo.version, _operSuccessCallBack, (err) {
+          Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
+          Navigator.pop(context);
+        });
   }
 
   ///审核、弃审、删除回调函数

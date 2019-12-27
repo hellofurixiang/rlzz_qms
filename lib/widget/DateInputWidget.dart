@@ -38,8 +38,8 @@ class DateInputWidget extends StatefulWidget {
     this.height: 25.0,
     this.isAllBorder: false,
     this.initText,
-    this.textFillColor: RLZZColors.lightLightGrey,
-    this.containerFillColor: RLZZColors.lightLightGrey,
+    this.textFillColor: SetColors.lightLightGrey,
+    this.containerFillColor: SetColors.lightLightGrey,
     this.onTapCall,
   }) : super(key: key);
 
@@ -77,7 +77,7 @@ class DateInputWidgetState extends State<DateInputWidget> {
               child: new Icon(
                 Icons.clear,
                 size: 15.0,
-                color: RLZZColors.mainColor,
+                color: SetColors.mainColor,
               ),
             ),
           )
@@ -118,7 +118,7 @@ class DateInputWidgetState extends State<DateInputWidget> {
                 child: new Text(
                   initText,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                   textAlign:
                       widget.isCenter ? TextAlign.center : TextAlign.left,

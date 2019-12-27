@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/TestOrder.dart';
+import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/page/RefPage.dart';
@@ -136,15 +137,15 @@ class TestOrderSampleHeadInfoPageState
         new Container(
           height: 30.0,
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Container(
                 width: 90.0,
                 child: new Text(
-                  '检验结果',
+                  StringZh.testResult,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -152,7 +153,7 @@ class TestOrderSampleHeadInfoPageState
                 width: 90.0,
                 //height: 40.0,
                 alignment: Alignment.center,
-                color: RLZZColors.twoLevel,
+                color: SetColors.twoLevel,
                 margin: new EdgeInsets.only(top: 2.0, bottom: 2.0),
                 padding: new EdgeInsets.only(left: 5.0),
                 child: new DropdownButtonHideUnderline(
@@ -166,7 +167,7 @@ class TestOrderSampleHeadInfoPageState
                     value: widget.testOrderInfo.testResult,
                     //hint: new Text(StringZh.prompt_sob),
                     style: new TextStyle(
-                        fontSize: RLZZConstant.normalTextSize,
+                        fontSize: SetConstants.normalTextSize,
                         color: Colors.black),
                     //iconEnabledColor: Colors.white,
                   ),
@@ -186,9 +187,9 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 70.0,
                 child: new Text(
-                  '合格数量',
+                  StringZh.qualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -205,10 +206,10 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '不良数量',
+                  StringZh.unQualifiedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -220,7 +221,9 @@ class TestOrderSampleHeadInfoPageState
                   onChanged: (v) {
                     double unQualifiedQty = CommonUtil.getDoubleValue(v);
                     if (unQualifiedQty > widget.testOrderInfo.quantity) {
-                      Fluttertoast.showToast(msg: '不良数量不能大于应检数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_unQualifiedQty_not_greater_than_shouldQty);
                       unQualifiedQtyController.text =
                           widget.testOrderInfo.unQualifiedQty.toString();
                       return;
@@ -245,10 +248,10 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '返工数量',
+                  StringZh.reworkQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -271,7 +274,9 @@ class TestOrderSampleHeadInfoPageState
                     //double scrapQty = widget.testOrderInfo.scrapQty;
 
                     if (reworkQty + spQty > unQualifiedQty) {
-                      Fluttertoast.showToast(msg: '特采数量+返工数量不能超过不良数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_spQty_and_reworkQty_not_greater_than_unQualifiedQty);
 
                       reworkQtyController.text =
                           widget.testOrderInfo.reworkQty.toString();
@@ -302,9 +307,9 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 70.0,
                 child: new Text(
-                  '让步接收数',
+                  StringZh.concessionReceivedQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -320,7 +325,9 @@ class TestOrderSampleHeadInfoPageState
                     double concessionReceivedQty = CommonUtil.getDoubleValue(v);
 
                     if (concessionReceivedQty > widget.testOrderInfo.quantity) {
-                      Fluttertoast.showToast(msg: '让步接收数不能大于应检数量');
+                      Fluttertoast.showToast(
+                          msg: StringZh
+                              .tip_concessionReceivedQty_not_greater_than_shouldQty);
                       concessionReceivedQtyController.text = widget
                           .testOrderInfo.concessionReceivedQuantity
                           .toString();
@@ -348,10 +355,10 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '特采数量',
+                  StringZh.spQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -370,10 +377,10 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '报废数量',
+                  StringZh.scrapQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
-                      color: RLZZColors.red),
+                      fontSize: SetConstants.normalTextSize,
+                      color: SetColors.red),
                 ),
               ),
               new Container(
@@ -400,9 +407,9 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 70.0,
                 child: new Text(
-                  '严重缺陷',
+                  StringZh.seriousDefectsQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -424,9 +431,9 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '主要缺陷',
+                  StringZh.majorDefectsQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -448,9 +455,9 @@ class TestOrderSampleHeadInfoPageState
                 margin: EdgeInsets.only(right: 5.0, left: 5.0),
                 width: 60.0,
                 child: new Text(
-                  '一般缺陷',
+                  StringZh.generalDefectsQty,
                   style: new TextStyle(
-                      fontSize: RLZZConstant.normalTextSize,
+                      fontSize: SetConstants.normalTextSize,
                       color: Colors.black),
                 ),
               ),
@@ -485,9 +492,9 @@ class TestOrderSampleHeadInfoPageState
                       margin: new EdgeInsets.only(left: 5.0, right: 5.0),
                       width: 70.0,
                       child: new Text(
-                        '不良原因',
+                        StringZh.text_badReason,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
+                            fontSize: SetConstants.normalTextSize,
                             color: Colors.black),
                       ),
                     ),
@@ -504,7 +511,7 @@ class TestOrderSampleHeadInfoPageState
                           child: new Icon(
                             Icons.search,
                             size: 22.0,
-                            color: RLZZColors.darkDarkGrey,
+                            color: SetColors.darkDarkGrey,
                           ),
                         ),
                       ),
@@ -523,9 +530,9 @@ class TestOrderSampleHeadInfoPageState
                       margin: EdgeInsets.only(right: 5.0, left: 5.0),
                       width: 60.0,
                       child: new Text(
-                        '不良说明',
+                        StringZh.badReasonInfo,
                         style: new TextStyle(
-                            fontSize: RLZZConstant.normalTextSize,
+                            fontSize: SetConstants.normalTextSize,
                             color: Colors.black),
                       ),
                     ),
@@ -552,9 +559,9 @@ class TestOrderSampleHeadInfoPageState
           child: new Row(
             children: <Widget>[
               new Text(
-                '(注:不良数量=返工数量+特采数量+报废数量)',
+                StringZh.tip_unQualifiedQty_reworkQty_spQty_scrapQty,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.smallTextSize, color: Colors.red),
+                    fontSize: SetConstants.smallTextSize, color: Colors.red),
               ),
             ],
           ),
@@ -563,13 +570,13 @@ class TestOrderSampleHeadInfoPageState
           height: 30.0,
           margin: new EdgeInsets.only(top: 10.0),
           padding: new EdgeInsets.only(left: 10.0, right: 10.0),
-          color: RLZZColors.itemBodyColor,
+          color: SetColors.itemBodyColor,
           child: new Row(
             children: <Widget>[
               new Text(
-                '图像附件',
+                StringZh.imageAttachment,
                 style: new TextStyle(
-                    fontSize: RLZZConstant.normalTextSize, color: Colors.black),
+                    fontSize: SetConstants.normalTextSize, color: Colors.black),
               ),
             ],
           ),
@@ -590,7 +597,7 @@ class TestOrderSampleHeadInfoPageState
         barrierDismissible: false,
         builder: (BuildContext context) {
           return new RefPage(
-            url:Config.qmsApiUrl+Config.badReasonRefUrl,
+            url: Config.qmsApiUrl + Config.badReasonRefUrl,
             arcCode: widget.testOrderInfo.badReasonCode,
             okFun: (obj) {
               setState(() {
