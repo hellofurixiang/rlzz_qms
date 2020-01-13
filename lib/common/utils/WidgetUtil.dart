@@ -525,11 +525,40 @@ class WidgetUtil {
 
         double cellWidth = cell['width'] ?? width;
 
+        ///操作列
         if (fieldType == StringZh.listOper) {
+          ///需要操作则显示操作字符，否则显示序号
           if (isOper) {
-            cellList.add(
-              new GestureDetector(
-                child: new Container(
+            String checkField = cell['checkField'];
+
+            ///可操作判断
+            if (checkField != null && double.parse(data[checkField]) > 0) {
+              cellList.add(
+                new GestureDetector(
+                  child: new Container(
+                    alignment: Alignment.center,
+                    height: height,
+                    padding: new EdgeInsets.all(2.0),
+                    width: cellWidth,
+                    child: new Text(
+                      cell['fieldName'],
+                      style: new TextStyle(
+                          color: SetColors.mainColor,
+                          fontSize: SetConstants.smallTextSize,
+                          decoration: TextDecoration.underline),
+                    ),
+                    decoration: boxDecoration,
+                  ),
+                  onTap: () {
+                    if (isOnTap) {
+                      onTap(fieldCode, data);
+                    }
+                  },
+                ),
+              );
+            } else {
+              cellList.add(
+                new Container(
                   alignment: Alignment.center,
                   height: height,
                   padding: new EdgeInsets.all(2.0),
@@ -537,19 +566,14 @@ class WidgetUtil {
                   child: new Text(
                     cell['fieldName'],
                     style: new TextStyle(
-                        color: SetColors.mainColor,
-                        fontSize: SetConstants.smallTextSize,
-                        decoration: TextDecoration.underline),
+                      color: SetColors.gray,
+                      fontSize: SetConstants.smallTextSize,
+                    ),
                   ),
                   decoration: boxDecoration,
                 ),
-                onTap: () {
-                  if (isOnTap) {
-                    onTap(fieldCode, data);
-                  }
-                },
-              ),
-            );
+              );
+            }
           } else {
             cellList.add(new Container(
               height: height,
@@ -886,7 +910,7 @@ class WidgetUtil {
       initialDateTime: initialDate,
       //cancel: new Text(StringZh.app_cancel),
       //confirm: new Text(StringZh.app_ok),
-      dateFormat: 'yyyy-mm-dd',
+      dateFormat: 'yyyy-MM-dd',
       /*onChanged: (year, month, date) {
         //print(11);
       },*/

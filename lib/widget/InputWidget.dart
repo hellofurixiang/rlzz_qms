@@ -143,7 +143,11 @@ class InputWidgetState extends State<InputWidget> {
     if (widget.enabled && showClear) {
       clearWidget = new GestureDetector(
         onTap: () {
-          controller.clear();
+
+          ///解决报错：invalid text selection: TextSelection(baseOffset: 7, extentOffset: 7
+          ///保证在组件build的第一帧时才去触发取消清空内容
+          WidgetsBinding.instance.addPostFrameCallback((_) => controller.clear());
+
           setState(() {
             showClear = false;
           });

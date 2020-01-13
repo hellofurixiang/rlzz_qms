@@ -8,7 +8,7 @@ part of 'TestOrderDetail.dart';
 
 TestOrderDetail _$TestOrderDetailFromJson(Map<String, dynamic> json) {
   return TestOrderDetail(
-      json['id'] as String,
+      json['id'] as int,
       json['badPictures'] as String,
       json['testItemCode'] as String,
       json['testItemName'] as String,

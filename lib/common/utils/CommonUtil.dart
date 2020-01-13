@@ -12,6 +12,7 @@ import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/FilterModel.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
@@ -113,20 +114,23 @@ class CommonUtil {
   }
 
   ///获取查询筛选参数
-  static void getFilterParams(
-      List<FilterModel> itemList, Map<String, String> params) {
+  static Map<String, dynamic> getFilterParams(
+      List<FilterModel> itemList, Map<String, dynamic> params) {
+    /*params.toJson().addAll(requestParams);
+    params = GeneralVo.fromJson(requestParams);*/
+
     itemList.forEach((item) {
       if (item.itemType == Config.filterItemTypeSingleSelect) {
         for (var map in item.selectList) {
-          if (map['isSelect']) {
-            params[item.itemCode] = map['value'];
+          if (map.isSelect) {
+            params[item.itemCode] = map.value;
           }
         }
       } else if (item.itemType == Config.filterItemTypeMultipleSelect) {
         String selects = '';
         for (var map in item.selectList) {
-          if (map['isSelect']) {
-            selects += map['value'].toString() + ',';
+          if (map.isSelect) {
+            selects += map.value + ',';
           }
         }
         params[item.itemCode] =
@@ -142,29 +146,30 @@ class CommonUtil {
         params[item.itemCode] = item.returnVal[item.itemCode];
       }
     });
+
+    return params;
   }
 
   ///获取筛选显示参数
   static void getShowFilterParams(
-      List<FilterModel> itemList, Map<String, String> params) {
+      List<FilterModel> itemList, Map<String, dynamic> params) {
     itemList.forEach((item) {
       if (item.itemType == Config.filterItemTypeSingleSelect) {
-        for (var map in item.selectList) {
-          map['isSelect'] =
-              map['value'] == params[item.itemCode] ? true : false;
-        }
+        item.selectList.forEach((map) {
+          map.isSelect = map.value == params[item.itemCode] ? true : false;
+        });
       } else if (item.itemType == Config.filterItemTypeMultipleSelect) {
         if (params[item.itemCode] == '') {
-          for (var map in item.selectList) {
-            map['isSelect'] = false;
-          }
+          item.selectList.forEach((map) {
+            map.isSelect = false;
+          });
         } else {
           List<String> selects = params[item.itemCode].split(',');
           for (var map in item.selectList) {
-            map['isSelect'] = false;
+            map.isSelect = false;
             for (var str in selects) {
-              if (map['value'] == str) {
-                map['isSelect'] = true;
+              if (map.value == str) {
+                map.isSelect = true;
                 break;
               }
             }
@@ -188,9 +193,9 @@ class CommonUtil {
     itemList.forEach((item) {
       if (item.itemType == Config.filterItemTypeSingleSelect ||
           item.itemType == Config.filterItemTypeMultipleSelect) {
-        for (var map in item.selectList) {
-          map['isSelect'] = map['default'] != null ? true : false;
-        }
+        item.selectList.forEach((map) {
+          map.isSelect = map.isDefault;
+        });
       } else if (item.itemType == Config.filterItemTypeDate) {
         item.itemCodes.forEach((val) {
           item.returnVal[val] = '';
@@ -216,12 +221,10 @@ class CommonUtil {
 
   ///获取消息文字
   static String getText(String msg, List<String> params) {
-    String returnMsg = '';
-
     for (int i = 0; i < params.length; ++i) {
-      returnMsg = msg.replaceAll("{" + i.toString() + "}", params[i]);
+      msg = msg.replaceAll("{" + i.toString() + "}", params[i]);
     }
-    return returnMsg;
+    return msg;
   }
 
   ///为空判断

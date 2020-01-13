@@ -255,11 +255,7 @@ class PqcTestOrderSampleBodyItemPageState
                       enabled: widget.cacheInfo.id == null ? true : false,
                       controller: barcodeController,
                       onChanged: (v) {
-                        widget.cacheInfo.sampleBarcode = v;
-                        setState(() {
-                          widget.cacheInfo.testTime =
-                              new DateTime.now().millisecondsSinceEpoch;
-                        });
+                        changeSampleBarcode(v);
                       },
                     ),
                   ),
@@ -317,6 +313,25 @@ class PqcTestOrderSampleBodyItemPageState
         ),
       ],
     );
+  }
+
+  changeSampleBarcode(String sampleBarcode) {
+    int tick = 0;
+    for (TestOrderSampleDetail vo
+        in widget.testOrderInfo.testOrderSampleDetail) {
+      if (vo.sampleBarcode != sampleBarcode) {
+        continue;
+      }
+      if (vo.tick > tick) {
+        tick = vo.tick;
+      }
+    }
+    widget.cacheInfo.sampleBarcode = sampleBarcode;
+
+    setState(() {
+      widget.cacheInfo.tick = tick + 1;
+      widget.cacheInfo.testTime = new DateTime.now().millisecondsSinceEpoch;
+    });
   }
 
   Widget getStateWidget() {
@@ -649,16 +664,18 @@ class PqcTestOrderSampleBodyItemPageState
         }
       }
 
+      bool bo = true;
       for (int i = 0;
           i < widget.cacheInfo.testOrderDetailTestQuota.length;
           i++) {
         TestOrderDetailTestQuota tq =
             widget.cacheInfo.testOrderDetailTestQuota[i];
         if (tq.state) {
-          widget.cacheInfo.state = Config.qualified;
+          bo = false;
           break;
         }
       }
+      widget.cacheInfo.state = bo ? Config.qualified : Config.unqualified;
     });
 
     widget.changeState();

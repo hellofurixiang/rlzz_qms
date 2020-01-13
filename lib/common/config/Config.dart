@@ -281,4 +281,11 @@ class Config {
 
   static const String value_yes = '1';
   static const String value_no = '0';
+
+  static const String value_y = 'Y';
+  static const String value_n = 'N';
+
+
+
+
 }

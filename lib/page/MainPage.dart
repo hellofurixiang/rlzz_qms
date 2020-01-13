@@ -48,8 +48,6 @@ class MainPageState extends State<MainPage> {
         getMenuInfo1(map);
       });
       //}
-    }, (err) {
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
     });
 
     await CommonUtil.requestPermission();

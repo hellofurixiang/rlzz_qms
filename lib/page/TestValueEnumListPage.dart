@@ -11,7 +11,7 @@ import 'package:qms/widget/ButtonWidget.dart';
 ///检测值录入列表(枚举型)
 class TestValueEnumListPage extends StatefulWidget {
   ///检验单表体ID
-  final String testOrderDetailId;
+  final int testOrderDetailId;
 
   ///检测值列表 缓存数据
   final List valueList;
@@ -104,7 +104,7 @@ class TestValueEnumListPageState extends State<TestValueEnumListPage> {
 
         ///复制枚举选项
         QmsService.getEnumInfoListInfo(
-            context, widget.testOrderDetailId, widget.testQuotaCode, (res) {
+            context, widget.testOrderDetailId.toString(), widget.testQuotaCode, (res) {
           List<DetailEnumInfo> voList = List();
 
           for (int i = 0; i < res.length; i++) {

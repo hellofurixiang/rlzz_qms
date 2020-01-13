@@ -20,7 +20,7 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
     super.initState();
   }
 
-  SvgPicture fliter = new SvgPicture.asset(
+  SvgPicture fliterSvg = new SvgPicture.asset(
     SetIcons.filter,
     color: Colors.black,
   );
@@ -39,7 +39,7 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
             child: new Container(
               width: 20.0,
               height: 20.0,
-              child: fliter,
+              child: fliterSvg,
             ),
           ),
           new Container(

@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/UserPermissionsConfig.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
@@ -80,24 +79,28 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
   TextEditingController qtyEc = new TextEditingController();
 
   ///数据列表
-  List dataList = new List();
+  List<GeneralVo> dataList = new List();
 
   bool loading = true;
 
   ///初始化数据
   void _getDataRequest() {
-    QmsService.getTestTemplate(context, {
-      'docCat': widget.docCat,
-      'testCat': widget.testCat,
-      'invCatCode': widget.invCatCode,
-      'invCode': widget.invCode,
-      'opCode': widget.opCode,
-    }, (res) {
-      if (res.length == 1) {
-        res[0]['isSelect'] = true;
-      }
+    GeneralVo searchVo = GeneralVo.empty();
+
+    searchVo.docCat = widget.docCat;
+    searchVo.testCat = widget.testCat;
+    searchVo.invCatCode = widget.invCatCode;
+    searchVo.invCode = widget.invCode;
+    searchVo.opCode = widget.opCode;
+
+    QmsService.getTestTemplate(context, searchVo.toJson(), (res) {
       setState(() {
-        dataList = res;
+        for (var value in res) {
+          dataList.add(GeneralVo.fromJson(value));
+        }
+        if (dataList.length == 1) {
+          dataList[0].isSelect = true;
+        }
         loading = false;
       });
     }, (err) {
@@ -113,10 +116,10 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
     String testRule = '';
     for (int i = 0; i < dataList.length; i++) {
       var v = dataList[i];
-      if (null != v['isSelect'] && v['isSelect']) {
-        testTemplateId = v['id'].toString();
-        testTemplateName = v['arcName'];
-        testRule = v['testRule'];
+      if (null != v.isSelect && v.isSelect) {
+        testTemplateId = v.id.toString();
+        testTemplateName = v.arcName;
+        testRule = v.testRule;
         break;
       }
     }
@@ -128,7 +131,8 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
     }
     if ('' == qtyEc.text.trim() ||
         double.parse(qtyEc.text) > double.parse(widget.qty)) {
-      Fluttertoast.showToast(msg: '请输入正确的报检数量', timeInSecForIos: 3);
+      Fluttertoast.showToast(
+          msg: StringZh.tip_check_qty_error, timeInSecForIos: 3);
       return;
     }
     Navigator.pop(context);
@@ -249,7 +253,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
 
     bool isSelect = false;
 
-    if (null != data['isSelect'] && data['isSelect']) {
+    if (null != data.isSelect && data.isSelect) {
       isSelect = true;
     }
 
@@ -275,7 +279,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       alignment: Alignment.center,
       width: width * 0.5 * 0.3,
       child: Text(
-        data['arcCode'],
+        data.arcCode,
         style: TextStyle(fontSize: SetConstants.normalTextSize),
       ),
       decoration: new BoxDecoration(
@@ -289,7 +293,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          data['arcName'],
+          data.arcName,
           style: TextStyle(fontSize: SetConstants.normalTextSize),
         ),
         decoration: new BoxDecoration(
@@ -305,7 +309,7 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       alignment: Alignment.center,
       width: width * 0.5 * 0.2,
       child: Text(
-        data['testRule'] ?? '',
+        data.testRule ?? '',
         style: TextStyle(fontSize: SetConstants.normalTextSize),
       ),
     ));
@@ -324,9 +328,9 @@ class TestTemplateSelectPageState extends State<TestTemplateSelectPage> {
       onTap: () {
         setState(() {
           dataList.forEach((v) {
-            v['isSelect'] = false;
+            v.isSelect = false;
           });
-          data['isSelect'] = true;
+          data.isSelect = true;
         });
       },
       child: Container(

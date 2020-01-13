@@ -297,7 +297,6 @@ class UploadImageWidgetState extends State<UploadImageWidget> {
                 //}, confirmText: StringZh.yes, cancelText: StringZh.no);
               }
             }, (err) {
-              Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
               Navigator.pop(context);
             });
           }

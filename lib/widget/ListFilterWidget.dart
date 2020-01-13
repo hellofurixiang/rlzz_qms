@@ -135,7 +135,7 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
           callFun: (var selectValue) {
             setState(() {
               for (var map1 in filterModel.selectList) {
-                map1['isSelect'] = map1['value'] != selectValue ? false : true;
+                map1.isSelect = map1.value != selectValue ? false : true;
               }
             });
           },
@@ -175,8 +175,8 @@ class ListFilterWidgetState extends State<ListFilterWidget> {
           callFun: (var selectValue) {
             setState(() {
               for (var map1 in filterModel.selectList) {
-                if (map1['value'] == selectValue) {
-                  map1['isSelect'] = !map1['isSelect'];
+                if (map1.value == selectValue) {
+                  map1.isSelect = !map1.isSelect;
                 }
               }
             });

@@ -234,7 +234,6 @@ class TestOrderSampleService {
 
       _operCompleteJumpPage(context, testOrderInfo.docCat, testOrderInfo.id);
     }, (err) {
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
       Navigator.pop(context);
     });
   }

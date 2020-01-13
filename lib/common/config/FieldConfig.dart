@@ -14,7 +14,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '到货日期',
@@ -88,7 +89,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '报检日期',
@@ -370,13 +372,13 @@ class QMSFieldConfig {
         'width': 60.0,
       },
       {
-        'displayName': '上限值',
-        'fieldCode': 'upperLimitValue',
+        'displayName': '下限值',
+        'fieldCode': 'lowerLimitValue',
         'width': 60.0,
       },
       {
-        'displayName': '下限值',
-        'fieldCode': 'lowerLimitValue',
+        'displayName': '上限值',
+        'fieldCode': 'upperLimitValue',
         'width': 60.0,
       },
       {
@@ -384,7 +386,7 @@ class QMSFieldConfig {
         'fieldCode': 'testVal',
         'inputType': Config.inputTypeText,
         'width': 70.0,
-        'mandatory':true,
+        'mandatory': true,
       },
       {
         'displayName': '状态',
@@ -681,7 +683,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '到货日期',
@@ -755,7 +758,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '到货日期',
@@ -829,7 +833,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '报检日期',
@@ -910,7 +915,8 @@ class QMSFieldConfig {
         'fieldType': StringZh.listOper, //字段类型
         'onTap': true,
         'width': 60.0,
-        'color': SetColors.mainColorValue
+        'color': SetColors.mainColorValue,
+        'checkField': 'canCheckQty', //显示操作校验字段
       },
       {
         'displayName': '报检日期',

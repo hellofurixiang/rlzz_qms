@@ -597,6 +597,7 @@ class TestOrderSampleHeadInfoPageState
         barrierDismissible: false,
         builder: (BuildContext context) {
           return new RefPage(
+            title: StringZh.text_badReason,
             url: Config.qmsApiUrl + Config.badReasonRefUrl,
             arcCode: widget.testOrderInfo.badReasonCode,
             okFun: (obj) {

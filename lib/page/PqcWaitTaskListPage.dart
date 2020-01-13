@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
@@ -15,12 +17,10 @@ import 'package:qms/widget/ListTopFilterWidget.dart';
 ///PQC待检列表
 class PqcWaitTaskListPage extends StatefulWidget {
   @override
-  PqcWaitTaskListPageState createState() =>
-      new PqcWaitTaskListPageState();
+  PqcWaitTaskListPageState createState() => new PqcWaitTaskListPageState();
 }
 
-class PqcWaitTaskListPageState
-    extends ListCommonState<PqcWaitTaskListPage> {
+class PqcWaitTaskListPageState extends ListCommonState<PqcWaitTaskListPage> {
   @override
   void initState() {
     super.initState();
@@ -35,61 +35,10 @@ class PqcWaitTaskListPageState
   ///初始化筛选参数
   @protected
   void initParams() {
-    params = {
-      'docCat': Config.test_order_pqc,
+    params.docCat = Config.test_order_pqc;
 
-      ///检验状态
-      'checkStatus': '未检',
-
-      ///物料编码
-      'invCode': '',
-
-      ///物料名称
-      'invName': '',
-
-      ///检验员ID
-      'checkerId': '',
-
-      ///开始、结束日期
-      'beginDate': '',
-      'endDate': '',
-
-      ///报工单号
-      'opDocNo': '',
-
-      ///工作中心编码
-      'wcCode': '',
-
-      ///工作中心名称
-      'wcName': '',
-
-      ///工序编码
-      'opCode': '',
-
-      ///工序名称
-      'opName': '',
-
-      ///工序行号
-      //'opSeq': '',
-
-      ///生产订单号
-      'moDocNo': '',
-
-      ///客户编码
-      'cusCode': '',
-
-      ///客户简称
-      'cusName': '',
-
-      ///批号
-      'batchNumber': '',
-
-      ///产品类型
-      'protype': '',
-
-      ///需求跟踪号
-      'socode': '',
-    };
+    ///检验状态
+    params.checkStatus = Config.value_n;
   }
 
   ///初始化筛选控件数据
@@ -144,37 +93,35 @@ class PqcWaitTaskListPageState
           new RefBasic.empty()),
       new FilterModel.select(Config.filterItemTypeSingleSelect, 'checkStatus',
           StringZh.tip_testState, [
-            {'value': '未检', 'text': '未检', 'isSelect': true, 'default': true},
-            {'value': '已检', 'text': '已检', 'isSelect': false},
-            {'value': '全部', 'text': '全部', 'isSelect': false},
-          ]),
+        SelectVo(Config.value_n, StringZh.unCheck, isDefault: true),
+        SelectVo(Config.value_y, StringZh.checked),
+        SelectVo('', StringZh.all),
+      ]),
     ];
   }
 
   ///初始化数据
   @protected
   void getDataRequest() {
+    /*GeneralVo searchVo = GeneralVo.empty();
+    searchVo.pageIndex = page;
+    searchVo.pageSize = Config.pageSize;
+    searchVo.docCat = params['docCat'];
+    searchVo.beginDate = params['beginDate'];
+    searchVo.endDate = params['endDate'];
+    searchVo.moDocNo = params['moDocNo'];
+    searchVo.cusName = params['cusName'];
+    searchVo.batchNumber = params['batchNumber'];
+    searchVo.opCode = params['opCode'];
+    searchVo.invCode = params['invCode'];
+    searchVo.checkerId = params['checkerId'];
+    searchVo.checkStatus = params['checkStatus'];
+    searchVo.protype = params['protype'];
+    searchVo.opDocNo = params['opDocNo'];
+    searchVo.wcCode = params['wcCode'];*/
+
     QmsService.getQuarantineTaskList(
-        context,
-        {
-          'pageIndex': page.toString(),
-          'pageSize': Config.pageSize.toString(),
-          'docCat': params['docCat'],
-          'checkStatus': params['checkStatus'],
-          'invCode': params['invCode'],
-          'checkerId': params['checkerId'],
-          'beginDate': params['beginDate'],
-          'endDate': params['endDate'],
-          'moDocNo': params['moDocNo'],
-          'opDocNo': params['opDocNo'],
-          'cusName': params['cusName'],
-          'batchNumber': params['batchNumber'],
-          'protype': params['protype'],
-          'opCode': params['opCode'],
-          'wcCode': params['wcCode'],
-        },
-        requestSuccessCallBack,
-        requestErrorCallBack);
+        context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
 
   ///列点击事件
@@ -184,6 +131,10 @@ class PqcWaitTaskListPageState
 
       ///录入操作
       case 'luru':
+        if (double.parse(data['canCheckQty']) <= 0) {
+          Fluttertoast.showToast(msg: '请输入正确的报检数量', timeInSecForIos: 3);
+          return;
+        }
         showDialog<Null>(
             context: context, //BuildContext对象
             barrierDismissible: false,

@@ -4,6 +4,7 @@ import 'package:qms/common/config/FieldConfig.dart';
 import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
@@ -37,29 +38,10 @@ class ArrivalTestOrderSampleListPageState
   ///初始化筛选参数
   @protected
   void initParams() {
-    params = {
-      'docCat': Config.test_order_arrival_sample,
+    params.docCat = Config.test_order_arrival_sample;
 
-      ///开始、结束日期
-      'beginDate': '',
-      'endDate': '',
-
-      ///检验单号
-      'docNo': '',
-
-      ///物料编码
-      'invCode': '',
-
-      ///物料名称
-      'invName': '',
-
-      ///审核状态
-      'auditStatus': Config.value_no,
-
-      ///检验员ID
-      'checkerId': '',
-      'checkerName': '',
-    };
+    ///审核状态
+    params.auditStatus = Config.value_no;
   }
 
   ///初始化筛选控件数据
@@ -81,22 +63,9 @@ class ArrivalTestOrderSampleListPageState
           new RefBasic.empty()),
       new FilterModel.select(Config.filterItemTypeSingleSelect, 'auditStatus',
           StringZh.tip_auditState, [
-        {
-          'value': '',
-          'text': StringZh.all,
-          'isSelect': false,
-        },
-        {
-          'value': Config.value_yes,
-          'text': StringZh.is_audit,
-          'isSelect': false
-        },
-        {
-          'value': Config.value_no,
-          'text': StringZh.not_audit,
-          'isSelect': true,
-          'default': true
-        },
+        SelectVo('', StringZh.all),
+        SelectVo(Config.value_yes, StringZh.is_audit),
+        SelectVo(Config.value_no, StringZh.not_audit, isDefault: true),
       ]),
       new FilterModel(
           Config.filterItemTypeRef,
@@ -113,22 +82,20 @@ class ArrivalTestOrderSampleListPageState
   ///初始化数据
   @protected
   void getDataRequest() {
+    /*GeneralVo searchVo = GeneralVo.empty();
+    searchVo.pageIndex = page;
+    searchVo.pageSize = Config.pageSize;
+    searchVo.docCat = params['docCat'];
+    searchVo.beginDate = params['beginDate'];
+    searchVo.endDate = params['endDate'];
+    searchVo.docNo = params['docNo'];
+    searchVo.invCode = params['invCode'];
+    searchVo.invName = params['invName'];
+    searchVo.auditStatus = params['auditStatus'];
+    searchVo.checkerId = params['checkerId'];*/
+
     QmsService.getTestOrderList(
-        context,
-        {
-          'pageIndex': page.toString(),
-          'pageSize': Config.pageSize.toString(),
-          'docCat': params['docCat'],
-          'beginDate': params['beginDate'],
-          'endDate': params['endDate'],
-          'docNo': params['docNo'],
-          'invCode': params['invCode'],
-          'invName': params['invName'],
-          'auditStatus': params['auditStatus'],
-          'checkerId': params['checkerId'],
-        },
-        requestSuccessCallBack,
-        requestErrorCallBack);
+        context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
 
   ///列点击事件

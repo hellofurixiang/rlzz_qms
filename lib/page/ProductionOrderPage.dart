@@ -58,7 +58,6 @@ class ProductionOrderPageState extends State<ProductionOrderPage> {
       setState(() {
         loading = false;
       });
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
       Navigator.pop(context);
     });
   }

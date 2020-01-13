@@ -661,4 +661,21 @@ class StringZh {
 
   static const String tip_testVal_not_null = '第{0}行检测值不能为空';
   static const String tip_sampleBarcode_not_null = '样本条码不能为空';
+
+  static const String tip_sampleBarcode_not_repeat_check = '样本条码：{0}，已检测（{1}或{2}），不允许重复检测';
+
+
+  static const String tip_check_qty_error = '请输入正确的报检数量';
+
+  static const String checked = '已检';
+  static const String unCheck = '未检';
+
+
+  static const String noDataTip = '暂时没有数据哟～';
+
+
+
+
+
+
 }

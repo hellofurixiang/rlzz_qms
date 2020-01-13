@@ -10,7 +10,7 @@ part 'TestOrderDetail.g.dart';
 @JsonSerializable()
 class TestOrderDetail extends BaseEntity {
   @JsonKey(name: 'id')
-  String id;
+  int id;
 
   ///不良图片
   @JsonKey(name: 'badPictures')

@@ -128,7 +128,6 @@ class ServiceSettingPageState extends State<ServiceSettingPage> {
 
   void _testFail(String err) {
     Navigator.pop(context);
-    Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
   }
 
   @override

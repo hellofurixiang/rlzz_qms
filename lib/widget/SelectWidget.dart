@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 import 'package:qms/common/style/Styles.dart';
 
 ///单选列表
@@ -11,7 +12,7 @@ class SelectWidget extends StatefulWidget {
   final double fontColor;
 
   ///选项列表
-  final Map<String, Object> selectMap;
+  final SelectVo selectMap;
   final Function callFun;
 
   SelectWidget(
@@ -33,9 +34,12 @@ class SelectWidgetState extends State<SelectWidget> {
     super.initState();
   }
 
+  SvgPicture correctSvg =
+      new SvgPicture.asset(SetIcons.correct, color: SetColors.mainColor);
+
   @override
   Widget build(BuildContext context) {
-    String text = widget.selectMap['text'];
+    String text = widget.selectMap.text;
 
     double width = 20.0;
 
@@ -47,14 +51,13 @@ class SelectWidgetState extends State<SelectWidget> {
 
     return new GestureDetector(
       onTap: () {
-        widget.callFun(widget.selectMap['value']);
+        widget.callFun(widget.selectMap.value);
       },
       child: new Material(
-        color:
-            widget.selectMap['isSelect'] ? Colors.white : SetColors.lightGray,
+        color: widget.selectMap.isSelect ? Colors.white : SetColors.lightGray,
         shape: new StadiumBorder(
           side: new BorderSide(
-              color: widget.selectMap['isSelect']
+              color: widget.selectMap.isSelect
                   ? SetColors.mainColor
                   : SetColors.lightGray,
               width: 0.8,
@@ -67,21 +70,20 @@ class SelectWidgetState extends State<SelectWidget> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              widget.selectMap['isSelect']
+              widget.selectMap.isSelect
                   ? new Container(
                       margin: new EdgeInsets.only(right: 2.0),
                       width: 12.0,
                       height: 12.0,
-                      child: new SvgPicture.asset(SetIcons.correct,
-                          color: SetColors.mainColor),
+                      child: correctSvg,
                     )
                   : new Container(),
               new Container(
                 child: new Text(
-                  widget.selectMap['text'],
+                  widget.selectMap.text,
                   style: TextStyle(
                       fontSize: widget.fontSize,
-                      color: widget.selectMap['isSelect']
+                      color: widget.selectMap.isSelect
                           ? SetColors.mainColor
                           : Colors.black),
                 ),

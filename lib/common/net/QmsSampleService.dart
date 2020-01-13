@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/modal/PqcTestOrder.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/net/NetUtil.dart';
@@ -26,23 +27,13 @@ class QmsSampleService {
   ///qty 报检数量
   static void getTestOrderSample(
       BuildContext context,
-      String srcDocDetailId,
-      String testTemplateId,
-      String qty,
-      String testCat,
-      String docCat,
+      Map<String, Object> params,
       Function successCallBack,
       Function errorCallBack) {
     String url = Config.qmsApiUrl + '/testOrderSample/getTestOrderSample';
 
     NetUtil.get(url, context,
-        params: {
-          'srcDocDetailId': srcDocDetailId,
-          'testTemplateId': testTemplateId,
-          'qty': qty,
-          'testCat': testCat,
-          'docCat': docCat,
-        },
+        params: params,
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);
   }
@@ -82,18 +73,18 @@ class QmsSampleService {
   }
 
   ///获取检验单表体指标列表
-  ///testTemplateId 检验模板ID
-  static void getTestOrderDetailTestQuotaByTestTemplateId(
+  ///testTemplateCode 检验模板编码
+  static void getTestOrderDetailTestQuotaByTestTemplateCode(
       BuildContext context,
-      String testTemplateId,
+      String testTemplateCode,
       Function successCallBack,
       Function errorCallBack) {
     String url =
-        Config.qmsApiUrl + '/testOrderSample/getTestOrderDetailTestQuotaByTestTemplateId';
+        Config.qmsApiUrl + '/testOrderSample/getTestOrderDetailTestQuotaByTestTemplateCode';
 
     NetUtil.get(url, context,
         params: {
-          'testTemplateId': testTemplateId
+          'testTemplateCode': testTemplateCode
         },
         successCallBack: successCallBack,
         errorCallBack: errorCallBack);

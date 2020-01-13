@@ -42,15 +42,7 @@ class ArrivalSupplierReportState extends ListCommonState<ArrivalSupplierReport>
   ///初始化筛选参数
   @protected
   void initParams() {
-    params = {
-      'beginDate': '',
-      'supplierCode': '',
-      'supplierName': '',
-      'invCatCode': '',
-      'invCatName': '',
-      'invCode': '',
-      'invName': '',
-    };
+
   }
 
   ///初始化筛选控件数据
@@ -73,12 +65,7 @@ class ArrivalSupplierReportState extends ListCommonState<ArrivalSupplierReport>
   void getDataRequest() {
     QmsService.getArrivalTestOrderStatisticalForSupplier(
         context,
-        {
-          'beginDate': params['beginDate'],
-          'supplierCode': params['supplierCode'],
-          'invCatCode': params['invCatCode'],
-          'invCode': params['invCode'],
-        },
+        params.toJson(),
         requestSuccessCallBack,
         requestErrorCallBack);
   }

@@ -4,6 +4,7 @@ import 'package:qms/common/config/FieldConfig.dart';
 import 'package:qms/common/config/UserPermissionsConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/NavigatorUtil.dart';
@@ -37,52 +38,10 @@ class CompleteTestOrderListPageState
   ///初始化筛选参数
   @protected
   void initParams() {
-    params = {
-      'docCat': 'default',
+    params.docCat = Config.test_order_complete;
 
-      ///开始、结束日期
-      'beginDate': '',
-      'endDate': '',
-
-      ///生产订单号
-      'moDocNo': '',
-
-      ///来源单据号
-      'srcDocNo': '',
-
-      ///物料编码
-      'invCode': '',
-
-      ///物料名称
-      'invName': '',
-
-      ///客户编码
-      'cusCode': '',
-
-      ///客户简称
-      'cusName': '',
-
-      ///批号
-      'batchNumber': '',
-
-      ///需求跟踪号
-      'socode': '',
-
-      ///工序编码
-      'opCode': '',
-
-      ///工序名称
-      'opName': '',
-
-      ///审核状态
-      'auditStatus': Config.value_no,
-
-      ///检验员ID
-      'checkerId': '',
-
-      ///检验员名称
-      'checkerName': '',
-    };
+    ///审核状态
+    params.auditStatus = Config.value_no;
   }
 
   ///初始化筛选控件数据
@@ -128,18 +87,9 @@ class CompleteTestOrderListPageState
           new RefBasic.empty()),
       new FilterModel.select(Config.filterItemTypeSingleSelect, 'auditStatus',
           StringZh.tip_testState, [
-        {'value': '', 'text': StringZh.all, 'isSelect': false},
-        {
-          'value': Config.value_yes,
-          'text': StringZh.is_audit,
-          'isSelect': false
-        },
-        {
-          'value': Config.value_no,
-          'text': StringZh.not_audit,
-          'isSelect': true,
-          'default': true
-        },
+        SelectVo('', StringZh.all),
+        SelectVo(Config.value_yes, StringZh.is_audit),
+        SelectVo(Config.value_no, StringZh.not_audit, isDefault: true),
       ]),
       new FilterModel(
           Config.filterItemTypeRef,
@@ -156,27 +106,25 @@ class CompleteTestOrderListPageState
   ///初始化数据
   @protected
   void getDataRequest() {
+    /*GeneralVo searchVo = GeneralVo.empty();
+    searchVo.pageIndex = page;
+    searchVo.pageSize = Config.pageSize;
+    searchVo.docCat = params['docCat'];
+    searchVo.beginDate = params['beginDate'];
+    searchVo.endDate = params['endDate'];
+    searchVo.moDocNo = params['moDocNo'];
+    searchVo.srcDocNo = params['srcDocNo'];
+    searchVo.cusName = params['cusName'];
+    searchVo.batchNumber = params['batchNumber'];
+    searchVo.socode = params['socode'];
+    searchVo.opCode = params['opCode'];
+    searchVo.invCode = params['invCode'];
+    searchVo.invName = params['invName'];
+    searchVo.auditStatus = params['auditStatus'];
+    searchVo.checkerId = params['checkerId'];*/
+
     QmsService.getTestOrderList(
-        context,
-        {
-          'pageIndex': page.toString(),
-          'pageSize': Config.pageSize.toString(),
-          'beginDate': params['beginDate'],
-          'endDate': params['endDate'],
-          'docCat': params['docCat'],
-          'moDocNo': params['moDocNo'],
-          'srcDocNo': params['srcDocNo'],
-          'invCode': params['invCode'],
-          'invName': params['invName'],
-          'cusName': params['cusName'],
-          'batchNumber': params['batchNumber'],
-          'socode': params['socode'],
-          'opCode': params['opCode'],
-          'auditStatus': params['auditStatus'],
-          'checkerId': params['checkerId'],
-        },
-        requestSuccessCallBack,
-        requestErrorCallBack);
+        context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
 
   ///列点击事件
@@ -208,7 +156,7 @@ class CompleteTestOrderListPageState
   }
 
   @override
-  // ignore: must_call_super
+// ignore: must_call_super
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.white,
@@ -239,6 +187,6 @@ class CompleteTestOrderListPageState
   }
 
   @override
-  // TODO: implement wantKeepAlive
+// TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

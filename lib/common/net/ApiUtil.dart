@@ -21,7 +21,7 @@ class ApiUtil {
 
   ///测试服务器网络是否正常
   static void testNetwork(BuildContext context, String protocol, String ip,
-      String post, Function successCallBack, Function errorCallBack){
+      String post, Function successCallBack, Function errorCallBack) {
     String url = '$protocol://$ip:$post/info';
 
     NetUtil.get(url, context,
@@ -50,12 +50,10 @@ class ApiUtil {
   }
 
   ///获取账套
-  static void getSobs(
-      BuildContext context, Function successCallBack, Function errorCallBack) {
+  static void getSobs(BuildContext context, Function successCallBack) {
     String url = 'ledgers'; //'''sobs';
 
-    NetUtil.get(url, context,
-        successCallBack: successCallBack, errorCallBack: errorCallBack);
+    NetUtil.get(url, context, successCallBack: successCallBack);
   }
 
   ///获取用户系统配置
@@ -372,8 +370,7 @@ class ApiUtil {
 
         ///处理错误部分
         if (statusCode != Code.SUCCESS) {
-          errorCallBack();
-          //NetUtil.handError('<net> 网络请求错误,状态码:' + statusCode.toString());
+          errorCallBack('网络请求错误,状态码:' + statusCode.toString());
           return;
         }
 
@@ -394,8 +391,8 @@ class ApiUtil {
       }
       successCallBack();
     } catch (e) {
-      NetUtil.catchError(e, context);
       errorCallBack();
+      //NetUtil.catchError(e, context);
     }
   }
 

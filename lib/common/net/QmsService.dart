@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/net/NetUtil.dart';
 
@@ -233,13 +234,12 @@ class QmsService {
 
   ///获取统计信息
   static void getTestOrderStatistical(
-      BuildContext context, Function successCallBack, Function errorCallBack) {
+      BuildContext context, Function successCallBack) {
     String url = Config.qmsApiUrl + '/quarantineTask/getTestOrderStatistical';
 
     NetUtil.post(url, context,
         params: {'operatorName': '', 'operatorId': ''},
-        successCallBack: successCallBack,
-        errorCallBack: errorCallBack);
+        successCallBack: successCallBack);
   }
 
   ///检验单保存、修改

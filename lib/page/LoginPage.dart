@@ -104,9 +104,7 @@ class LoginPageState extends State<LoginPage> {
 
   void _getSobs() {
     ///获取账套
-    ApiUtil.getSobs(context, _getSobsSuccess, (err) {
-      Fluttertoast.showToast(msg: StringZh.getSobError, timeInSecForIos: 3);
-    });
+    ApiUtil.getSobs(context, _getSobsSuccess);
   }
 
   void _getSobsSuccess(data) async {
@@ -198,8 +196,6 @@ class LoginPageState extends State<LoginPage> {
       Navigator.pushNamed(context, Config.mainPage);
     }, (errorMsg) {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: errorMsg, timeInSecForIos: 3);
-      //msg: StringZh.login_failure + errorMsg, timeInSecForIos: 3);
     });
   }
 

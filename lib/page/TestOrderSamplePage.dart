@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetailTestQuota.dart';
 import 'package:qms/common/modal/TestOrderSampleDetail.dart';
@@ -132,15 +133,15 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
   void _getDataRequest() {
     ///新增
     if (isAdd) {
+      GeneralVo searchVo = GeneralVo.empty();
+      searchVo.srcDocDetailId = widget.srcDocDetailId;
+      searchVo.testTemplateId = widget.testTemplateId;
+      searchVo.qty = widget.qty;
+      searchVo.testCat = widget.testCat;
+      searchVo.docCat = widget.docCat;
+
       QmsSampleService.getTestOrderSample(
-          context,
-          widget.srcDocDetailId,
-          widget.testTemplateId,
-          widget.qty,
-          widget.testCat,
-          widget.docCat,
-          _successCallBack,
-          _errorCallBack);
+          context, searchVo.toJson(), _successCallBack, _errorCallBack);
     } else {
       ///检验单详情
       QmsSampleService.getTestOrderSampleById(
@@ -170,7 +171,6 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
 
   _errorCallBack(err) {
     isLoading = false;
-    Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
   }
 
   ///选中指标之后初始化数据
@@ -234,13 +234,6 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
       });
       //WidgetUtil.showLoadingDialog(context, '加载指标详情...');
       String oper = 'edit';
-
-      String testTemplateId;
-      if (null != widget.testTemplateId) {
-        testTemplateId = widget.testTemplateId.toString();
-      } else {
-        testTemplateId = testOrderInfo.testTemplateId;
-      }
 
       QmsSampleService.getTestOrderDetailTestQuotaById(
           context, testOrderInfo.id, cacheInfo.id, (res) {
@@ -377,8 +370,7 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
           quotaEnclosures: quotaEnclosures,
           selIndex: selIndex,
           changeState: changeState,
-          isLoadingQuota: isLoadingQuota
-      );
+          isLoadingQuota: isLoadingQuota);
     }
   }
 
@@ -430,7 +422,10 @@ class TestOrderSamplePageState extends State<TestOrderSamplePage> {
       TestOrderDetailTestQuota tt = list[i];
 
       if (CommonUtil.isEmpty(tt.testVal)) {
-        Fluttertoast.showToast(msg: '第${i + 1}行检测值不能为空', timeInSecForIos: 3);
+        Fluttertoast.showToast(
+            msg: CommonUtil.getText(
+                StringZh.tip_testVal_not_null, [(i + 1).toString()]),
+            timeInSecForIos: 3);
         return;
       }
     }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/FilterModel.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/widget/ListFilterWidget.dart';
@@ -21,7 +22,7 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
   bool loading = true;
 
   ///默认筛选参数
-  Map<String, String> params = {};
+  GeneralVo params = GeneralVo.empty();
 
   ///筛选项目、初始化筛选参数参照
   List<FilterModel> itemList = new List();
@@ -37,7 +38,8 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
   }
 
   @protected
-  initParams() {}
+  initParams() {
+  }
 
   @protected
   initFilterModelList() {}
@@ -52,7 +54,7 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
         total = 0;
         dataList = res['resBody'];
       });
-      Fluttertoast.showToast(msg: '暂时没有数据哟～', timeInSecForIos: 3);
+      Fluttertoast.showToast(msg: StringZh.noDataTip, timeInSecForIos: 3);
       return;
     }
 
@@ -81,12 +83,15 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
 
   ///筛选回调
   void getFilterParams() {
-    CommonUtil.getFilterParams(itemList, params);
+    Map<String, dynamic> requestParams =
+        CommonUtil.getFilterParams(itemList, params.toJson());
+    params = GeneralVo.fromJson(requestParams);
     getDataRequest();
   }
 
   ///重置筛选参数
   void resetFilterParams() {
+    params = GeneralVo.empty();
     initParams();
     initFilterModelList();
     showFilter();
@@ -154,7 +159,7 @@ abstract class ListCommonState<T extends StatefulWidget> extends State<T>
 
   ///显示筛选
   void showFilter() {
-    CommonUtil.getShowFilterParams(itemList, params);
+    CommonUtil.getShowFilterParams(itemList, params.toJson());
 
     showDialog<Null>(
         context: context, //BuildContext对象

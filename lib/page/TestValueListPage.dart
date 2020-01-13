@@ -13,7 +13,7 @@ import 'package:qms/widget/InputWidget.dart';
 ///检测值录入列表(录入型)
 class TestValueListPage extends StatefulWidget {
   ///检验单表体ID
-  final String testOrderDetailId;
+  final int testOrderDetailId;
 
   ///单据类型
   final String docCat;
@@ -101,7 +101,7 @@ class TestValueListPageState extends State<TestValueListPage> {
     } else {
       if (CommonUtil.isNotEmpty(widget.testOrderDetailId)) {
         ///通过检验单表体ID获取检测值列表
-        QmsService.getInputInfoListInfo(context, widget.testOrderDetailId,
+        QmsService.getInputInfoListInfo(context, widget.testOrderDetailId.toString(),
             (res) {
           List list = [];
           if (Config.quotaTypeEntryNumber == widget.quotaCat) {

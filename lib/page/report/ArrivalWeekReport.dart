@@ -41,17 +41,7 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
 
   ///初始化筛选参数
   @protected
-  void initParams() {
-    params = {
-      'beginDate': '',
-      'supplierCode': '',
-      'supplierName': '',
-      'invCatCode': '',
-      'invCatName': '',
-      'invCode': '',
-      'invName': '',
-    };
-  }
+  void initParams() {}
 
   ///初始化筛选控件数据
   @protected
@@ -59,12 +49,33 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
     itemList = [
       new FilterModel.date(
           Config.filterItemTypeDate, ['beginDate'], StringZh.test_docDate, {}),
-      new FilterModel(Config.filterItemTypeRef, 'supplierCode', 'supplierName',
-          StringZh.supplier, Config.ref_supplier, StringZh.tip_supplier, true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'invCatCode', 'invCatName',
-          StringZh.inventoryCategory, Config.ref_invCat, StringZh.tip_inventoryCategory, true, new RefBasic.empty()),
-      new FilterModel(Config.filterItemTypeRef, 'invCode', 'invName', StringZh.inventory,
-          Config.ref_inventory, StringZh.tip_inventory, true, new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'supplierCode',
+          'supplierName',
+          StringZh.supplier,
+          Config.ref_supplier,
+          StringZh.tip_supplier,
+          true,
+          new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCatCode',
+          'invCatName',
+          StringZh.inventoryCategory,
+          Config.ref_invCat,
+          StringZh.tip_inventoryCategory,
+          true,
+          new RefBasic.empty()),
+      new FilterModel(
+          Config.filterItemTypeRef,
+          'invCode',
+          'invName',
+          StringZh.inventory,
+          Config.ref_inventory,
+          StringZh.tip_inventory,
+          true,
+          new RefBasic.empty()),
     ];
   }
 
@@ -72,15 +83,7 @@ class ArrivalWeekReportState extends ListCommonState<ArrivalWeekReport>
   @protected
   void getDataRequest() {
     QmsService.getArrivalTestOrderStatisticalForWeek(
-        context,
-        {
-          'beginDate': params['beginDate'],
-          'supplierCode': params['supplierCode'],
-          'invCatCode': params['invCatCode'],
-          'invCode': params['invCode'],
-        },
-        requestSuccessCallBack,
-        requestErrorCallBack);
+        context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
 
   MethodChannel _channel;

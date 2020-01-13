@@ -219,14 +219,18 @@ class NetUtil {
       successCallBack(response.data);
     } catch (e) {
       var error = '';
-      if (e.response != null) {
-        if (e.response.data != null) {
-          try {
-            error = json.decode(e.response.data)['message'];
-          } catch (ex) {
-            error = e.response.data['message'];
+      try {
+        if (e.response != null) {
+          if (e.response.data != null) {
+            try {
+              error = json.decode(e.response.data)['message'];
+            } catch (ex) {
+              error = e.response.data['message'];
+            }
           }
         }
+      } catch (ex) {
+        error = e.toString();
       }
 
       if (error.contains('token')) {
@@ -281,10 +285,9 @@ class NetUtil {
     if (Config.debug) {
       LogUtils.e(logTag, '<net> errorMsg :' + errorMsg);
     }
+    Fluttertoast.showToast(msg: errorMsg, timeInSecForIos: 3);
     if (errorCallBack != null) {
       errorCallBack(errorMsg);
-    } else {
-      Fluttertoast.showToast(msg: errorMsg, timeInSecForIos: 3);
     }
   }
 }

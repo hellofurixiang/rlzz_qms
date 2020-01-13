@@ -119,7 +119,7 @@ class ListFilterRefItemWidgetState extends State<ListFilterRefItemWidget> {
                     widget.filterModel.title, widget.filterModel.hasAll);
               },
               child: new Text(
-                widget.filterModel.initParam.arcName,
+                widget.filterModel.initParam.arcName ?? '',
                 textAlign: TextAlign.end,
                 style: new TextStyle(
                     fontSize: widget.textSize, color: widget.textColor),

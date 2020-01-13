@@ -1,5 +1,6 @@
 import 'package:qms/common/modal/BaseEntity.dart';
 import 'package:qms/common/modal/RefBasic.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 
 class FilterModel extends BaseEntity {
   ///筛选项目类型
@@ -33,7 +34,7 @@ class FilterModel extends BaseEntity {
   bool hasAll;
 
   ///选项数据
-  List<Map<String, Object>> selectList;
+  List<SelectVo> selectList;
 
   ///初始值
   RefBasic initParam;

@@ -105,7 +105,6 @@ abstract class RefListCommonState<T extends StatefulWidget> extends State<T>
   ///请求数据异常
   @protected
   requestErrorCallBack(String errorMsg) async {
-    Fluttertoast.showToast(msg: errorMsg, timeInSecForIos: 3);
     isLoading = false;
   }
 

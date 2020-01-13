@@ -3,6 +3,7 @@ import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/config/FieldConfig.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/RefBasic.dart';
+import 'package:qms/common/modal/SelectVo.dart';
 import 'package:qms/common/net/QmsService.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
@@ -51,28 +52,9 @@ class ArrivalWaitTaskListPageState
   ///初始化筛选参数
   @protected
   void initParams() {
-    params = {
-      'docCat': Config.test_order_arrival,
-
-      ///检验状态
-      'checkStatus': '未检',
-
-      ///物料编码
-      'invCode': '',
-
-      ///物料名称
-      'invName': '',
-
-      ///检验员ID
-      'checkerId': '',
-
-      ///开始、结束日期
-      'beginDate': '',
-      'endDate': '',
-
-      ///到货单号
-      'arrivalDocNo': '',
-    };
+    params.docCat = Config.test_order_arrival;
+    ///检验状态
+    params.checkStatus = Config.value_n;
   }
 
   ///初始化筛选控件数据
@@ -94,9 +76,9 @@ class ArrivalWaitTaskListPageState
           new RefBasic.empty()),
       new FilterModel.select(Config.filterItemTypeSingleSelect, 'checkStatus',
           StringZh.tip_testState, [
-        {'value': '未检', 'text': '未检', 'isSelect': true, 'default': true},
-        {'value': '已检', 'text': '已检', 'isSelect': false},
-        {'value': '全部', 'text': '全部', 'isSelect': false},
+        SelectVo(Config.value_n, StringZh.unCheck, isDefault: true),
+        SelectVo(Config.value_y, StringZh.checked),
+        SelectVo('', StringZh.all),
       ]),
     ];
   }
@@ -104,21 +86,20 @@ class ArrivalWaitTaskListPageState
   ///初始化数据
   @protected
   void getDataRequest() {
+    /*GeneralVo searchVo = GeneralVo.empty();
+    searchVo.pageIndex = page;
+    searchVo.pageSize = Config.pageSize;
+    searchVo.docCat = params['docCat'];
+    searchVo.beginDate = params['beginDate'];
+    searchVo.endDate = params['endDate'];
+    searchVo.invCode = params['invCode'];
+
+    searchVo.checkerId = params['checkerId'];
+    searchVo.checkStatus = params['checkStatus'];
+    searchVo.arrivalDocNo = params['arrivalDocNo'];*/
+
     QmsService.getQuarantineTaskList(
-        context,
-        {
-          'pageIndex': page.toString(),
-          'pageSize': Config.pageSize.toString(),
-          'docCat': params['docCat'],
-          'checkStatus': params['checkStatus'],
-          'invCode': params['invCode'],
-          'checkerId': params['checkerId'],
-          'beginDate': params['beginDate'],
-          'endDate': params['endDate'],
-          'arrivalDocNo': params['arrivalDocNo']
-        },
-        requestSuccessCallBack,
-        requestErrorCallBack);
+        context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
 
   ///列点击事件

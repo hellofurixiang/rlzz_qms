@@ -38,9 +38,9 @@ class TestOrder extends BaseEntity {
   @JsonKey(name: 'testCat')
   String testCat;
 
-  ///检验模板ID
-  @JsonKey(name: 'testTemplateId')
-  String testTemplateId;
+  ///检验模板编码
+  @JsonKey(name: 'testTemplateCode')
+  String testTemplateCode;
 
   ///检验模板名称
   @JsonKey(name: 'testTemplateName')
@@ -302,7 +302,7 @@ class TestOrder extends BaseEntity {
       this.operatorName,
       this.operatorId,
       this.testCat,
-      this.testTemplateId,
+      this.testTemplateCode,
       this.testTemplateName,
       this.srcDocType,
       this.srcDocNo,

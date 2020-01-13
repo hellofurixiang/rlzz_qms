@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/modal/GeneralVo.dart';
 import 'package:qms/common/modal/PqcTestOrder.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/modal/TestOrderDetailTestQuota.dart';
@@ -138,15 +139,15 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
   void _getDataRequest() {
     ///新增
     if (isAdd) {
+      GeneralVo searchVo = GeneralVo.empty();
+      searchVo.srcDocDetailId = widget.srcDocDetailId;
+      searchVo.testTemplateId = widget.testTemplateId;
+      searchVo.qty = widget.qty;
+      searchVo.testCat = widget.testCat;
+      searchVo.docCat = widget.docCat;
+
       QmsSampleService.getTestOrderSample(
-          context,
-          widget.srcDocDetailId,
-          widget.testTemplateId,
-          widget.qty,
-          widget.testCat,
-          widget.docCat,
-          _successCallBack,
-          _errorCallBack);
+          context, searchVo.toJson(), _successCallBack, _errorCallBack);
     } else {
       ///检验单详情
       QmsSampleService.getTestOrderSampleById(
@@ -176,7 +177,6 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
 
   _errorCallBack(err) {
     isLoading = false;
-    Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
   }
 
   ///选中指标之后初始化数据
@@ -241,13 +241,6 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
       //WidgetUtil.showLoadingDialog(context, '加载指标详情...');
       String oper = 'edit';
 
-      String testTemplateId;
-      if (null != widget.testTemplateId) {
-        testTemplateId = widget.testTemplateId.toString();
-      } else {
-        testTemplateId = testOrderInfo.testTemplateId;
-      }
-
       QmsSampleService.getTestOrderDetailTestQuotaById(
           context, testOrderInfo.id, cacheInfo.id, (res) {
         ///指标列表
@@ -266,9 +259,6 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
 
         //Navigator.pop(context);
       }, (err) {
-        Fluttertoast.showToast(
-            msg: StringZh.quotaLoadingError, timeInSecForIos: 3);
-        //Navigator.pop(context);
         setState(() {
           isLoadingQuota = false;
         });
@@ -397,9 +387,19 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
     } else {
       if (!isAdd) {
         if (!isEditDetail) {
-          btnList.add(_getOperBtn(StringZh.addNew, () {
-            addNewFun();
-          }, 60.0, 45.0, 10.0));
+          ///样本条码检测为合格或者报废则算数量1，不能超过报检数
+          int count = 0;
+          for (TestOrderSampleDetail vo
+              in testOrderInfo.testOrderSampleDetail) {
+            if (vo.state == Config.qualified || vo.state == Config.scrap) {
+              count++;
+            }
+          }
+          if (testOrderInfo.quantity.toInt() > count) {
+            btnList.add(_getOperBtn(StringZh.addNew, () {
+              addNewFun();
+            }, 60.0, 45.0, 10.0));
+          }
         }
 
         btnList.add(_getOperBtn(StringZh.save, () {
@@ -426,15 +426,8 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
       isLoadingQuota = true;
     });
 
-    String testTemplateId;
-    if (null != widget.testTemplateId) {
-      testTemplateId = widget.testTemplateId.toString();
-    } else {
-      testTemplateId = testOrderInfo.testTemplateId;
-    }
-
-    QmsSampleService.getTestOrderDetailTestQuotaByTestTemplateId(
-        context, testTemplateId, (res) {
+    QmsSampleService.getTestOrderDetailTestQuotaByTestTemplateCode(
+        context, testOrderInfo.testTemplateCode, (res) {
       ///指标列表
       List<TestOrderDetailTestQuota> testOrderDetailTestQuotaList = [];
 
@@ -459,17 +452,14 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
 
       //Navigator.pop(context);
     }, (err) {
-      Fluttertoast.showToast(
-          msg: StringZh.quotaLoadingError, timeInSecForIos: 3);
-      //Navigator.pop(context);
       setState(() {
         isLoadingQuota = false;
       });
     });
   }
 
-  ///保存
-  void saveFun({bool isToNext: false}) {
+  ///校验输入信息
+  bool checkInput() {
     ///获取表体数据
     TestOrderSampleDetail voDetail =
         testOrderInfo.testOrderSampleDetail[selIndex];
@@ -477,7 +467,23 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
     if (CommonUtil.isEmpty(voDetail.sampleBarcode)) {
       Fluttertoast.showToast(
           msg: StringZh.tip_sampleBarcode_not_null, timeInSecForIos: 3);
-      return;
+      return false;
+    }
+
+    if (voDetail.id == null) {
+      for (TestOrderSampleDetail vo in testOrderInfo.testOrderSampleDetail) {
+        if (vo.id == null || vo.sampleBarcode != voDetail.sampleBarcode) {
+          continue;
+        }
+        if (vo.state == Config.qualified || vo.state == Config.scrap) {
+          Fluttertoast.showToast(
+              msg: CommonUtil.getText(
+                  StringZh.tip_sampleBarcode_not_repeat_check,
+                  [voDetail.sampleBarcode, Config.qualified, Config.scrap]),
+              timeInSecForIos: 3);
+          return false;
+        }
+      }
     }
 
     ///表体指标列表
@@ -490,9 +496,76 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
             msg: CommonUtil.getText(
                 StringZh.tip_testVal_not_null, [(i + 1).toString()]),
             timeInSecForIos: 3);
-        return;
+        return false;
       }
     }
+    return true;
+  }
+
+  ///统计设置表头数量信息
+  setHeadQtyInfo() {
+    ///全部、在修、合格、报废、已修好
+    List<String> allList = [],
+        mendingList = [],
+        qualifiedList = [],
+        scrapList = [],
+        mendedList = [];
+
+    for (TestOrderSampleDetail vo in testOrderInfo.testOrderSampleDetail) {
+      if (!allList.contains(vo.sampleBarcode)) {
+        allList.add(vo.sampleBarcode);
+      }
+
+      if (vo.state == Config.unqualified &&
+          !mendingList.contains(vo.sampleBarcode)) {
+        mendingList.add(vo.sampleBarcode);
+      }
+
+      if (vo.state == Config.qualified) {
+        if (!qualifiedList.contains(vo.sampleBarcode)) {
+          qualifiedList.add(vo.sampleBarcode);
+        }
+
+        if (vo.tick > 1 && !mendedList.contains(vo.sampleBarcode)) {
+          mendedList.add(vo.sampleBarcode);
+        }
+      }
+      if (vo.state == Config.scrap && !scrapList.contains(vo.sampleBarcode)) {
+        scrapList.add(vo.sampleBarcode);
+      }
+    }
+
+    //setState(() {
+    testOrderInfo.checkoutQty = double.parse(allList.length.toString());
+    testOrderInfo.mendingQty = double.parse(mendingList.length.toString());
+    testOrderInfo.mendedQty = double.parse(mendedList.length.toString());
+    testOrderInfo.qualifiedQty = double.parse(qualifiedList.length.toString());
+    testOrderInfo.scrapQty = double.parse(scrapList.length.toString());
+
+    testOrderInfo.uncheckedQty =
+        testOrderInfo.quantity - testOrderInfo.checkoutQty;
+    testOrderInfo.unQualifiedQty = testOrderInfo.mendingQty +
+        testOrderInfo.mendedQty +
+        testOrderInfo.scrapQty;
+
+    //});
+  }
+
+  ///保存
+  void saveFun({bool isToNext: false}) {
+    if (!checkInput()) {
+      return;
+    }
+
+    setHeadQtyInfo();
+
+    ///获取表体数据
+    TestOrderSampleDetail voDetail =
+        testOrderInfo.testOrderSampleDetail[selIndex];
+
+    ///表体指标列表
+    List<TestOrderDetailTestQuota> list = voDetail.testOrderDetailTestQuota;
+
     PqcTestOrder pqcTestOrder = new PqcTestOrder.empty();
     pqcTestOrder.id = testOrderInfo.id;
     pqcTestOrder.quantity = testOrderInfo.quantity;
@@ -544,7 +617,6 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
 
       //_operCompleteJumpPage(context, testOrderInfo.docCat, testOrderInfo.id);
     }, (err) {
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
       Navigator.pop(context);
     });
   }
@@ -552,19 +624,9 @@ class PqcTestOrderSamplePageState extends State<PqcTestOrderSamplePage> {
   ///下一步操作
   void nextStepFun({bool isToLast: false}) {
     setInfo();
-    List<TestOrderDetailTestQuota> list =
-        testOrderInfo.testOrderSampleDetail[selIndex].testOrderDetailTestQuota;
 
-    for (int i = 0; i < list.length; i++) {
-      TestOrderDetailTestQuota tt = list[i];
-
-      if (CommonUtil.isEmpty(tt.testVal)) {
-        Fluttertoast.showToast(
-            msg: CommonUtil.getText(
-                StringZh.tip_testVal_not_null, [(i + 1).toString()]),
-            timeInSecForIos: 3);
-        return;
-      }
+    if (!checkInput()) {
+      return;
     }
 
     ///下一步操作，当前选中指标编辑状态修改，跳转到下一项指标
