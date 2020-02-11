@@ -20,11 +20,6 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
     super.initState();
   }
 
-  SvgPicture fliterSvg = new SvgPicture.asset(
-    SetIcons.filter,
-    color: Colors.black,
-  );
-
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -39,7 +34,12 @@ class ListTopFilterWidgetState extends State<ListTopFilterWidget> {
             child: new Container(
               width: 20.0,
               height: 20.0,
-              child: fliterSvg,
+              child: new Image(
+                image: new AssetImage(SetIcons.filter),
+                width: 20.0,
+                height: 20.0,
+                color: Colors.black,
+              ),
             ),
           ),
           new Container(

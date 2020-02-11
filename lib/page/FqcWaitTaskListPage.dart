@@ -170,7 +170,7 @@ class FqcWaitTaskListPageState extends ListCommonState<FqcWaitTaskListPage> {
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.fqcWaitTaskListPage, _rowColumnsTap,
+              FieldConfig.fqcWaitTaskListPage, _rowColumnsTap,
               isOper: true),
           new ListPageWidget(
             page: page,

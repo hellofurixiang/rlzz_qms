@@ -13,6 +13,7 @@ import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/modal/FilterModel.dart';
 import 'package:qms/common/modal/GeneralVo.dart';
+import 'package:qms/common/modal/QmsConfig.dart';
 import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
@@ -482,14 +483,14 @@ class CommonUtil {
     if ('' != oldVal.trim()) {
       value = double.parse(oldVal.trim());
     }
-    int qtyScale = GlobalInfo.instance.getQtyScale();
-    return double.parse(formatNum(value, qtyScale));
+    QmsConfig qmsConfig = GlobalInfo.instance.getQmsConfig();
+    return double.parse(formatNum(value, qmsConfig.qtyScale));
   }
 
   static String getDoubleScale(double oldVal) {
-    int qtyScale = GlobalInfo.instance.getQtyScale();
+    QmsConfig qmsConfig = GlobalInfo.instance.getQmsConfig();
 
-    return formatNum(oldVal == null ? 0 : oldVal, qtyScale);
+    return formatNum(oldVal == null ? 0 : oldVal, qmsConfig.qtyScale);
   }
 
   static String formatNum(double num, int postion) {

@@ -3,7 +3,7 @@ import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
 
 ///=============质检系统=============
-class QMSFieldConfig {
+class FieldConfig {
   ///来料待检列表
   static const arrivalWaitTaskListPage = {
     'fields': [
@@ -984,6 +984,33 @@ class QMSFieldConfig {
         'displayName': '需求跟踪号',
         'fieldCode': 'socode',
       },
+    ],
+  };
+
+  ///物料附件
+  static const invEnclosure = {
+    'fields': [
+      {'displayName': '文件编码', 'fieldCode': 'code', 'width': 180.0},
+      {
+        'displayName': '文件名称',
+        'fieldCode': 'name',
+        'onTap': true,
+      },
+      {
+        'displayName': '文件版本',
+        'fieldCode': 'docVer',
+      },
+      {
+        'displayName': '生效日期',
+        'fieldCode': 'effectiveDate', 'width': 120.0
+      },
+      {
+        'displayName': '作废日期',
+        'fieldCode': 'deactivationDate', 'width': 120.0
+      },
+      {'displayName': '档案类型', 'fieldCode': 'docFileType'},
+      {'displayName': '文件下载', 'fieldCode': 'docFullName'},
+      {'displayName': '档案备份', 'fieldCode': 'docFullNameBak', 'width': 120.0},
     ],
   };
 }

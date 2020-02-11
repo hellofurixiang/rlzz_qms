@@ -10,6 +10,7 @@ import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/local/GlobalInfo.dart';
 import 'package:qms/common/local/MySelfInfo.dart';
 import 'package:qms/common/modal/Enclosure.dart';
+import 'package:qms/common/modal/QmsConfig.dart';
 import 'package:qms/common/net/Code.dart';
 import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/net/NetUtil.dart';
@@ -62,7 +63,7 @@ class ApiUtil {
     ///调试状态
     bool isDebug = GlobalInfo.instance.isDebug();
 
-    var url = await CommonUtil.getServiceMainAddress();
+    String url = await CommonUtil.getServiceMainAddress();
 
     ///获取用户信息
     /*String url1 =
@@ -71,12 +72,12 @@ class ApiUtil {
 
     ///系统配置信息
     String url2 =
-        url + (isDebug ? 'api/qms/app' : Config.qmsApiUrl) + '/getQtyScale';
+        url + (isDebug ? 'api/qms/app' : Config.qmsApiUrl) + '/getConfig';
 
     ///获取用户权限
-    String url3 =
-        (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/') +
-            'api/user/resources?user=$account';
+    String url3 = Config.debugBosIp +
+        Config.bossApiUrl +
+        '/api/user/resources?user=$account';
 
     Options options = await NetUtil.getBaseOptions();
 
@@ -86,21 +87,14 @@ class ApiUtil {
       if (Config.debug) {
         //LogUtils.i(logTag, '<net> 请求地址url1：$url1');
         LogUtils.i(logTag, '<net> 请求地址url2：$url2');
-        //LogUtils.i(logTag, '<net> 请求地址url3：$url3');
+        LogUtils.i(logTag, '<net> 请求地址url3：$url3');
       }
       List<Response> responses;
-      if (isDebug) {
-        responses = await Future.wait([
-          dio.get(url2),
-          //dio.post(url3, data: {'user': account})
-        ]);
-      } else {
-        responses = await Future.wait([
-          dio.get(url2),
-          dio.post(url3, data: {'user': account})
-        ]);
-      }
-      //await Future.wait([dio.get(url2)]);
+
+      responses = await Future.wait([
+        dio.get(url2),
+        dio.post(url3, data: {'user': account})
+      ]);
 
       for (int i = 0; i < responses.length; i++) {
         Response response = responses[i];
@@ -128,7 +122,7 @@ class ApiUtil {
 
             ///精度
             //await MySelfInfo.setQtyScale(response.data);
-            GlobalInfo.instance.setQtyScale(response.data);
+            GlobalInfo.instance.setQmsConfig(QmsConfig.fromJson(response.data));
             break;
           case 1:
             //GlobalInfo globalInfo = new GlobalInfo();

@@ -176,7 +176,7 @@ class PqcWaitTaskListPageState extends ListCommonState<PqcWaitTaskListPage> {
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.pqcWaitTaskListPage, _rowColumnsTap,
+              FieldConfig.pqcWaitTaskListPage, _rowColumnsTap,
               isOper: true),
           new ListPageWidget(
             page: page,

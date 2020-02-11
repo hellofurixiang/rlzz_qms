@@ -173,7 +173,7 @@ class CompleteWaitTaskListPageState
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.completeWaitTaskListPage, _rowColumnsTap,
+              FieldConfig.completeWaitTaskListPage, _rowColumnsTap,
               isOper: true),
           new ListPageWidget(
             page: page,

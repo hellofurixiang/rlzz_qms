@@ -151,7 +151,7 @@ class ArrivalWaitTaskListPageState
               },
             ),
             WidgetUtil.getListRows(context, loading, dataList,
-                QMSFieldConfig.arrivalWaitTaskListPage, _rowColumnsTap,
+                FieldConfig.arrivalWaitTaskListPage, _rowColumnsTap,
                 isOper: true),
             /*loading
                 ? new Expanded(

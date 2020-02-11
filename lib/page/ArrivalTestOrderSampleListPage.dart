@@ -138,7 +138,7 @@ class ArrivalTestOrderSampleListPageState
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
+              FieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
           /*loading
               ? new Expanded(
                   child: WidgetUtil.getLoadingWidget(StringZh.loading))

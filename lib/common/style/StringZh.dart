@@ -454,6 +454,7 @@ class StringZh {
   static const String pqcTestOrderDetail_del = 'PQC检验单删除';
 
   static const String productionOrderDetail_title = '生产订单';
+  static const String invEnclosure_title = '物料附件';
 
   static const String tip_selectTestTemplate = '请选择检验模板';
 
@@ -486,6 +487,7 @@ class StringZh {
   static const String deleteImageTip = '确定删除吗？';
 
   static const String fileErrorTip = '文件不存在或已被删除';
+  static const String openFileErrorTip = '文件打开异常';
 
   static const String saveAllOrder = '保存整单';
   static const String saveAndSubmit = '保存且提交';

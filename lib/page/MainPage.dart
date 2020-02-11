@@ -25,62 +25,17 @@ class MainPageState extends State<MainPage> {
 
   ///初始化数据
   void initInfo(var obj) async {
-    //CommonUtil.showLoadingDialog(context, '加载中...');
-    /*QmsService.getUnHandleMessage(context, (data) {
-      List<dynamic> map = data;
-      */ /*if ('' == obj) {
-        getMenuInfo(map);
-      } else {*/ /*
-      setState(() {
-        getMenuInfo(map);
-      });
-      //}
-    }, (err) {
-      Fluttertoast.showToast(msg: err, timeInSecForIos: 3);
-    });*/
-
     QmsService.getTestOrderStatistical(context, (data) {
       Map<String, dynamic> map = data;
-      /*if ('' == obj) {
-        getMenuInfo(map);
-      } else {*/
       setState(() {
-        getMenuInfo1(map);
+        getMenuInfo(map);
       });
-      //}
-    });
+    }, (err) {});
 
     await CommonUtil.requestPermission();
   }
 
-  getMenuInfo(List<dynamic> map) {
-    for (int i = 0; i < menuConfig.qmsMenuList.length; i++) {
-      List list = menuConfig.qmsMenuList[i]['menus'];
-      for (int k = 0; k < list.length; k++) {
-        if (i == 0) {
-          if (k == 0) {
-            list[k]['count'] = map[0];
-          }
-
-          if (k == 1) {
-            list[k]['count'] = map[2];
-          }
-          if (k == 2) {
-            list[k]['count'] = map[4];
-          }
-        }
-        if (i == 1) {
-          if (k == 0) {
-            list[k]['count'] = map[1];
-          } else {
-            list[k]['count'] = map[3];
-          }
-        }
-      }
-    }
-  }
-
-  getMenuInfo1(Map<String, dynamic> map) {
+  getMenuInfo(Map<String, dynamic> map) {
     for (int i = 0; i < menuConfig.qmsMenuList.length; i++) {
       List list = menuConfig.qmsMenuList[i]['menus'];
       for (int k = 0; k < list.length; k++) {
@@ -91,7 +46,7 @@ class MainPageState extends State<MainPage> {
 
   MenuConfig menuConfig = new MenuConfig();
 
-  List<Widget> buildListItem() {
+  buildListItem() {
     List<Widget> widgetList = [];
 
     List items = menuConfig.qmsMenuList;
@@ -138,7 +93,6 @@ class MainPageState extends State<MainPage> {
         ),
       );
     }
-
     return widgetList;
   }
 

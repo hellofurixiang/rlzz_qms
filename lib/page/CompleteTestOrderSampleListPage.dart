@@ -171,7 +171,7 @@ class CompleteTestOrderSampleListPageState
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.completeTestOrderListPage, _rowColumnsTap),
+              FieldConfig.completeTestOrderListPage, _rowColumnsTap),
           new ListPageWidget(
             page: page,
             size: size,

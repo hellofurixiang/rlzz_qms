@@ -225,18 +225,18 @@ class TestOrderSampleBodyItemPageState
                   children: <Widget>[
                     new Table(
                         columnWidths: WidgetUtil.getTableColumnWidth(
-                            QMSFieldConfig.testOrderDetailQuotaList),
+                            FieldConfig.testOrderDetailQuotaList),
                         children: <TableRow>[
                           new TableRow(
                             children: WidgetUtil.renderTableHeadColumnsByConfig(
-                                QMSFieldConfig.testOrderDetailQuotaList),
+                                FieldConfig.testOrderDetailQuotaList),
                           )
                         ]),
                     new Container(
                       padding: EdgeInsets.only(bottom: 1.0),
                       child: new Table(
                         columnWidths: WidgetUtil.getTableColumnWidth(
-                            QMSFieldConfig.testOrderDetailQuotaList),
+                            FieldConfig.testOrderDetailQuotaList),
                         children: getRows(),
                       ),
                     ),
@@ -378,7 +378,7 @@ class TestOrderSampleBodyItemPageState
     for (int i = 0; i < widget.cacheInfo.testOrderDetailTestQuota.length; i++) {
       list.add(new TableRow(
           children: renderItemByConfig(
-              context, i, QMSFieldConfig.testOrderDetailQuotaList)));
+              context, i, FieldConfig.testOrderDetailQuotaList)));
     }
     return list;
   }

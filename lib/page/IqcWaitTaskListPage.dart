@@ -150,7 +150,7 @@ class IqcWaitTaskListPageState extends ListCommonState<IqcWaitTaskListPage> {
               },
             ),
             WidgetUtil.getListRows(context, loading, dataList,
-                QMSFieldConfig.iqcWaitTaskListPage, _rowColumnsTap,
+                FieldConfig.iqcWaitTaskListPage, _rowColumnsTap,
                 isOper: true),
             /*loading
                 ? new Expanded(

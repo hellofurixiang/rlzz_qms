@@ -8,89 +8,90 @@ part of 'TestOrder.dart';
 
 TestOrder _$TestOrderFromJson(Map<String, dynamic> json) {
   return TestOrder(
-    json['id'] as String,
-    json['docNo'] as String,
-    json['docDate'] as int,
-    json['operator'] as String,
-    json['operatorName'] as String,
-    json['operatorId'] as String,
-    json['testCat'] as String,
-    json['testTemplateCode'] as String,
-    json['testTemplateName'] as String,
-    json['srcDocType'] as String,
-    json['srcDocNo'] as String,
-    json['srcDocRowNum'] as String,
-    json['srcDocId'] as String,
-    json['srcDocDetailId'] as String,
-    (json['quantity'] as num)?.toDouble(),
-    (json['sampleQty'] as num)?.toDouble(),
-    (json['oldCheckQty'] as num)?.toDouble(),
-    (json['qualifiedQty'] as num)?.toDouble(),
-    (json['unQualifiedQty'] as num)?.toDouble(),
-    (json['reworkQty'] as num)?.toDouble(),
-    (json['scrapQty'] as num)?.toDouble(),
-    (json['concessionReceivedQuantity'] as num)?.toDouble(),
-    json['enclosure'] as String,
-    json['inspectionDate'] as String,
-    json['moDocNo'] as String,
-    json['moDetailId'] as String,
-    json['supplierName'] as String,
-    json['supplierCode'] as String,
-    json['workStepCode'] as String,
-    json['workStepName'] as String,
-    json['invCode'] as String,
-    json['invCatCode'] as String,
-    json['invCatName'] as String,
-    json['docCat'] as String,
-    json['invName'] as String,
-    json['invSpec'] as String,
-    (json['detectableQuantity'] as num)?.toDouble(),
-    json['auditStatus'] as bool,
-    json['badReasonInfo'] as String,
-    json['badReasonId'] as String,
-    json['badReasonCode'] as String,
-    json['badReasonName'] as String,
-    json['testResult'] as String,
-    (json['spQty'] as num)?.toDouble(),
-    (json['srcCheckQty'] as num)?.toDouble(),
-    json['depName'] as String,
-    json['cusName'] as String,
-    json['batchNumber'] as String,
-    json['producer'] as String,
-    json['srcTimestamp'] as String,
-    json['timestamp'] as String,
-    json['protype'] as String,
-    json['socode'] as String,
-    json['signPic'] as String,
-    json['version'] as int,
-    (json['testOrderDetail'] as List)
-        ?.map((e) => e == null
-            ? null
-            : TestOrderDetail.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    (json['testOrderSampleDetail'] as List)
-        ?.map((e) => e == null
-            ? null
-            : TestOrderSampleDetail.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    (json['enclosureList'] as List)
-        ?.map((e) =>
-            e == null ? null : AttachmentVo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    (json['generalDefectsQty'] as num)?.toInt(),
-    (json['majorDefectsQty'] as num)?.toInt(),
-    (json['seriousDefectsQty'] as num)?.toInt(),
-    json['remark'] as String,
-    (json['badInfoList'] as List)
-        ?.map((e) => e == null
-            ? null
-            : TestOrderBadInfo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    (json['mendedQty'] as num)?.toDouble(),
-    (json['mendingQty'] as num)?.toDouble(),
-    (json['checkoutQty'] as num)?.toDouble(),
-    (json['uncheckedQty'] as num)?.toDouble(),
-  );
+      json['id'] as String,
+      json['docNo'] as String,
+      json['docDate'] as int,
+      json['operator'] as String,
+      json['operatorName'] as String,
+      json['operatorId'] as String,
+      json['testCat'] as String,
+      json['testTemplateCode'] as String,
+      json['testTemplateName'] as String,
+      json['srcDocType'] as String,
+      json['srcDocNo'] as String,
+      json['srcDocRowNum'] as String,
+      json['srcDocId'] as String,
+      json['srcDocDetailId'] as String,
+      (json['quantity'] as num)?.toDouble(),
+      (json['sampleQty'] as num)?.toDouble(),
+      (json['oldCheckQty'] as num)?.toDouble(),
+      (json['qualifiedQty'] as num)?.toDouble(),
+      (json['unQualifiedQty'] as num)?.toDouble(),
+      (json['reworkQty'] as num)?.toDouble(),
+      (json['scrapQty'] as num)?.toDouble(),
+      (json['concessionReceivedQuantity'] as num)?.toDouble(),
+      json['enclosure'] as String,
+      json['inspectionDate'] as String,
+      json['moDocNo'] as String,
+      json['moDetailId'] as String,
+      json['supplierName'] as String,
+      json['supplierCode'] as String,
+      json['workStepCode'] as String,
+      json['workStepName'] as String,
+      json['invCode'] as String,
+      json['invCatCode'] as String,
+      json['invCatName'] as String,
+      json['docCat'] as String,
+      json['invName'] as String,
+      json['invSpec'] as String,
+      (json['detectableQuantity'] as num)?.toDouble(),
+      json['auditStatus'] as bool,
+      json['badReasonInfo'] as String,
+      json['badReasonId'] as String,
+      json['badReasonCode'] as String,
+      json['badReasonName'] as String,
+      json['testResult'] as String,
+      (json['spQty'] as num)?.toDouble(),
+      (json['srcCheckQty'] as num)?.toDouble(),
+      json['depName'] as String,
+      json['cusName'] as String,
+      json['batchNumber'] as String,
+      json['producer'] as String,
+      json['srcTimestamp'] as String,
+      json['timestamp'] as String,
+      json['protype'] as String,
+      json['socode'] as String,
+      json['signPic'] as String,
+      json['version'] as int,
+      (json['testOrderDetail'] as List)
+          ?.map((e) => e == null
+              ? null
+              : TestOrderDetail.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['testOrderSampleDetail'] as List)
+          ?.map((e) => e == null
+              ? null
+              : TestOrderSampleDetail.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['enclosureList'] as List)
+          ?.map((e) => e == null
+              ? null
+              : AttachmentVo.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['generalDefectsQty'] as num)?.toInt(),
+      (json['majorDefectsQty'] as num)?.toInt(),
+      (json['seriousDefectsQty'] as num)?.toInt(),
+      json['remark'] as String,
+      (json['badInfoList'] as List)
+          ?.map((e) => e == null
+              ? null
+              : TestOrderBadInfo.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
+      (json['mendedQty'] as num)?.toDouble(),
+      (json['mendingQty'] as num)?.toDouble(),
+      (json['checkoutQty'] as num)?.toDouble(),
+      (json['uncheckedQty'] as num)?.toDouble(),
+      json['invEnclosure'] as String);
 }
 
 Map<String, dynamic> _$TestOrderToJson(TestOrder instance) => <String, dynamic>{
@@ -161,4 +162,5 @@ Map<String, dynamic> _$TestOrderToJson(TestOrder instance) => <String, dynamic>{
       'mendingQty': instance.mendingQty,
       'checkoutQty': instance.checkoutQty,
       'uncheckedQty': instance.uncheckedQty,
+      'invEnclosure': instance.invEnclosure,
     };

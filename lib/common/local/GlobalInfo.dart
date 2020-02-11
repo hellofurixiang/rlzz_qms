@@ -1,3 +1,6 @@
+import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/QmsConfig.dart';
+
 class GlobalInfo {
   // 工厂模式
   factory GlobalInfo() => _getInstance();
@@ -29,21 +32,24 @@ class GlobalInfo {
   bool debug;
 
   isDebug() {
-    return debug;
+    return debug ?? false;
   }
 
   setDebug(bool isDebug) {
     debug = isDebug;
   }
 
-  int qtyScale;
+  QmsConfig qmsConfig;
 
-  getQtyScale() {
-    return qtyScale;
+  getQmsConfig() {
+    if (qmsConfig == null) {
+      qmsConfig.qtyScale = Config.qtyScale;
+    }
+    return qmsConfig;
   }
 
-  setQtyScale(int num) {
-    qtyScale = num;
+  setQmsConfig(QmsConfig vo) {
+    qmsConfig = vo;
   }
 
   String account;

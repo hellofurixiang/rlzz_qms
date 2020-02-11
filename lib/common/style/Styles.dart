@@ -73,8 +73,8 @@ class SetConstants {
 }
 
 class SetIcons {
-  static const String DEFAULT_USER_ICON = 'assets/images/logo.png';
+  static const String logo = 'assets/images/logo.png';
   static const String splash = 'assets/images/splash.png';
-  static const String filter = 'assets/svg/filter.svg';
-  static const String correct = 'assets/svg/correct.svg';
+  static const String filter = 'assets/images/filter.png';
+  static const String correct = 'assets/images/correct.png';
 }

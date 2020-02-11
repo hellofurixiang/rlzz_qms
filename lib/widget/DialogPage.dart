@@ -18,14 +18,17 @@ class DialogPage extends StatefulWidget {
 
   final List<Widget> btnList;
 
-  DialogPage({
-    Key key,
-    @required this.mainWidget,
-    this.widthProportion: 0.5,
-    this.heightProportion: 0.6,
-    @required this.btnList,
-    this.title,
-  }) : super(key: key);
+  final bool clickTransparencyHide;
+
+  DialogPage(
+      {Key key,
+      @required this.mainWidget,
+      this.widthProportion: 0.5,
+      this.heightProportion: 0.6,
+      @required this.btnList,
+      this.title,
+      this.clickTransparencyHide: false})
+      : super(key: key);
 
   @override
   DialogPageState createState() => DialogPageState();
@@ -54,7 +57,9 @@ class DialogPageState extends State<DialogPage> {
         children: <Widget>[
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              if (widget.clickTransparencyHide) {
+                Navigator.pop(context);
+              }
             },
             child: Container(
               color: Colors.transparent,

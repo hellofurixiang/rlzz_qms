@@ -14,6 +14,7 @@ import 'package:qms/common/style/Styles.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
 import 'package:qms/common/utils/TestOrderService.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
+import 'package:qms/page/InvEnclosurePage.dart';
 import 'package:qms/page/ProductionOrderPage.dart';
 import 'package:qms/page/TestOrderBodyItemPage.dart';
 import 'package:qms/page/TestOrderHeadInfoPage.dart';
@@ -435,6 +436,35 @@ class TestOrderPageState extends State<TestOrderPage> {
 
     list.add(_getHeadWidget(
         StringZh.testTemplate + '：', testOrderInfo.testTemplateName, 120.0));
+
+    if (widget.docCat == Config.test_order_iqc) {
+      list.add(
+        new GestureDetector(
+          child: new Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(right: 4.0, left: 4.0),
+            height: 30.0,
+            padding: new EdgeInsets.all(2.0),
+            child: new Text(
+              StringZh.invEnclosure_title,
+              style: new TextStyle(
+                  color: SetColors.white,
+                  fontSize: SetConstants.normalTextSize,
+                  decoration: TextDecoration.underline),
+            ),
+          ),
+          onTap: () {
+            ///物料附件
+            showDialog<Null>(
+                context: context, //BuildContext对象
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return new InvEnclosurePage(testOrderInfo.invEnclosure);
+                });
+          },
+        ),
+      );
+    }
 
     return list;
   }

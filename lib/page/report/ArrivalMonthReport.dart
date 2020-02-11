@@ -155,26 +155,26 @@ class ArrivalMonthReportState extends ListCommonState<ArrivalMonthReport>
                                           new Table(
                                               columnWidths: WidgetUtil
                                                   .getTableColumnWidth(
-                                                      QMSFieldConfig
+                                                      FieldConfig
                                                           .arrivalMonthReport),
                                               children: <TableRow>[
                                                 new TableRow(
                                                   children: WidgetUtil
                                                       .renderTableHeadColumnsByConfig(
-                                                          QMSFieldConfig
+                                                          FieldConfig
                                                               .arrivalMonthReport),
                                                 )
                                               ]),
                                           new Table(
                                             columnWidths:
                                                 WidgetUtil.getTableColumnWidth(
-                                                    QMSFieldConfig
+                                                    FieldConfig
                                                         .arrivalMonthReport),
                                             children: WidgetUtil
                                                 .renderTableRowColumnsByConfigForReport(
                                                     context,
                                                     dataList,
-                                                    QMSFieldConfig
+                                                    FieldConfig
                                                         .arrivalMonthReport),
                                           ),
                                         ],

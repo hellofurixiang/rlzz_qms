@@ -121,12 +121,8 @@ flutter:
     - assets/images/ic_launcher_zhuangxiang.png
     - assets/images/logo.png
     - assets/images/default_img.png
-    - assets/svg/filter.svg
-    - assets/svg/tick.svg
-    - assets/svg/qrCode.svg
-    - assets/svg/correct.svg
-    - assets/svg/bigCorrect.svg
-    - assets/svg/photo.svg
+    - assets/images/filter.png
+    - assets/images/correct.png
     - assets/images/report_blue.png
     - assets/images/task.png
     - assets/images/task_finished.png

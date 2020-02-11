@@ -157,26 +157,26 @@ class ArrivalSupplierReportState extends ListCommonState<ArrivalSupplierReport>
                                           new Table(
                                               columnWidths: WidgetUtil
                                                   .getTableColumnWidth(
-                                                      QMSFieldConfig
+                                                      FieldConfig
                                                           .arrivalSupplierReport),
                                               children: <TableRow>[
                                                 new TableRow(
                                                   children: WidgetUtil
                                                       .renderTableHeadColumnsByConfig(
-                                                          QMSFieldConfig
+                                                          FieldConfig
                                                               .arrivalSupplierReport),
                                                 )
                                               ]),
                                           new Table(
                                             columnWidths:
                                                 WidgetUtil.getTableColumnWidth(
-                                                    QMSFieldConfig
+                                                    FieldConfig
                                                         .arrivalSupplierReport),
                                             children: WidgetUtil
                                                 .renderTableRowColumnsByConfigForReport(
                                                     context,
                                                     dataList,
-                                                    QMSFieldConfig
+                                                    FieldConfig
                                                         .arrivalSupplierReport),
                                           ),
                                         ],

@@ -151,7 +151,7 @@ class IpqcWaitTaskListPageState extends ListCommonState<IpqcWaitTaskListPage> {
               },
             ),
             WidgetUtil.getListRows(context, loading, dataList,
-                QMSFieldConfig.ipqcWaitTaskListPage, _rowColumnsTap,
+                FieldConfig.ipqcWaitTaskListPage, _rowColumnsTap,
                 isOper: true),
             new ListPageWidget(
               page: page,

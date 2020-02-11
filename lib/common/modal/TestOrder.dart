@@ -284,6 +284,10 @@ class TestOrder extends BaseEntity {
   @JsonKey(name: 'uncheckedQty')
   double uncheckedQty;
 
+  ///物料附件
+  @JsonKey(name: 'invEnclosure')
+  String invEnclosure;
+
   /*quantity	单据数量
   qualifiedQty	合格数量
   reworkQty	未修好
@@ -361,7 +365,8 @@ class TestOrder extends BaseEntity {
       this.mendedQty,
       this.mendingQty,
       this.checkoutQty,
-      this.uncheckedQty);
+      this.uncheckedQty,
+      this.invEnclosure);
 
   factory TestOrder.fromJson(Map<String, dynamic> srcJson) =>
       _$TestOrderFromJson(srcJson);

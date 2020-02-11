@@ -324,7 +324,7 @@ class WidgetUtil {
               }
             },
             child: new Image(
-                image: new AssetImage(SetIcons.DEFAULT_USER_ICON),
+                image: new AssetImage(SetIcons.logo),
                 width: 70.0,
                 height: 70.0),
           ),
@@ -353,7 +353,7 @@ class WidgetUtil {
               }
             },
             child: new Image(
-                image: new AssetImage(SetIcons.DEFAULT_USER_ICON),
+                image: new AssetImage(SetIcons.logo),
                 width: 70.0,
                 height: 70.0),
           ),

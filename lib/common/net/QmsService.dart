@@ -234,12 +234,13 @@ class QmsService {
 
   ///获取统计信息
   static void getTestOrderStatistical(
-      BuildContext context, Function successCallBack) {
+      BuildContext context, Function successCallBack, Function errorCallBack) {
     String url = Config.qmsApiUrl + '/quarantineTask/getTestOrderStatistical';
 
     NetUtil.post(url, context,
         params: {'operatorName': '', 'operatorId': ''},
-        successCallBack: successCallBack);
+        successCallBack: successCallBack,
+        errorCallBack: errorCallBack);
   }
 
   ///检验单保存、修改

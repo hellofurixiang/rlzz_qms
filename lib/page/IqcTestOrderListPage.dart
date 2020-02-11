@@ -135,7 +135,7 @@ class IqcTestOrderListPageState extends ListCommonState<IqcTestOrderListPage> {
             },
           ),
           WidgetUtil.getListRows(context, loading, dataList,
-              QMSFieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
+              FieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
           new ListPageWidget(
             page: page,
             size: size,

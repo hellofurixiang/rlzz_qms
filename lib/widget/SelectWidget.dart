@@ -34,9 +34,6 @@ class SelectWidgetState extends State<SelectWidget> {
     super.initState();
   }
 
-  SvgPicture correctSvg =
-      new SvgPicture.asset(SetIcons.correct, color: SetColors.mainColor);
-
   @override
   Widget build(BuildContext context) {
     String text = widget.selectMap.text;
@@ -75,7 +72,12 @@ class SelectWidgetState extends State<SelectWidget> {
                       margin: new EdgeInsets.only(right: 2.0),
                       width: 12.0,
                       height: 12.0,
-                      child: correctSvg,
+                      child: new Image(
+                        image: new AssetImage(SetIcons.correct),
+                        width: 12.0,
+                        height: 12.0,
+                        color: SetColors.mainColor,
+                      ),
                     )
                   : new Container(),
               new Container(
