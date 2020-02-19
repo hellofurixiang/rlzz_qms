@@ -218,7 +218,7 @@ class Config {
     'scrap',
   ];
 
-  static const List<String> testResultText = [
+  static const List<String> testResult = [
     '接收',
     '让步接收',
     '拒收',
