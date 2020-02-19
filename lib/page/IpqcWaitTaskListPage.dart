@@ -96,7 +96,8 @@ class IpqcWaitTaskListPageState extends ListCommonState<IpqcWaitTaskListPage> {
     searchVo.checkerId = params['checkerId'];
     searchVo.checkStatus = params['checkStatus'];
     searchVo.arrivalDocNo = params['arrivalDocNo'];*/
-
+    params.pageIndex = page;
+    params.pageSize = Config.pageSize;
     QmsService.getQuarantineTaskList(
         context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }

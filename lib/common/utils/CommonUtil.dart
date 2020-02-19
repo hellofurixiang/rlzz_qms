@@ -536,7 +536,9 @@ class CommonUtil {
     if (GlobalInfo.instance.isDebug()) {
       return true;
     }
-
+    if (list.length == 0) {
+      return true;
+    }
     if (list.contains(permissions)) {
       return true;
     } else {

@@ -93,7 +93,7 @@ class ApiUtil {
 
       responses = await Future.wait([
         dio.get(url2),
-        dio.post(url3, data: {'user': account})
+        //dio.post(url3, data: {'user': account})
       ]);
 
       for (int i = 0; i < responses.length; i++) {

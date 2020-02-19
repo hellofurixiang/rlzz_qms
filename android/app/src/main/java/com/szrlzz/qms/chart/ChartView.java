@@ -36,11 +36,13 @@ public class ChartView implements PlatformView, MethodChannel.MethodCallHandler 
 
     private List<ArrivalTestOrderStatisticalResVo> list;
 
+    @SuppressWarnings("unchecked")
     ChartView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params) {
-
-
         List<Map<String, Object>> listMap = (List<Map<String, Object>>) params.get("list");
 
+        if (listMap == null) {
+            listMap = new ArrayList<>();
+        }
 
         list = getListInfo(listMap);
 
@@ -131,18 +133,16 @@ public class ChartView implements PlatformView, MethodChannel.MethodCallHandler 
 
 
     @Override
-    public void onMethodCall(MethodCall methodCall, MethodChannel.Result result) {
-        switch (methodCall.method) {
-            case "refresh":
-                List<Map<String, Object>> listMap = (List<Map<String, Object>>) methodCall.arguments;
-                list = getListInfo(listMap);
-                showChart();
-                result.success(null);
-                break;
-            default:
-                result.notImplemented();
+    @SuppressWarnings("unchecked")
+    public void onMethodCall(MethodCall methodCall, @NotNull MethodChannel.Result result) {
+        if ("refresh".equals(methodCall.method)) {
+            List<Map<String, Object>> listMap = (List<Map<String, Object>>) methodCall.arguments;
+            list = getListInfo(listMap);
+            showChart();
+            result.success(null);
+            return;
         }
-
+        result.notImplemented();
     }
 
 
@@ -188,7 +188,7 @@ public class ChartView implements PlatformView, MethodChannel.MethodCallHandler 
 
     }
 
-    public BigDecimal setBigDecimalScale(BigDecimal oldValue, int scale) {
+    private BigDecimal setBigDecimalScale(BigDecimal oldValue, int scale) {
         if (oldValue == null) {
             oldValue = BigDecimal.ZERO;
         }

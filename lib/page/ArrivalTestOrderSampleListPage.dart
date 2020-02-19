@@ -93,7 +93,8 @@ class ArrivalTestOrderSampleListPageState
     searchVo.invName = params['invName'];
     searchVo.auditStatus = params['auditStatus'];
     searchVo.checkerId = params['checkerId'];*/
-
+    params.pageIndex = page;
+    params.pageSize = Config.pageSize;
     QmsService.getTestOrderList(
         context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
@@ -139,44 +140,6 @@ class ArrivalTestOrderSampleListPageState
           ),
           WidgetUtil.getListRows(context, loading, dataList,
               FieldConfig.arrivalTestOrderListPage, _rowColumnsTap),
-          /*loading
-              ? new Expanded(
-                  child: WidgetUtil.getLoadingWidget(StringZh.loading))
-              : new Expanded(
-                  child: new ListView(
-                    children: <Widget>[
-                      new SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: new Column(
-                          children: <Widget>[
-                            new Table(
-                              columnWidths: WidgetUtil.getTableColumnWidth(
-                                  QMSFieldConfig.ArrivalTestOrderSampleListPage),
-                              children: <TableRow>[
-                                new TableRow(
-                                  children: WidgetUtil
-                                      .renderTableHeadColumnsByConfig2(
-                                          QMSFieldConfig
-                                              .ArrivalTestOrderSampleListPage),
-                                )
-                              ],
-                            ),
-                            new Table(
-                              columnWidths: WidgetUtil.getTableColumnWidth(
-                                  QMSFieldConfig.ArrivalTestOrderSampleListPage),
-                              children:
-                                  WidgetUtil.renderTableRowColumnsByConfig2(
-                                      context,
-                                      dataList,
-                                      QMSFieldConfig.ArrivalTestOrderSampleListPage,
-                                      _rowColumnsTap),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),*/
           new ListPageWidget(
             page: page,
             size: size,

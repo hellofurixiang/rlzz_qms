@@ -120,7 +120,8 @@ class CompleteWaitTaskListPageState
     searchVo.protype = params['protype'];
     searchVo.opDocNo = params['opDocNo'];
     searchVo.wcCode = params['wcCode'];*/
-
+    params.pageIndex = page;
+    params.pageSize = Config.pageSize;
     QmsService.getQuarantineTaskList(
         context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }

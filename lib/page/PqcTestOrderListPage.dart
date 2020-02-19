@@ -91,6 +91,8 @@ class PqcTestOrderListPageState extends ListCommonState<PqcTestOrderListPage> {
     searchVo.invName = params['invName'];
     searchVo.auditStatus = params['auditStatus'];
     searchVo.checkerId = params['checkerId'];*/
+    params.pageIndex = page;
+    params.pageSize = Config.pageSize;
     QmsService.getTestOrderList(
         context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }

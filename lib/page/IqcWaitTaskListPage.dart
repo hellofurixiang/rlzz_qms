@@ -96,7 +96,8 @@ class IqcWaitTaskListPageState extends ListCommonState<IqcWaitTaskListPage> {
     searchVo.checkerId = params['checkerId'];
     searchVo.checkStatus = params['checkStatus'];
     searchVo.arrivalDocNo = params['arrivalDocNo'];*/
-
+    params.pageIndex = page;
+    params.pageSize = Config.pageSize;
     QmsService.getQuarantineTaskList(
         context, params.toJson(), requestSuccessCallBack, requestErrorCallBack);
   }
@@ -152,46 +153,6 @@ class IqcWaitTaskListPageState extends ListCommonState<IqcWaitTaskListPage> {
             WidgetUtil.getListRows(context, loading, dataList,
                 FieldConfig.iqcWaitTaskListPage, _rowColumnsTap,
                 isOper: true),
-            /*loading
-                ? new Expanded(
-                    child: WidgetUtil.getLoadingWidget(StringZh.loading))
-                : new Expanded(
-                    child: new ListView(
-                      children: <Widget>[
-                        new SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: new Column(
-                            children: <Widget>[
-                              new Table(
-                                columnWidths: WidgetUtil.getTableColumnWidth(
-                                    QMSFieldConfig.IqcWaitTaskListPage),
-                                children: <TableRow>[
-                                  new TableRow(
-                                    children: WidgetUtil
-                                        .renderTableHeadColumnsByConfig2(
-                                            QMSFieldConfig
-                                                .IqcWaitTaskListPage,
-                                            isOper: true),
-                                  )
-                                ],
-                              ),
-                              new Table(
-                                columnWidths: WidgetUtil.getTableColumnWidth(
-                                    QMSFieldConfig.IqcWaitTaskListPage),
-                                children:
-                                    WidgetUtil.renderTableRowColumnsByConfig2(
-                                        context,
-                                        dataList,
-                                        QMSFieldConfig.IqcWaitTaskListPage,
-                                        _rowColumnsTap,
-                                        isOper: true),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),*/
             new ListPageWidget(
               page: page,
               size: size,

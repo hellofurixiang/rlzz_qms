@@ -65,11 +65,16 @@ class MainPageState extends State<MainPage> {
           menu['isShow'] = true;
           bo = true;
         } else {
-          if (resources.contains(menu['permissions'])) {
+          if(resources.length==0){
             menu['isShow'] = true;
             bo = true;
-          } else {
-            menu['isShow'] = false;
+          }else {
+            if (resources.contains(menu['permissions'])) {
+              menu['isShow'] = true;
+              bo = true;
+            } else {
+              menu['isShow'] = false;
+            }
           }
         }
       }

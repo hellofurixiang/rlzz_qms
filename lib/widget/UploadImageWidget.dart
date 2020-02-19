@@ -44,8 +44,8 @@ class UploadImageWidgetState extends State<UploadImageWidget> {
   void initState() {
     super.initState();
     //getPicturesListBytes();
-    getImagesInfo();
     isChoose = widget.isShowAddPhotoBtn;
+    getImagesInfo();
   }
 
   @override
@@ -67,6 +67,9 @@ class UploadImageWidgetState extends State<UploadImageWidget> {
         setState(() {
           widget.enclosures.addAll(badPictures);
         });
+        isChoose = true;
+      } else {
+        isChoose = false;
       }
     }
   }
