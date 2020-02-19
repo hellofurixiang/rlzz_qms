@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/Config.dart';
+import 'package:qms/common/modal/DataModel.dart';
 import 'package:qms/common/modal/TestOrder.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
@@ -67,13 +68,14 @@ class TestOrderHeadInfoPageState extends State<TestOrderHeadInfoPage> {
   @override
   void initState() {
     super.initState();
-    resultItems =
-        Config.testResult.map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
-    }).toList();
+
+    for (int i = 0; i < Config.testResultValue.length; i++) {
+      resultItems.add(DropdownMenuItem<String>(
+        value: Config.testResultValue[i],
+        child: Text(Config.testResultText[i]),
+      ));
+    }
+
     _setDetailControllerInfo();
 
     print(widget.testOrderInfo.docCat);

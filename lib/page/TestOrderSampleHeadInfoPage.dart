@@ -77,13 +77,13 @@ class TestOrderSampleHeadInfoPageState
   @override
   void initState() {
     super.initState();
-    resultItems =
-        Config.testResult.map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
-    }).toList();
+
+    for (int i = 0; i < Config.testResultValue.length; i++) {
+      resultItems.add(DropdownMenuItem<String>(
+        value: Config.testResultValue[i],
+        child: Text(Config.testResultText[i]),
+      ));
+    }
     _setDetailControllerInfo();
   }
 

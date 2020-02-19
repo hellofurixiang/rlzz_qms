@@ -199,12 +199,8 @@ class Config {
   ///严重缺陷数
   static const String seriousDefectsQty = '严重缺陷';
 
-
-
   static const String abnormal = '异常';
   static const String normal = '正常';
-
-
 
   static const String testForInv = '按物料检验';
   static const String testForQuota = '按指标检验';
@@ -213,7 +209,23 @@ class Config {
 
   static const String concessionsToReceive = '让步接收';
 
-  static const List<String> testResult = ['接收', '让步接收', '拒收', '挑选', '返工', '报废'];
+  static const List<String> testResultValue = [
+    'received',
+    'consessionReceived',
+    'rejecte',
+    'choose',
+    'rework',
+    'scrap',
+  ];
+
+  static const List<String> testResultText = [
+    '接收',
+    '让步接收',
+    '拒收',
+    '挑选',
+    '返工',
+    '报废'
+  ];
 
   static const List<String> testResult_pqc = ['合格', '不合格', '报废'];
   static const String qualified = '合格';
@@ -284,8 +296,4 @@ class Config {
 
   static const String value_y = 'Y';
   static const String value_n = 'N';
-
-
-
-
 }
