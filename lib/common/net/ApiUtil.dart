@@ -75,16 +75,15 @@ class ApiUtil {
         url + (isDebug ? 'api/qms/app' : Config.qmsApiUrl) + '/getConfig';
 
     ///获取用户权限
-    String url3 = Config.debugBosIp +
-        Config.bossApiUrl +
-        '/api/user/resources?user=$account';
+    String url3 = (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/')+
+        'api/user/resources?user=$account';
 
     Options options = await NetUtil.getBaseOptions();
 
     Dio dio = new Dio(options);
 
     try {
-      if (Config.debug) {
+      /*if (Config.debug) {
         //LogUtils.i(logTag, '<net> 请求地址url1：$url1');
         LogUtils.i(logTag, '<net> 请求地址url2：$url2');
         LogUtils.i(logTag, '<net> 请求地址url3：$url3');
@@ -114,11 +113,11 @@ class ApiUtil {
         }
         switch (i) {
           case 0:
-            /* ///获取用户信息
+            *//* ///获取用户信息
             MySelfInfo.setUserInfo(json.encode(response.data));
             break;
 
-          case 1:*/
+          case 1:*//*
 
             ///精度
             //await MySelfInfo.setQtyScale(response.data);
@@ -134,7 +133,7 @@ class ApiUtil {
           default:
             break;
         }
-      }
+      }*/
       successCallBack();
     } catch (e) {
       NetUtil.catchError(e, context, errorCallBack: errorCallBack);
