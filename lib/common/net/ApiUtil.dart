@@ -66,33 +66,35 @@ class ApiUtil {
     String url = await CommonUtil.getServiceMainAddress();
 
     ///获取用户信息
-    /*String url1 =
+    String url1 =
         (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/') +
-            'api/user/get/$account';*/
+            'api/user/get/$account';
 
     ///系统配置信息
     String url2 =
         url + (isDebug ? 'api/qms/app' : Config.qmsApiUrl) + '/getConfig';
 
     ///获取用户权限
-    String url3 = (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/')+
-        'api/user/resources?user=$account';
+    String url3 =
+        (isDebug ? Config.debugBosIp : url + Config.bossApiUrl + '/') +
+            'api/user/resources?user=$account';
 
     Options options = await NetUtil.getBaseOptions();
 
     Dio dio = new Dio(options);
 
     try {
-      /*if (Config.debug) {
-        //LogUtils.i(logTag, '<net> 请求地址url1：$url1');
+      if (Config.debug) {
+        LogUtils.i(logTag, '<net> 请求地址url1：$url1');
         LogUtils.i(logTag, '<net> 请求地址url2：$url2');
         LogUtils.i(logTag, '<net> 请求地址url3：$url3');
       }
       List<Response> responses;
 
       responses = await Future.wait([
+        dio.get(url1),
         dio.get(url2),
-        //dio.post(url3, data: {'user': account})
+        dio.post(url3, data: {'user': account})
       ]);
 
       for (int i = 0; i < responses.length; i++) {
@@ -113,17 +115,18 @@ class ApiUtil {
         }
         switch (i) {
           case 0:
-            *//* ///获取用户信息
+
+            ///获取用户信息
             MySelfInfo.setUserInfo(json.encode(response.data));
             break;
 
-          case 1:*//*
+          case 1:
 
             ///精度
             //await MySelfInfo.setQtyScale(response.data);
             GlobalInfo.instance.setQmsConfig(QmsConfig.fromJson(response.data));
             break;
-          case 1:
+          case 2:
             //GlobalInfo globalInfo = new GlobalInfo();
 
             ///获取用户权限
@@ -133,7 +136,7 @@ class ApiUtil {
           default:
             break;
         }
-      }*/
+      }
       successCallBack();
     } catch (e) {
       NetUtil.catchError(e, context, errorCallBack: errorCallBack);

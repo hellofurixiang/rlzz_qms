@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 ///列表头部筛选
 class ListTopFilterWidget extends StatefulWidget {

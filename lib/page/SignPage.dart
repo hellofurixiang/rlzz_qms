@@ -97,7 +97,7 @@ class SignPageState extends State<SignPage> {
     var pngBytes = await image.toByteData(format: ui.ImageByteFormat.png);
     if (!(await checkPermission())) await requestPermission();
     // Use plugin [path_provider] to export image to storage
-    String path = (await DownloadsPathProvider.downloadsDirectory).path;
+    String path = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
 
     await Directory('$path/enclosure').create(recursive: true);
 

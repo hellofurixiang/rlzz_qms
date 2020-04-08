@@ -480,6 +480,7 @@ class StringZh {
   static const String quotaLoadingError = '获取指标列表异常';
 
   static const String submiting = '提交中···';
+  static const String downloading = '下载中···';
 
   static const String checkTestOrderSampleInfoTip = '检测到存在未录入的检验指标，是否仍然保存？';
 
@@ -664,20 +665,15 @@ class StringZh {
   static const String tip_testVal_not_null = '第{0}行检测值不能为空';
   static const String tip_sampleBarcode_not_null = '样本条码不能为空';
 
-  static const String tip_sampleBarcode_not_repeat_check = '样本条码：{0}，已检测（{1}或{2}），不允许重复检测';
-
+  static const String tip_sampleBarcode_not_repeat_check =
+      '样本条码：{0}，已检测（{1}或{2}），不允许重复检测';
 
   static const String tip_check_qty_error = '请输入正确的报检数量';
 
   static const String checked = '已检';
   static const String unCheck = '未检';
 
-
   static const String noDataTip = '暂时没有数据哟～';
 
-
-
-
-
-
+  static const String enclosureServiceUrlTip = '请在系统配置中填写附件服务地址';
 }

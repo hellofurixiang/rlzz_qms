@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
-import 'package:qms/common/utils/MethodChannelUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/CommonUtil.dart';
+import 'package:qms/common/utils/FileUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 
 class FileListWidget extends StatefulWidget {
@@ -98,6 +98,6 @@ class FileListWidgetState extends State<FileListWidget> {
   }
 
   void openFile(Enclosure f) {
-    MethodChannelUtil.openFile(f.path);
+    FileUtil.openFile(f.path);
   }
 }

@@ -28,7 +28,7 @@ dependencies:
   flutter_statusbar: 0.0.1
 
   #svg 图标
-  flutter_svg: 0.14.0
+  #flutter_svg: 0.14.0
   #本地存储
   shared_preferences: 0.5.3+4
 

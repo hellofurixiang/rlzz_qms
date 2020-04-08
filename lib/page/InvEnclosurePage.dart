@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qms/common/config/FieldConfig.dart';
-import 'package:qms/common/modal/InvEnclosure.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/style/Styles.dart';
-import 'package:qms/common/utils/CommonUtil.dart';
-import 'package:qms/common/utils/MethodChannelUtil.dart';
+import 'package:qms/common/utils/FileUtil.dart';
 import 'package:qms/common/utils/WidgetUtil.dart';
 import 'package:qms/widget/ButtonWidget.dart';
 import 'package:qms/widget/DialogPage.dart';
@@ -54,9 +51,9 @@ class InvEnclosurePageState extends State<InvEnclosurePage> {
     print(field);
     switch (field) {
       case 'name':
-
-        print('file:' + data['docFullName']);
-        MethodChannelUtil.openSharedFile('file:' + data['docFullName']);
+        //print('file:' + data['docFullName']);
+        //FileUtil.openFile('/data/data/com.szrlzz.qms/files/sharedFile/1.pdf');
+        FileUtil.openSharedFile(context, data['name'],data['docFileType']);
 
         /*NavigatorUtil.goToPage(
             context,

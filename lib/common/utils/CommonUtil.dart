@@ -17,6 +17,7 @@ import 'package:qms/common/modal/QmsConfig.dart';
 import 'package:qms/common/utils/LogUtils.dart';
 import 'package:qms/common/style/StringZh.dart';
 import 'package:qms/common/utils/plugin/DownloadsPathProvider.dart';
+import 'package:qms/common/utils/plugin/PackageInfo.dart';
 import 'package:qms/common/utils/plugin/SimplePermissions.dart';
 
 ///通用逻辑
@@ -315,13 +316,14 @@ class CommonUtil {
   }
 
   ///获取文件路径
-  static Future<String> getFilePath(Enclosure enclosure) async {
+  static Future<String> getFilePath(Enclosure enclosure,
+      {String enclosureDir: 'enclosure'}) async {
     await requestPermission();
 
-    String localPath = (await DownloadsPathProvider.downloadsDirectory).path;
+    String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
 
     String fileSuffix = CommonUtil.getFileSuffix(enclosure.name);
-    String directoryPath = '$localPath/enclosure';
+    String directoryPath = '$localPath/$enclosureDir';
 
     await new Directory(directoryPath).create(recursive: true);
 
@@ -333,13 +335,53 @@ class CommonUtil {
     return filePath;
   }
 
-  ///获取文件目录
-  static Future<String> getDirectoryPath() async {
+  ///获取文件路径
+  static Future<String> getFilePathByName(String fileName,
+      {String enclosureDir: 'enclosure'}) async {
     await requestPermission();
 
-    String localPath = (await DownloadsPathProvider.downloadsDirectory).path;
+    String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
+    ///获取包名
+    await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      localPath += '/' + packageInfo.packageName;
+    });
+    String directoryPath = '$localPath/$enclosureDir';
 
-    String directoryPath = '$localPath/enclosure';
+    await new Directory(directoryPath).create(recursive: true);
+
+    String filePath = directoryPath + '/' + fileName;
+
+    if (Config.debug) {
+      LogUtils.i('info:', '文件路径:$filePath');
+    }
+    return filePath;
+  }
+
+  ///判断文件是否存在
+  static Future<bool> fileExists(String path,
+      {String enclosureDir: 'enclosure'}) async {
+    String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
+
+    ///获取包名
+    await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      localPath += '/' + packageInfo.packageName;
+    });
+    String filePath = '$localPath/$enclosureDir/$path';
+    bool bo = await File(filePath).exists();
+    return bo;
+  }
+
+  ///获取文件目录
+  static Future<String> getDirectoryPath(
+      {String enclosureDir: 'enclosure'}) async {
+    await requestPermission();
+
+    String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
+    ///获取包名
+    await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      localPath += '/' + packageInfo.packageName;
+    });
+    String directoryPath = '$localPath/$enclosureDir/';
 
     await new Directory(directoryPath).create(recursive: true);
 

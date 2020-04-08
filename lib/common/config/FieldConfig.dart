@@ -1002,14 +1002,13 @@ class FieldConfig {
       },
       {
         'displayName': '生效日期',
-        'fieldCode': 'effectiveDate', 'width': 120.0
+        'fieldCode': 'effectiveDate', 'width': 150.0
       },
       {
         'displayName': '作废日期',
-        'fieldCode': 'deactivationDate', 'width': 120.0
+        'fieldCode': 'deactivationDate', 'width': 150.0
       },
       {'displayName': '档案类型', 'fieldCode': 'docFileType'},
-      {'displayName': '文件下载', 'fieldCode': 'docFullName'},
       {'displayName': '档案备份', 'fieldCode': 'docFullNameBak', 'width': 120.0},
     ],
   };

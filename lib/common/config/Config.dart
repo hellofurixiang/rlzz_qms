@@ -273,6 +273,7 @@ class Config {
   static const String methodChannel_downloads_path_provider =
       'com.szrlzz.qms/downloads_path_provider';
   static const String methodChannel_file_picker = 'com.szrlzz.qms/file_picker';
+  static const String methodChannel_file = 'com.szrlzz.qms/file';
   static const String methodChannel_image_picker =
       'com.szrlzz.qms/image_picker';
   static const String methodChannel_package_info =
