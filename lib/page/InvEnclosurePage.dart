@@ -53,7 +53,7 @@ class InvEnclosurePageState extends State<InvEnclosurePage> {
       case 'name':
         //print('file:' + data['docFullName']);
         //FileUtil.openFile('/data/data/com.szrlzz.qms/files/sharedFile/1.pdf');
-        FileUtil.openSharedFile(context, data['name'],data['docFileType']);
+        FileUtil.openSharedFile(context, data['docFullName'],data['fileName'],data['docFileType']);
 
         /*NavigatorUtil.goToPage(
             context,

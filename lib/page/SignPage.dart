@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qms/common/config/Config.dart';
 import 'package:qms/common/modal/Enclosure.dart';
 import 'package:qms/common/net/ApiUtil.dart';
 import 'package:qms/common/style/StringZh.dart';
@@ -99,9 +100,9 @@ class SignPageState extends State<SignPage> {
     // Use plugin [path_provider] to export image to storage
     String path = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
 
-    await Directory('$path/enclosure').create(recursive: true);
+    await Directory('$path/${Config.enclosure}').create(recursive: true);
 
-    File file = File('$path/enclosure/${formattedDate()}.png');
+    File file = File('$path/${Config.enclosure}/${formattedDate()}.png');
 
     file.writeAsBytesSync(pngBytes.buffer.asInt8List());
 

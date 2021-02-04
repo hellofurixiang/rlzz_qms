@@ -188,15 +188,15 @@ class LoginPageState extends State<LoginPage> {
   void _loginSuccess(String token) async {
     await _saveInfo(token);
 
-    //Navigator.pop(context);
-    //Navigator.pushNamed(context, '/mainPage');
+    Navigator.pop(context);
+    Navigator.pushNamed(context, '/mainPage');
 
-    ApiUtil.getUserInfoAndConfig(context, _accountController.text, () {
+    /*ApiUtil.getUserInfoAndConfig(context, _accountController.text, () {
       Navigator.pop(context);
       Navigator.pushNamed(context, Config.mainPage);
     }, (errorMsg) {
       Navigator.pop(context);
-    });
+    });*/
   }
 
   void _loginFail(String errorMsg) {

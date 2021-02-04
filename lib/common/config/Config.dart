@@ -297,4 +297,10 @@ class Config {
 
   static const String value_y = 'Y';
   static const String value_n = 'N';
+
+
+  static const String enclosure = 'enclosure';
+
+
+
 }

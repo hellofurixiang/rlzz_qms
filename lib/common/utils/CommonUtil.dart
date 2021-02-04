@@ -317,7 +317,7 @@ class CommonUtil {
 
   ///获取文件路径
   static Future<String> getFilePath(Enclosure enclosure,
-      {String enclosureDir: 'enclosure'}) async {
+      {String enclosureDir: Config.enclosure}) async {
     await requestPermission();
 
     String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
@@ -337,7 +337,7 @@ class CommonUtil {
 
   ///获取文件路径
   static Future<String> getFilePathByName(String fileName,
-      {String enclosureDir: 'enclosure'}) async {
+      {String enclosureDir: Config.enclosure}) async {
     await requestPermission();
 
     String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
@@ -359,7 +359,7 @@ class CommonUtil {
 
   ///判断文件是否存在
   static Future<bool> fileExists(String path,
-      {String enclosureDir: 'enclosure'}) async {
+      {String enclosureDir: Config.enclosure}) async {
     String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;
 
     ///获取包名
@@ -373,7 +373,7 @@ class CommonUtil {
 
   ///获取文件目录
   static Future<String> getDirectoryPath(
-      {String enclosureDir: 'enclosure'}) async {
+      {String enclosureDir: Config.enclosure}) async {
     await requestPermission();
 
     String localPath = (await DownloadsPathProvider.getExternalStoragePublicDirectory).path;

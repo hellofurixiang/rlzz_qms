@@ -996,18 +996,9 @@ class FieldConfig {
         'fieldCode': 'name',
         'onTap': true,
       },
-      {
-        'displayName': '文件版本',
-        'fieldCode': 'docVer',
-      },
-      {
-        'displayName': '生效日期',
-        'fieldCode': 'effectiveDate', 'width': 150.0
-      },
-      {
-        'displayName': '作废日期',
-        'fieldCode': 'deactivationDate', 'width': 150.0
-      },
+      {'displayName': '文件版本', 'fieldCode': 'docVer'},
+      {'displayName': '生效日期', 'fieldCode': 'effectiveDate', 'width': 150.0},
+      {'displayName': '作废日期', 'fieldCode': 'deactivationDate', 'width': 150.0},
       {'displayName': '档案类型', 'fieldCode': 'docFileType'},
       {'displayName': '档案备份', 'fieldCode': 'docFullNameBak', 'width': 120.0},
     ],

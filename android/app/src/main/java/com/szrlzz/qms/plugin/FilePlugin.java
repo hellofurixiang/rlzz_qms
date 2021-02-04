@@ -93,8 +93,6 @@ public class FilePlugin implements MethodCallHandler {
      * @param methodCall 参数
      */
     private void openSharedFile(MethodCall methodCall, MethodChannel.Result result) {
-
-
         MyCustomTask task = new MyCustomTask(methodCall, result);
         task.execute();
     }
@@ -109,7 +107,7 @@ public class FilePlugin implements MethodCallHandler {
         private String downloadPath;
         private MethodChannel.Result result;
 
-        public MyCustomTask(MethodCall methodCall, MethodChannel.Result result) {
+        MyCustomTask(MethodCall methodCall, MethodChannel.Result result) {
             this.username = methodCall.argument("username");
             this.password = methodCall.argument("password");
             this.url = methodCall.argument("url");
@@ -129,10 +127,10 @@ public class FilePlugin implements MethodCallHandler {
                 NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(
                         null, username, password);
                 SmbFile smbFile = new SmbFile(url, auth);
-                boolean bo = smbFile.canRead();
 
-                Log.e("读取状态----", bo ? "1" : "0");
-                Log.e("文件名称----", smbFile.getName());//这个就能获取到共享文件夹了
+                if (!smbFile.exists()) {
+                    return "文件不存在";
+                }
 
                 File file = new File(downloadPath + fileName);
                 if (file.getParentFile().exists()) {
@@ -146,10 +144,10 @@ public class FilePlugin implements MethodCallHandler {
                 }
 
                 InputStream inputStream = smbFile.getInputStream();
-
                 FileOutputStream outputStream = new FileOutputStream(file);
 
 
+                //拷贝文件
                 byte[] buffer = new byte[1024];
                 int byteRead;
                 while ((byteRead = inputStream.read(buffer)) != -1) {
@@ -160,6 +158,7 @@ public class FilePlugin implements MethodCallHandler {
                 outputStream.close();
 
 
+                //打开文件
                 //获取文件类型
                 String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(nameType);
                 Intent intent = new Intent();

@@ -33,7 +33,7 @@ class FileUtil {
 
   ///调用原生系统代码打开共享文件
   static Future openSharedFile(
-      BuildContext context, String fileName, String nameType) async {
+      BuildContext context, String url,String fileName, String nameType) async {
     //path = path.replaceAll('/data/user/0', '/data/data');
 
     String enclosureDir = 'sharedFile';
@@ -48,14 +48,14 @@ class FileUtil {
       QmsConfig qmsConfig = GlobalInfo.instance.getQmsConfig();
       //String username = "rlzz";
       //String password = "rlzz@123";
-      String url = qmsConfig.enclosureServiceUrl;
+      //String url = qmsConfig.enclosureServiceUrl;
       if (CommonUtil.isEmpty(url)) {
         Fluttertoast.showToast(msg: StringZh.enclosureServiceUrlTip);
         return;
       }
-      if (url.substring(url.length - 1) != '/') {
+      /*if (url.substring(url.length - 1) != '/') {
         url += '/';
-      }
+      }*/
 
       WidgetUtil.showLoadingDialog(context, StringZh.downloading);
 
@@ -71,7 +71,8 @@ class FileUtil {
       Map<String, String> args = {
         'username': qmsConfig.config1,
         'password': qmsConfig.config2,
-        'url': 'smb://$url$fileName',
+        //'url': 'smb://$url$fileName',
+        'url': 'smb:$url',
         'fileName': fileName,
         'downloadPath': downloadPath,
         'nameType': nameType
